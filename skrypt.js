@@ -27,9 +27,14 @@ numery = [];
 
     numery = [...new Set(numery)];
     console.log(numery);
-    numery.forEach(numer =>{
+    numery.forEach(numer, i =>{
+      
         const nowyParagraf = document.createElement("p");
         nowyParagraf.textContent = numer;
+        if(numer[i+1] >1)
+      {
+        nowyParagraf.style.backgroundColor = "red";
+      }
 
         document.body.appendChild(nowyParagraf);
     })
