@@ -15,7 +15,7 @@ numery = [];
   {
     linie.forEach(linia => {
 
-       //console.log(linia);
+       console.log(linia);
        if(+linia)
        {
           numery.push(parseInt(linia));
