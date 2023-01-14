@@ -15,7 +15,7 @@ numery = [];
   {
     linie.forEach(linia => {
 
-       console.log(linia);
+      // console.log(linia);
        if(+linia)
        {
           numery.push(parseInt(linia));
@@ -23,16 +23,32 @@ numery = [];
       
     });
     numery.sort(function(a, b){return a-b});
-    console.log(numery);
+    //console.log(numery);
 
     numery = [...new Set(numery)];
-    console.log(numery);
-    numery.forEach(numer =>{
-        const nowyParagraf = document.createElement("p");
-        nowyParagraf.textContent = numer;
+   // console.log(numery);
 
-        document.body.appendChild(nowyParagraf);
-    })
+   for(let i=0;i<numery.length;i++)
+   {
+    
+      
+
+    const nowyParagraf = document.createElement("p");
+    nowyParagraf.textContent = numery[i];
+
+    if(numery[i-1]+1 !== numery[i])
+    {
+      console.log(numery[i]);
+      console.log(numery[i+1]);
+      
+      nowyParagraf.style.backgroundColor = "red";
+      
+    }
+    document.body.appendChild(nowyParagraf);
+
+      
+   }
+  
   }
   
 wezLinie();
