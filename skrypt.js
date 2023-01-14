@@ -30,10 +30,10 @@ numery = [];
 
    for(let i=0;i<numery.length;i++)
    {
-    
-      
 
-    const nowyParagraf = document.createElement("p");
+    if(numery[i]<=2568)
+    {
+      const nowyParagraf = document.createElement("p");
     nowyParagraf.textContent = numery[i];
 
     if(numery[i-1]+1 !== numery[i])
@@ -45,6 +45,9 @@ numery = [];
       
     }
     document.body.appendChild(nowyParagraf);
+    }
+      
+    
 
       
    }
