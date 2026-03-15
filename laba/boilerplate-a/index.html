@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Krystian Kisielow (57798) - PTW LAB A</title>
 
-    <!--<script src="//wi.arturk.pl/zen-style.js.php?styles[]=style-1&styles[]=style-2" defer></script> -->
+    <script src="//wi.arturk.pl/zen-style.js.php?styles[]=style-1&styles[]=style-2" defer></script>
 </head>
 <body>
     <header>
@@ -54,68 +54,5 @@
     <footer>
         <p>&copy; 2026 Krystian Kisielow (57798) - Laboratorium PTW</p>
     </footer>
-
-    <script>
-    const STYLES = ["style-1", "style-2"];
-    console.debug('styles', STYLES);
-    
-    class Toggler {
-        constructor(styles) {
-            this.styles = styles;
-            this.currentIndex = 0;
-            this.linkElements = [];
-            this.init();
-        }
-        
-        init() {
-            for (const style of this.styles) {
-                const link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.href = `./${style}.css`;
-                link.disabled = true;
-                document.head.appendChild(link);
-                this.linkElements.push(link);
-            }
-            if (this.linkElements.length > 0) {
-                this.linkElements[0].disabled = false;
-                console.log('Initialized with style:', this.styles[0]);
-            }
-            this.drawToggler();
-        }
-        
-        toggle() {
-            if (this.linkElements.length === 0) return;
-            this.linkElements[this.currentIndex].disabled = true;
-            this.currentIndex = (this.currentIndex + 1) % this.linkElements.length;
-            this.linkElements[this.currentIndex].disabled = false;
-            console.log('Toggled to style:', this.styles[this.currentIndex]);
-        }
-        
-        drawToggler() {
-            const toggle = document.createElement('button');
-          
-            toggle.innerHTML = `🔄 Przełącz styl`; 
-            toggle.addEventListener('click', () => { this.toggle(); });
-
-            toggle.style.position = 'fixed';
-            toggle.style.bottom = '10px';
-            toggle.style.right = '10px';
-            toggle.style.zIndex = '1000';
-            toggle.style.backgroundColor = '#fff';
-            toggle.style.border = '1px solid #ccc';
-            toggle.style.borderRadius = '4px';
-            toggle.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
-            toggle.style.padding = '8px 12px';
-            toggle.style.display = 'flex';
-            toggle.style.cursor = 'pointer';
-            toggle.style.fontFamily = 'sans-serif';
-            toggle.style.fontWeight = 'bold';
-            
-            document.body.appendChild(toggle);
-        }
-    }
-    
-    const toggler = new Toggler(STYLES);
-</script>
 </body>
 </html>
