@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f9;
+}
+
+#controls {
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 10px 15px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #0078D7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#main-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+#map {
+    width: 400px;
+    height: 400px;
+    border: 2px solid #333;
+}
+
+#game-area {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+}
+
+#pieces-container {
+    min-height: 120px;
+    border: 2px;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    background-color: #fff;
+}
+
+#puzzle-board {
+    width: 408px;
+    height: 408px;
+    border: 2px solid #333;
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 100px);
+    background-color: #ddd;
+    gap: 2px;
+}
+
+.puzzle-slot {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #bbb;
+    box-sizing: border-box;
+}
+
+.puzzle-slot.hover {
+    background-color: #bbf;
+}
+
+.puzzle-piece {
+    width: 100px;
+    height: 100px;
+    cursor: grab;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+}
+
+.puzzle-piece:active {
+    cursor: grabbing;
+}
