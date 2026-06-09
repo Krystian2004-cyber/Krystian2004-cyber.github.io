@@ -1,0 +1,13 @@
+<%- include('../header', {title: 'Edit Movie'}) %>
+
+<h1>Edit Movie</h1>
+
+<form method="post" action="/movies/<%= movie.id %>/edit">
+    <%- include('_form', {button_label: 'Update'}) %>
+</form>
+
+<div class="d-flex gap-2 mt-3">
+    <a href="/movies" class="btn btn-secondary">Back to list</a>
+</div>
+
+<%- include('../footer') %>

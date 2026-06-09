@@ -12,10 +12,10 @@ importers:
         specifier: ^5.0.2
         version: 5.0.2
       express:
-        specifier: ^5.2.1
+        specifier: '5'
         version: 5.2.1
       prettier:
-        specifier: ^3.8.3
+        specifier: '3'
         version: 3.8.3
 
 packages:
