@@ -1,11 +1,13 @@
-<%- include('../header', {title: 'New Movie'}) %>
+<%- include('../header', {title: 'Create New Movie', bodyClass: 'edit'}) %>
 
 <h1>Create New Movie</h1>
 
-<form method="post" action="/movies/new">
+<form method="post" action="/movies/new" class="edit-form">
     <%- include('_form', {button_label: 'Create'}) %>
 </form>
 
-<a href="/movies" class="btn btn-secondary">Back to list</a>
+<ul class="action-list">
+    <li><a href="/movies">Back to list</a></li>
+</ul>
 
 <%- include('../footer') %>
