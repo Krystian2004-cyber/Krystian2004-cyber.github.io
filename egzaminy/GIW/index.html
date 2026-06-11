@@ -1820,12 +1820,20 @@ function render(){
   nav.className='nav-row';
   nav.id='nav-row';
   
-  const checkBtn=document.createElement('button');
-  checkBtn.className='nav-btn primary';
-  checkBtn.textContent='Sprawdź';
-  checkBtn.id='check-btn';
-  checkBtn.onclick=()=>checkAnswer();
-  nav.appendChild(checkBtn);
+  if(mode==='learn') {
+    const checkBtn=document.createElement('button');
+    checkBtn.className='nav-btn primary';
+    checkBtn.textContent='Sprawdź';
+    checkBtn.id='check-btn';
+    checkBtn.onclick=()=>checkAnswer();
+    nav.appendChild(checkBtn);
+  } else if(mode==='test') {
+    const nextBtn=document.createElement('button');
+    nextBtn.className='nav-btn primary';
+    nextBtn.textContent='Dalej →';
+    nextBtn.onclick=()=>nextTestQuestion();
+    nav.appendChild(nextBtn);
+  }
   
   card.appendChild(nav);
   area.appendChild(card);
@@ -1841,6 +1849,12 @@ function toggleOption(i){
     selectedIndices.push(i);
     document.getElementById('opt'+i).classList.add('selected');
   }
+}
+
+function nextTestQuestion(){
+  testAnswers[idx] = [...selectedIndices];
+  idx++;
+  render();
 }
 
 function checkAnswer(){
@@ -1914,11 +1928,85 @@ function renderResult(){
   updateProgress();
   const area=document.getElementById('quiz-area');
   area.innerHTML='';
-  const card=document.createElement('div');
-  card.className='card score-card';
-  const pct=Math.round(score/questions.length*100);
-  card.innerHTML=`<div class="score-big">${score}/${questions.length}</div><div class="score-sub">${pct}% poprawnych odpowiedzi</div><button class="restart-btn" onclick="initQuiz()">Losuj ponownie</button>`;
-  area.appendChild(card);
+  if(mode==='learn'){
+    const card=document.createElement('div');
+    card.className='card score-card';
+    const pct=Math.round(score/questions.length*100);
+    card.innerHTML=`<div class="score-big">${score}/${questions.length}</div><div class="score-sub">${pct}% poprawnych odpowiedzi</div><button class="restart-btn" onclick="initQuiz()">Losuj ponownie</button>`;
+    area.appendChild(card);
+  } else {
+    let correct=0;
+    testAnswers.forEach((selected, i)=>{
+      const correctAns = Array.isArray(questions[i].ans) ? questions[i].ans : [questions[i].ans];
+      const isFullyCorrect = selected.length === correctAns.length && 
+                             selected.every(val => correctAns.includes(val));
+      if(isFullyCorrect) correct++;
+    });
+    const pct=Math.round(correct/questions.length*100);
+    const card=document.createElement('div');
+    card.className='card score-card';
+    card.innerHTML=`<div class="score-big">${correct}/${questions.length}</div><div class="score-sub">${pct}% — ${pct>=60?'✓ Zaliczone':'✗ Niezaliczone (próg 60%)'}</div>`;
+    
+    const reviewBtn=document.createElement('button');
+    reviewBtn.className='restart-btn';
+    reviewBtn.textContent='Przejrzyj odpowiedzi';
+    reviewBtn.onclick=()=>renderReview();
+    card.appendChild(reviewBtn);
+    
+    const againBtn=document.createElement('button');
+    againBtn.className='restart-btn';
+    againBtn.style.marginLeft='8px';
+    againBtn.textContent='Nowy test';
+    againBtn.onclick=()=>initQuiz();
+    card.appendChild(againBtn);
+    
+    area.appendChild(card);
+  }
+}
+
+function renderReview(){
+  const area=document.getElementById('quiz-area');
+  area.innerHTML='';
+  questions.forEach((q,i)=>{
+    const selected=testAnswers[i] || [];
+    const correctAns = Array.isArray(q.ans) ? q.ans : [q.ans];
+    const ok = selected.length === correctAns.length && 
+               selected.every(val => correctAns.includes(val));
+    const card=document.createElement('div');
+    card.className='card';
+    card.style.borderLeft=ok?'4px solid #22c55e':'4px solid #f43f5e';
+    card.innerHTML=`<div class="q-num">Pytanie ${i+1} ${ok?'✓':'✗'}</div><div class="q-text">${q.q}</div>`;
+    q.opts.forEach((o,j)=>{
+      const p=document.createElement('div');
+      p.style.cssText='padding:12px 16px;border-radius:var(--border-radius-md);margin-bottom:8px;font-size:14px;line-height:1.4;border:1px solid #e2e8f0;';
+      const isThisCorrect = correctAns.includes(j);
+      const isThisSelected = selected.includes(j);
+      if(isThisCorrect) {
+        p.style.background='#f0fdf4';
+        p.style.borderColor='#22c55e';
+        p.style.color='#166534';
+        p.style.fontWeight='500';
+      }
+      else if(isThisSelected && !isThisCorrect) {
+        p.style.background='#fff1f2';
+        p.style.borderColor='#f43f5e';
+        p.style.color='#9f1239';
+      }
+      p.textContent=o;
+      card.appendChild(p);
+    });
+    const exp=document.createElement('div');
+    exp.className='explanation';
+    exp.textContent=q.exp || "Brak dodatkowego wyjaśnienia.";
+    card.appendChild(exp);
+    area.appendChild(card);
+  });
+  const backBtn=document.createElement('button');
+  backBtn.className='nav-btn primary';
+  backBtn.textContent='Nowy test';
+  backBtn.onclick=()=>initQuiz();
+  backBtn.style.marginTop='1rem';
+  area.appendChild(backBtn);
 }
 
 function updateProgress(){
