@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz — Gromadzenie i Wykorzystanie Danych</title>
+<style>
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --bg-body: #f8fafc;
+  --bg-card: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --border-color: #e2e8f0;
+  
+  --success-bg: #f0fdf4;
+  --success-border: #22c55e;
+  --success-text: #166534;
+  
+  --error-bg: #fff1f2;
+  --error-border: #f43f5e;
+  --error-text: #9f1239;
+  
+  --info-bg: #f0f9ff;
+  --info-border: #0ea5e9;
+  --info-text: #0369a1;
+  
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  line-height: 1.6;
+  padding: 2rem 1rem;
+}
+
+#app {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  background: var(--bg-card);
+  padding: 1rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+}
+
+.mode-btn {
+  padding: 10px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+  background: #f1f5f9;
+  color: var(--text-primary);
+}
+
+.mode-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.progress {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-left: auto;
+}
+
+.shuffle-badge {
+  font-size: 12px;
+  font-weight: 500;
+  color: #b45309;
+  background: #fef3c7;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 2.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+}
+
+.q-num {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.q-text {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 1.75rem;
+  color: var(--text-primary);
+}
+
+.option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 14px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background: var(--bg-card);
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  transition: all 0.15s ease;
+  line-height: 1.4;
+}
+
+.option:hover:not(:disabled) {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+.option:disabled {
+  cursor: not-allowed;
+}
+
+.option.selected {
+  border-color: var(--primary);
+  background: #eef2ff;
+}
+
+.option.correct {
+  background: var(--success-bg) !important;
+  border-color: var(--success-border) !important;
+  color: var(--success-text) !important;
+  font-weight: 500;
+}
+
+.option.wrong {
+  background: var(--error-bg) !important;
+  border-color: var(--error-border) !important;
+  color: var(--error-text) !important;
+}
+
+.q-meta {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6366f1;
+  margin-bottom: 8px;
+}
+
+.explanation {
+  margin-top: 1.5rem;
+  padding: 16px 20px;
+  background: var(--info-bg);
+  border-radius: var(--border-radius-md);
+  font-size: 14px;
+  color: var(--info-text);
+  line-height: 1.6;
+  border-left: 4px solid var(--info-border);
+}
+
+.nav-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 1.75rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.nav-btn {
+  padding: 12px 24px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  background: #f1f5f9;
+}
+
+.nav-btn.primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.nav-btn.primary:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.score-card {
+  text-align: center;
+  padding: 3.5rem 2rem;
+}
+
+.score-big {
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.score-sub {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-top: 12px;
+  margin-bottom: 2rem;
+}
+
+.restart-btn {
+  padding: 12px 28px;
+  border: 1px solid var(--primary);
+  border-radius: var(--border-radius-sm);
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+  transition: all 0.2s;
+}
+
+.restart-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+<h2 class="sr-only">Quiz — Gromadzenie i Wykorzystanie Danych</h2>
+<div class="header">
+  <button class="mode-btn active" id="btn-learn" onclick="setMode('learn')">Nauka</button>
+  <button class="mode-btn" id="btn-test" onclick="setMode('test')">Test (30)</button>
+  <button class="mode-btn" id="btn-list" onclick="setMode('list')">Lista (106)</button>
+  <span class="shuffle-badge" id="shuffle-info"></span>
+  <span class="progress" id="progress"></span>
+</div>
+<div id="quiz-area"></div>
+</div>
+
+<script>
+const ALL_Q = [
+  {
+    "q": "Iteracje algorytmu k-środków składają się z głównych dwóch kroków: 1) wyznaczanie środków/centrów C oraz 2) wyznaczenie przypisań punktów do środków S. Niech X oznacza macierz danych. Obie te operacje w trakcie kolejnych iteracji minimalizują funkcję:",
+    "opts": [
+      "a.  Sumy kwadratów odległości punktów od najbliższych sobie centrów",
+      "b.  F1(C,S) = Σ||X(i,:) − C_S(i)||^2",
+      "c.  F1(C,S) = Σ||X(i,:) − C_S(i)||",
+      "d.  Sumy odległości punktów do najbliższych im centrów",
+      "e.  F3(C,S) = ||C − S||^2",
+      "f.  Sumę kwadratów odległości pomiędzy centrami C"
+    ],
+    "ans": [
+      0,
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Kwartet Anscombe’a to",
+    "opts": [
+      "a.  zestaw 4 zbiorów danych o różnych cechach statystycznych ale takiej samej wizualizacji",
+      "b.  zestaw 4 zbiorów danych o takich samych cechach statystycznych oraz takiej samej wizualizacji",
+      "c.  zestaw 4 zbiorów danych o takich samych cechach statystycznych ale różnej wizualizacji"
+    ],
+    "ans": [
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Standardowo do opisu danych audio w skali Melowej wybiera się...",
+    "opts": [
+      "a.  13 pierwszych współczynników wydzielonych z cepstrum Melowego",
+      "b.  256 największych komponentów widma MFCC",
+      "c.  26 składowych dla każdej ramki audio"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Miara BIC preferuje",
+    "opts": [
+      "a.  zbiory o dużej liczbie klastrów i dużej liczbie parametrów modelu",
+      "b.  zbiory o małej liczbie klastrów i małej liczbie parametrów modelu",
+      "c.  jeśli dwa modele mają podobne liczby parametrów, BIC wybierze ten z większą liczbą klastrów",
+      "d.  jeśli dwa modele mają podobne dopasowanie, BIC wybierze ten z mniejszą liczbą parametrów"
+    ],
+    "ans": [
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "W wykresie pudełkowym (boxplot):",
+    "opts": [
+      "a.  Wąsy oznaczają rozstęp zmiennej",
+      "b.  Brzegi pudełka oznaczają górny i dolny kwartyl",
+      "c.  Brzegi pudełka oznaczają średnią ± odchylenie standardowe",
+      "d.  Kreska w środku oznacza średnią",
+      "e.  Kreska w środku oznacza wartość modalną"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Wartość odległości w metryce kolejowej dla dwóch punktów A i B nie będzie równa wartości metryki Euklidesowej jeżeli",
+    "opts": [
+      "a.  zawsze będą równe",
+      "b.  punkty A i B nie leżą na jednej prostej",
+      "c.  jeżeli odległość Euklidesowa pomiędzy A i B jest równa pierwiastkowi kwadratowemu odległości w metryce kolejowej",
+      "d.  nigdy nie będzie równa",
+      "e.  A jest równe (tożsame z) B"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Wybrany test w kierunku HCV został przetestowany na grupie 1000 osób (800 zdrowych, 200 zainfekowanych), w trakcie badań uzyskano czułość 95% oraz specyficzność 90%. Przypuśćmy, że testem tym przetestowano osobę i wyszedł wynik pozytywny. Prawdopodobieństwo, że osoba ta jest zainfekowana jest:",
+    "opts": [
+      "a.  jest równe specyficzności i wynosi 90%",
+      "b.  większe niż 95%",
+      "c.  mniejsze niż 95%",
+      "d.  jest równe 95%",
+      "e.  niemożliwe do wyznaczenia na podstawie tych danych"
+    ],
+    "ans": [
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zaznacz atrybuty nominalne dyskretne uporządkowane",
+    "opts": [
+      "a.  kolor oczu",
+      "b.  stan morza",
+      "c.  płeć",
+      "d.  wykształcenie"
+    ],
+    "ans": [
+      1,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Dla bloku 32×32 pikseli liczba funkcji bazowych DCT wynosić będzie:",
+    "opts": [
+      "a.  1024",
+      "b.  64",
+      "c.  32"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Dyskretyzacja to",
+    "opts": [
+      "a.  Dodanie zmiennej mówiącej, że w danym miejscu znajduje się brak danych i zastąpienie go np. wartością średnią",
+      "b.  Zastąpienie atrybutu przyjmującego m wartości, m atrybutami binarnymi",
+      "c.  Zastąpienie atrybutu ciągłego atrybutem przyjmującym skończoną liczbę wartości i niosącym zbliżoną informację do oryginału"
+    ],
+    "ans": [
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Algorytm obrotowo niezmienniczy to taki, który po nauczeniu na danych oryginalnych jak i na danych obróconych (...) daje dokładnie takie same predykcje. Zaznacz algorytmy obrotowo niezmiennicze:",
+    "opts": [
+      "a.  QDA",
+      "b.  PCA",
+      "c.  Regresja liniowa z regularyzacją L1",
+      "d.  k-NN z odległością Mahalanobisa",
+      "e.  k-NN z odległością Manhattan",
+      "f.  Drzewo decyzyjne"
+    ],
+    "ans": [
+      1,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Nielosowe braki w danych (MNAR) wynikają z tego, iż",
+    "opts": [
+      "a.  rozkład braków w danym atrybucie jest zależny od wartości atrybutu lub pozostałych atrybutów",
+      "b.  proces ich powstawania jest całkowicie losowy",
+      "c.  rozkład braków w danym atrybucie jest niezależny od wartości atrybutu oraz pozostałych atrybutów"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "W algorytmie Eigenfaces dla 8 obrazów w zbiorze, gdzie każdy ma rozmiar 32×32 pikseli:",
+    "opts": [
+      "a.  macierz L ma rozmiar 8×8 elementów",
+      "b.  macierz kowariancji Cov ma wymiar 1024×1024 elementów i jest równoważna macierzy L",
+      "c.  złożoność obliczeniowa jest zależna od kwadratu rozmiaru obrazu",
+      "d.  rozkład na wartości i wektory własne nie jest możliwy z powodu zbyt małej liczby obrazów"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Przypuśćmy że zbudowaliśmy automat decyzyjny diagnozujący wybraną chorobę (...) który zawsze zwraca decyzję „zdrowy”. Taki automat będzie posiadał:",
+    "opts": [
+      "a.  precyzję nieokreśloną",
+      "b.  czułość bliską 0%",
+      "c.  precyzję równą 0%",
+      "d.  czułość równą 100%",
+      "e.  dokładność około 50%",
+      "f. swoistość równą 100%"
+    ],
+    "ans": [
+      0,
+      1,
+      5
+    ],
+    "exp": ""
+  },
+  {
+    "q": "W algorytmie Eigenfaces dla 32 obrazów w zbiorze, gdzie każdy ma rozmiar 32×32 pikseli:",
+    "opts": [
+      "a.  rozkład na wartości i wektory własne nie jest możliwy",
+      "b.  macierz kowariancji ma wymiar 64×64",
+      "c.  macierz L ma rozmiar 32×32",
+      "d.  macierz kowariancji Cov ma wymiar 1024×1024 i jest równoważna macierzy L"
+    ],
+    "ans": [
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Klasteryzacja to",
+    "opts": [
+      "a.  podział zbioru danych na równoliczne grupy obiektów",
+      "b.  podział zbioru danych na grupy obiektów podobnych do siebie",
+      "c.  wybór przestrzeni cech do dalszych analiz"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "W liniowej metodzie regresji logistycznej miara, która podlega maksymalizacji w trakcie uczenia modelu jest:",
+    "opts": [
+      "a.  logarytmiczna funkcja wiarygodności",
+      "b.  kwadrat normy wektora wag",
+      "c.  suma kwadratów odległości punktów od prostej separującej",
+      "d.  margines separacji",
+      "e.  błąd klasyfikacji"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Jeżeli jednowymiarowy histogram jasności obrazu monochromatycznego zapisanego na 8 bitach zajmuje wektor 1×256 elementów, to histogram dwuwymiarowy opisany może być:",
+    "opts": [
+      "a.  macierz 256×256 elementów",
+      "b.  macierz 2×256 elementów",
+      "c.  wektorem 1×512 elementów"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Jakość modeli uczenia maszynowego można оценить za pomocą:",
+    "opts": [
+      "a.  metody regresji liniowej",
+      "b.  10-krotnej walidacji krzyżowej",
+      "c.  metody leave-one-out",
+      "d.  metody Warda",
+      "e.  boostingu",
+      "f.  bootstrapu",
+      "g.  1-krotnej walidacji krzyżowej",
+      "h.  5-krotnej walidacji krzyżowej"
+    ],
+    "ans": [
+      1,
+      2,
+      5,
+      7
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Jako miarę jakości dopasowania funkcji gęstości do danych pomiarowych można wykorzystać:",
+    "opts": [
+      "a.  informację wzajemną",
+      "b.  współczynnik korelacji",
+      "c.  miarę BIC",
+      "d.  wartość funkcji wiarygodności",
+      "e.  miarę testu Kołmogorowa-Smirnowa",
+      "f.  precyzję"
+    ],
+    "ans": [
+      2,
+      3,
+      4
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Podczas selekcji atrybutów, wskaźniki które charakteryzują się bardzo wysoką wariancją są",
+    "opts": [
+      "a.  tak samo istotne jak wskaźniki o małej wariancji",
+      "b.  bardzo przydatne i nie można ich usunąć",
+      "c.  mało przydatne i należy je bezwzględnie usunąć"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "W szeregu czasowym (dowolnym)",
+    "opts": [
+      "a.  każda obserwacja może być losowa",
+      "b.  każda obserwacja związana jest z konkretnym momentem czasu",
+      "c.  każda obserwacja może być zależna od obserwacji poprzedniej",
+      "d.  obserwacje nie są związane z momentami w czasie"
+    ],
+    "ans": [
+      0,
+      1,
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Podczas selekcji atrybutów warto odrzucać atrybuty:",
+    "opts": [
+      "a.  takie, których przyrost informacji względem zmiennej decyzyjnej jest wysoki",
+      "b.  wysoko skorelowane ze zmienną decyzyjną",
+      "c.  wskaźniki charakteryzujące się bardzo niską lub zerową zmiennością",
+      "d.  takie, których miara zanieczyszczenia (impurity) jest niska",
+      "e.  niezależne od zmiennej decyzyjnej"
+    ],
+    "ans": [
+      2,
+      4
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Klasyfikacja wieloklasowa różni się od klasyfikacji wieloetykietowej tym, że:",
+    "opts": [
+      "a.  klasyfikacja wieloetykietowa dopuszcza przyporządkowanie wielu obiektów do jednej klasy decyzyjnej, a wieloklasowa nie",
+      "b.  klasyfikacja wieloklasowa dopuszcza przyporządkowanie jednego obiektu do wielu klas decyzyjnych, a wieloetykietowa nie",
+      "c.  klasyfikacja wieloetykietowa i wieloklasowa to to samo",
+      "d.  klasyfikacja wieloetykietowa dopuszcza przyporządkowanie jednego obiektu do wielu klas decyzyjnych, a wieloklasowa nie dopuszcza wielokrotnego przyporządkowania",
+      "e.  klasyfikacja wieloklasowa dopuszcza przyporządkowanie wielu obiektów do jednej klasy decyzyjnej, a wieloetykietowa nie"
+    ],
+    "ans": [
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 1 — Wizualizacja eksploracyjna",
+    "opts": [
+      "a.  pokazuje jedną lub dwie interesujące cechy danych",
+      "b.  polega na przeglądaniu danych w celu znalezienia jednej lub dwóch interesujących cech/zależności",
+      "c.  stosowana jest w celu opowiedzenia historii lub wzmocnienia narracji, którą określono na podstawie innych badań",
+      "d.  wywodzi się z określonych technik graficznych"
+    ],
+    "ans": [
+      1,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 2 — Wyczulony wcześniej detektor twarzy przetestowano na następującym obrazie stosując metodę okna przesuwnego. Detektor przeanalizował 10000 okien oraz rozpoznał następujące elementy (zaznaczone żółtymi prostokątami). Na tej podstawie można oszacować, że parametry tego detektora wynoszą:",
+    "opts": [
+      "a.  Czułość jest wyższa niż 0.9",
+      "b.  dokładność klasyfikacji jest wyższa niż 99.95%",
+      "c.  Precyzja wynosi 0.8",
+      "d.  F1>0.8",
+      "e.  Precyzja jest mniejsza niż 50%",
+      "f.  czułość jest wyższa niż precyzja"
+    ],
+    "ans": [
+      5
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 3 — W kompresji obrazu, DCT skupia energię ...",
+    "opts": [
+      "a.  w wysokich częstotliwościach, w związku z czym niektóre dane o niskich częstotliwościach mogą być odrzucone",
+      "b.  w niskich częstotliwościach, w związku z czym niektóre dane o wysokich częstotliwościach mogą być odrzucone",
+      "c.  w centrum macierzy obrazu, co pozwala na eliminację wartości na krawędziach",
+      "d.  we współczynnikach rzeczywistych, co daje możliwość usunięcia współczynników urojonych"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 4 — Do oceny stopnia zależności zmiennych X i Y?",
+    "opts": [
+      "a.  Informację wzajemną I(X,Y)",
+      "b.  Test dokładny Fishera",
+      "c.  Współczynnik korelacji r(X,Y)",
+      "d.  Dywersgencję Kullbacka-Liebera pomiędzy rozkładem łącznym oraz rozkładem produktowym tych zmiennych"
+    ],
+    "ans": [
+      0,
+      2,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 5 — Tabela kontyngencji – tablica krzyżowa",
+    "opts": [
+      "a.  przedstawia łączny rozkład liczności dwuwymiarowej próby losowej",
+      "b.  przedstawia skumulowany rozkład zmiennej losowej w przedziałach ufności",
+      "c.  przedstawia łączny rozkład częstości/liczności jednowymiarowej dyskretnej próby lub pojedynczej zmiennej"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 6 — Kolejne iteracje rekurencyjnej procedury uczenia drzewka decyzyjnego wybierają w sposób zachłanny atrybuty w oparciu o miary zanieczyszczenia (ang. impurity) lub przyrostu informacji (ang. gain) w taki sposób, że najlepszy atrybut w danej iteracji to ten, który posiada:",
+    "opts": [
+      "a.  największą wartość przyrostu informacji lub największą wartość miary zanieczyszczenia",
+      "b.  największą wartość przyrostu informacji lub najmniejszą wartość miary zanieczyszczenia",
+      "c.  najmniejszą wartość przyrostu informacji lub największą wartość miary zanieczyszczenia",
+      "d.  najmniejszą wartość przyrostu informacji lub najmniejszą wartość miary zanieczyszczenia"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 7 — Atrybuty dyskretne w zbiorach danych to...",
+    "opts": [
+      "a.  nominalne",
+      "b.  binarne",
+      "c.  z naturalnym porządkiem",
+      "d.  typu double",
+      "e.  typu float"
+    ],
+    "ans": [
+      0,
+      1,
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 8 — Algorytm obrotowo niezmienniczy to taki, który po nauczeniu na danych oryginalnych jak i na danych obróconych (formalnie oznacza to macierz danych X pomnożoną przez dowolna macierz ortogonalna) daje dokładnie takie same predykcje. Zaznacz algorytmy obrotowo niezmiennicze:",
+    "opts": [
+      "a.  QDA",
+      "b.  k-NN z odległością euklidesową",
+      "c.  LDA",
+      "d.  Drzewo decyzyjne",
+      "e.  PCA",
+      "f.  Regresja liniowa"
+    ],
+    "ans": [
+      1,
+      2,
+      4,
+      5
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 9 — Proces analizy danych składa się z następujących elementów:",
+    "opts": [
+      "a.  Szyfrowanie",
+      "b.  Analiza i wnioskowanie",
+      "c.  Transmisja",
+      "d.  Gromadzenie danych",
+      "e.  Przetwarzanie wstępne",
+      "f.  Kodowanie"
+    ],
+    "ans": [
+      1,
+      4,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 10 — Załóżmy ze dane mają rozmiar m × n, gdzie m to liczba próbek, a n to liczba atrybutów. Dla takich danych algorytm k środków ma:",
+    "opts": [
+      "a.  złożoność O(mn^2k)",
+      "b.  złożoność O(mnk)",
+      "c.  ma złożoność O(mn)",
+      "d.  złożoność O(nk+mk)",
+      "e.  złożoność O(mn+mk)"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 11 — Zaznacz atrybuty nominalne dyskretne nieuporządkowane",
+    "opts": [
+      "a.  stan morza",
+      "b.  kolor oczu",
+      "c.  płeć",
+      "d.  wykształcenie"
+    ],
+    "ans": [
+      1,
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 12 — Redukcja wymiarowości jest potrzebna, ponieważ",
+    "opts": [
+      "a.  największa skuteczność klasyfikacji jest z reguły najwyższa dla liczby wymiarów mniejszej niż 3",
+      "b.  wiele z atrybutów danych jest ze sobą dość silnie skorelowanych i do otrzymania pełnego obrazu opisywanego zjawiska wystarczy uwzględnić jedynie niewielki ich podzbiór",
+      "c.  potrzebne jest zmniejszenie złożoności danych (np. zmniejszenie stopnia macierzy) co pozwala na sprawniejsze realizowanie zadań takich jak porównywanie macierzy",
+      "d.  mniejsza wymiarowość danych zmniejsza zawsze błędy klasyfikacji"
+    ],
+    "ans": [
+      1,
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 13 — Zaznacz algorytmy, uczone w sposób nienadzorowany?",
+    "opts": [
+      "a.  Algorytm k-środków",
+      "b.  Drzewko decyzyjne",
+      "c.  Regresja logistyczna",
+      "d.  Klasyfikator k-NN"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 14 — Standaryzację można zapisać wzorem",
+    "opts": [
+      "a.  x_norm = x / max||x||",
+      "b.  x_norm = (x - min(x)) / (max(x) - min(x))",
+      "c.  x_norm = (x - mean(x)) / std(x)"
+    ],
+    "ans": [
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 15 — Tokenizacja to proces w ramach NLP, który polega na",
+    "opts": [
+      "a.  podział zdania na słowa",
+      "b.  usunięciu spacji i znaków interpunkcyjnych",
+      "c.  usunięciu końcówek fleksyjnych ze słów"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 16 — Przyjmując bazę v1 = [0, 1, 0], v2 = [0, 0, 1], v3 = [1, 0, 0] współczynniki dla wektora xv = [4, 3, 2] w tej bazie są następujące",
+    "opts": [
+      "a.  [3, 2, 4]",
+      "b.  [2, 3, 4]",
+      "c.  [4, 3, 2]"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 17 — Przypuśćmy, że wybrany test w kierunku COVID19 posiada czułość 95% oraz nieznane pozostałe parametry. Przypuśćmy, że wykonano na nas taki test oraz uzyskano wynik pozytywny. Czy w związku z wynikiem testu powinniśmy martwić? (Zaznacz właściwą odpowiedź z właściwą argumentacją)",
+    "opts": [
+      "a.  Nie, dużo zależy jaka jest specyficzność tego testu",
+      "b.  Tak, ponieważ czułość jest bardzo wysoka",
+      "c.  Tak, ponieważ czułość jest bardzo wysoka, martwiłabym/martwiłbym niezależnie od specyficzność tego testu",
+      "d.  Nie, wszystko zależy jaka jest precyzja testu, martwiłabym/martwiłbym się gdyby precyzja testu była wysoka",
+      "e.  Tak, bo COVID19 to groźna choroba",
+      "f.  Nie, ponieważ wysoka czułość nie gwarantuje, że test jest odpowiedniej jakości, poza tym bardzo prosto zrobić test o wysokiej czułości"
+    ],
+    "ans": [
+      0,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 18 — Do oceny stopnia zależności ciągłych zmiennych X i Y możemy użyć",
+    "opts": [
+      "a.  Współczynnik korelacji r(X,Y)",
+      "b.  Informację wzajemną I(X,Y)",
+      "c.  Czułość",
+      "d.  Miarę F1",
+      "e.  Dywergencję Kullbacka-Liebera pomiędzy rozkładem łącznym oraz rozkładem produktowym tych zmiennych"
+    ],
+    "ans": [
+      0,
+      1,
+      4
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 20 — Zaznacz cechy algorytmu k-NN:",
+    "opts": [
+      "a.  Jest algorytmem nieparametrycznym",
+      "b.  Czas klasyfikacji nowego obiektu rośnie wraz ze rozmiarem zbioru treningowego",
+      "c.  Wymaga jawnej fazy uczenia, w której budowany jest model opisowy",
+      "d.  Jest wrażliwy na obecność nieistotnych atrybutów (cech)"
+    ],
+    "ans": [
+      0,
+      1,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 21 — W algorytmie k-średnich (k-means), odległość obiektów od środków skupień (centroidów) najczęściej mierzona jest za pomocą:",
+    "opts": [
+      "a.  Odległości Mahalanobisa",
+      "b.  Odległości Manhattan",
+      "c.  Odległości Euklidesowej",
+      "d.  Korelacji Pearsona"
+    ],
+    "ans": [
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 22 — Które z poniższych stwierdzeń dotyczących redukcji wymiarowości za pomocą PCA (Principal Component Analysis) są prawdziwe?",
+    "opts": [
+      "a.  Pierwsza składowa główna (PC1) odpowiada kierunkowi maksymalnej wariancji danych",
+      "b.  Nowe cechy (składowe główne) są wzajemnie skorelowane",
+      "c.  PCA jest metodą uczenia nadzorowanego",
+      "d.  Służy do transformacji danych do nowej przestrzeni o mniejszej wymiarowości przy minimalnej utracie informacji"
+    ],
+    "ans": [
+      0,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 23 — Które z poniższych miar oceny klasyfikatora są odpowiednie dla zbalansowanych zbiorów danych, a mogą być mylące w przypadku klas nierównolicznych (imbalanced data)?",
+    "opts": [
+      "a.  Dokładność (Accuracy)",
+      "b.  Precyzja (Precision)",
+      "c.  Czułość (Recall)",
+      "d.  F1-score"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 24 — W algorytmie uczenia drzew decyzyjnych (np C4.5 lub ID3), przyrost informacji (Information Gain) bazuje na pojęciu:",
+    "opts": [
+      "a.  Wariancji",
+      "b.  Entropii",
+      "c.  Odchylenia standardowego",
+      "d.  Współczynnika korelacji"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 25 — Co charakteryzuje zjawisko przeuczenia (overfitting) modelu uczenia maszynowego?",
+    "opts": [
+      "a.  Niski błąd na zbiorze treningowym i wysoki błąd na zbiorze testowym",
+      "b.  Wysoki błąd na zbiorze treningowym i niski błąd na zbiorze testowym",
+      "c.  Model zbyt dobrze dopasował się do szumu w danych treningowych",
+      "d.  Model jest zbyt prosty, by uchwycić zależności w danych"
+    ],
+    "ans": [
+      0,
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 26 — Metoda walidacji krzyżowej (k-fold cross-validation) służy głównie do:",
+    "opts": [
+      "a.  Przetwarzania wstępnego danych i usuwania wartości odstających",
+      "b.  Wiarygodnej oceny zdolności generalizacji modelu na nowych danych",
+      "c.  Zwiększenia liczby próbek w zbiorze treningowym",
+      "d.  Przyspieszenia czasu trenowania modelu"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 27 — Naiwny klasyfikator Bayesowski (Naive Bayes) nazywany jest \"naiwnym\", ponieważ zakłada:",
+    "opts": [
+      "a.  że dane zawsze mają rozkład normalny",
+      "b.  Całkowitą niezależność atrybutów (cech) warunkowną klasą decyzyjną",
+      "c.  że prawdopodobieństwo a priori każdej klasy jest równe",
+      "d.  że w danych nie ma żadnych błędów ani szumu"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 28 — W kontekście analizy tekstu (NLP), technika TF-IDF służy do:",
+    "opts": [
+      "a.  Korekty błędów ortograficznych w tekście",
+      "b.  Określenia ważności słowa w dokumencie w odniesieniu do całego korpusu tekstów",
+      "c.  Podziału tekstu na zdania i tokeny",
+      "d.  Tłumaczenia automatycznego między językami"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 29 — Zaznacz poprawne stwierdzenia dotyczące algorytmu DBSCAN (klasteryzacja oparta na gęstości):",
+    "opts": [
+      "a.  Wymaga wcześniejszego podania oczekiwanej liczby klastrów",
+      "b.  Jest w stanie zidentyfikować klastry o dowolnych, nieregularnych kształtach",
+      "c.  Automatycznie wykrywa i oznacza punkty jako szum (wartości odstające)",
+      "d.  Działa poprawnie tylko dla danych o stałej, jednorodnej gęstości we wszystkich klastrach"
+    ],
+    "ans": [
+      1,
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 30 — Funkcja kosztu w regresji liniowej z regularyzacją L2 (Ridge) różni się od zwykłej regresji liniowej o składnik:",
+    "opts": [
+      "a.  sumę wartości bezwzględnych współczynników (L1)",
+      "b.  sumę kwadratów różnic między wartościami rzeczywistymi a prognozowanymi",
+      "c.  sumę kwadratów współczynników pomnożoną przez parametr alfa",
+      "d.  pierwiastek z sumy kwadratów współczynników"
+    ],
+    "ans": [
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 31 — Które z poniższych stwierdzeń opisuje uczenie ze wzmocnieniem (Reinforcement Learning)?",
+    "opts": [
+      "a.  Model uczy się na podstawie etykietowanych danych historycznych",
+      "b.  Model grupuje dane na podstawie ich podobieństwa bez zewnętrznych wskazówek",
+      "c.  Agent uczy się wchodzić w interakcję ze środowiskiem, otrzymując nagrody lub kary za podjęte działania",
+      "d.  Służy wyłącznie do redukcji wymiarowości przestrzeni cech"
+    ],
+    "ans": [
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 32 — Co oznacza skrót SVM w uczeniu maszynowym?",
+    "opts": [
+      "a.  Support Vector Machine",
+      "b.  Standard Volume Model",
+      "c.  Simple Variance Matrix",
+      "d.  Supervised Vector Minimization"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 33 — W kontekście sieci neuronowych, funkcja aktywacji ReLU (Rectified Linear Unit) zwraca:",
+    "opts": [
+      "a.  Wartość z przedziału 0, 1",
+      "b.  Wartość z przedziału -1, 1",
+      "c.  0 dla wartości ujemnych oraz samą wartość dla wartości dodatnich",
+      "d.  Logarytm z wartości wejściowej"
+    ],
+    "ans": [
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 34 — Miara Giniego (Gini Impurity) jest powszechnie stosowana w:",
+    "opts": [
+      "a.  Algorytmie k-średnich do oceny jakości klastrów",
+      "b.  Drzewach decyzyjnych (np CART) do wyboru najlepszego podziału węzła",
+      "c.  Regresji liniowej do oceny błędu średnio kwadratowego",
+      "d.  Analizie składowych głównych (PCA) do wyboru osi"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 35 — W analizie szeregów czasowych, pojęcie stacjonarności oznacza, że:",
+    "opts": [
+      "a.  Szereg ma stały, wyraźny trend wzrostowy w czasie",
+      "b.  Średniai wariancja szeregu nie zmieniają się znacząco w czasie",
+      "c.  Właściwości statystyczne szeregu są niezależne od momentu obserwacji",
+      "d.  Szereg składa się wyłącznie z szumu białego"
+    ],
+    "ans": [
+      1,
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 36 — Który z poniższych algorytmów jest przykładem metody zespołowej (Ensemble Learning) opartej na technice baggingu?",
+    "opts": [
+      "a.  Gradient Boosting (XGBoost)",
+      "b.  Las Losowy (Random Forest)",
+      "c.  AdaBoost",
+      "d.  Regresja Logistyczna"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 37 — Co to jest macierz pomyłek (Confusion Matrix)?",
+    "opts": [
+      "a.  Macierz zawierająca współczynniki korelacji między wszystkimi cechami",
+      "b.  Tabela przedstawiająca porównanie prognoz klasyfikatora z rzeczywistymi klasami",
+      "c.  Macierz przekształcenia liniowego używana w algorytmie PCA",
+      "d.  Macierz wag w wielowarstwowej sieci neuronowej"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 38 — Przekleństwo wymiarowości (Curse of Dimensionality) odnosi się do problemu, w którym:",
+    "opts": [
+      "a.  Wraz ze wzrostem liczby cech dane stają się rzadkie w przestrzeni o wysokim wymiarze",
+      "b.  Odległości między punktami stają się do siebie bardzo podobne, co utrudnia klasteryzację i klasyfikację",
+      "c.  Algorytmy potrzebują znacznie mniejszej liczby próbek do poprawnego działania",
+      "d.  Złożoność obliczeniowa wielu algorytumów rośnie drastycznie"
+    ],
+    "ans": [
+      0,
+      1,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 39 — Co to jest \"Stochastic Gradient Descent\" (SGD)?",
+    "opts": [
+      "a.  Odmiana algorytmu gradientu prostego, która oblicza gradient na podstawie losowo wybranej jednej próbki (lub mini-batcha) w każdym kroku",
+      "b.  Metoda dokładnego analitycznego rozwiązywania równań regresji liniowej",
+      "c.  Algorytm służący wyłącznie do losowej inicjalizacji wag w sieciach neuronowych",
+      "d.  Sposób na automatyczne usuwanie cech skorelowanych ze zbioru danych"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 40 — Wybierz z poniższych miary jakości modeli klasyfikacyjnych:",
+    "opts": [
+      "a.  dokładność klasyfikacji",
+      "b.  F1",
+      "c.  AUC",
+      "d.  błąd średniokwadratowy",
+      "e.  skuteczności",
+      "f.  R2"
+    ],
+    "ans": [
+      0,
+      1,
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 41 — Regularyzację typu L2 w modelach klasyfikacyjnych i regresyjnych stosujemy:",
+    "opts": [
+      "a.  w przypadkach, gdy dane zawierają wiele zmiennych skorelowanych",
+      "b.  aby wykonać selekcję zmiennych w trakcie procesu uczenia",
+      "c.  aby obniżyć złożoność obliczeniową algorytmów",
+      "d.  aby poprawić własności numeryczne algorytmów"
+    ],
+    "ans": [
+      0,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 42 — W liniowej metodzie SVM miarą, która podlega maksymalizacji w trakcie uczenia modelu jest:",
+    "opts": [
+      "a.  Margines separacji",
+      "b.  Kwadrat normy wektora wag",
+      "c.  Logarytmiczna funkcja wiarygodności",
+      "d.  Błąd klasyfikacji",
+      "e.  Suma kwadratów odległości punktów od prostej separującej"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 43 — Gdy dwie kolejne ramki wideo różnią się znacznie, to współczynnik wzajemnej informacji jest ...",
+    "opts": [
+      "a.  mały",
+      "b.  duży",
+      "c.  niezależny od różnicy ramek"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 44 — Wyuczony wcześniej detektor znaków drogowych (znaku stop B-20) przetestowano na następującym obrazie stosując metodę okna przesuwnego. Detektor przeanalizował 1000 okien oraz rozpoznał następujące elementy (zaznaczone żółtymi prostokątami). Na tej podstawie można oszacować, że parametry tego detektora wynoszą:",
+    "opts": [
+      "a.  F1>0.75",
+      "b.  Specyficzność jest wyższa niż 99.5%",
+      "c.  dokładność klasyfikacji detektora jest wyższa niż 99%",
+      "d.  Czułość jest wyższa niż 90%",
+      "e.  Precyzja jest wyższa niż czułość",
+      "f.  Nie można oszacować ilościowo jakości detektora w ten sposób"
+    ],
+    "ans": [
+      1,
+      2,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 45 — W szeregu czasowym (dowolnym)",
+    "opts": [
+      "a.  każda obserwacja może być losowa",
+      "b.  każda obserwacja związana jest z konkretnym momentem czasu",
+      "c.  obserwacje nie są związane z momentami w czasie",
+      "d.  każda obserwacja może być zależna od obserwacji poprzedniej"
+    ],
+    "ans": [
+      0,
+      1,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 46 — Wyuczony wcześniej detektor pieszych przetestowano na następującym obrazie stosując metodę okna przesuwnego. Detektor przeanalizował 10000 okien oraz rozpoznał następujące elementy (zaznaczone żółtymi prostokątami). Na tej podstawie można oszacować, że: (Uwaga: brak obrazu z naniesionymi ramkami — odpowiedzi nie zaznaczono)",
+    "opts": [
+      "a.  są dwa fałszywe negatywy",
+      "b.  Specyficzność jest wyższa niż 99%",
+      "c.  jest jeden fałszywy negatyw",
+      "d.  Czułość jest wyższa niż 80%",
+      "e.  dokładność klasyfikacji detektora jest wyższa niż 99.9%",
+      "f.  jest jeden fałszywy pozytyw"
+    ],
+    "ans": [],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 47 — Główne problemy algorytmiczne związane z obsługą dużych zbiorów związane są z:",
+    "opts": [
+      "a.  Zbyt wolnym taktowaniem procesora",
+      "b.  Zbyt małą pamięcią",
+      "c.  Długim czasem obliczeń",
+      "d.  Odpowiednim zarządzaniem pamięcią"
+    ],
+    "ans": [
+      1,
+      2,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 48 — Metody wyboru liczby składowych głównych (w PCA)....",
+    "opts": [
+      "a.  iteracyjnie odrzucają co drugą wartość własną mniejszą lub równą niż poprzednia",
+      "b.  uwzględniają te składowe, które w sumie wyjaśniają 75%, 80% lub 90% wariancji",
+      "c.  odrzucają składowe, które w sumie odpowiadają za 75%, 80% lub 90% wariancji",
+      "d.  zakładają znalezienie miejsca na wykresie wartości własnych, od którego na prawo występuje łagodny spadek"
+    ],
+    "ans": [
+      1,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 50 — Odległość euklidesowa obliczana pomiędzy dwoma obrazami binarnymi o tych samych wymiarach:",
+    "opts": [
+      "a.  jest równa pierwiastkowi z odległości Hamminga obliczonej dla tych obrazów",
+      "b.  jest równa odległości Hamminga obliczonej dla tych obrazów",
+      "c.  jest zawsze mniejsza lub równa odległości Hamminga obliczonej dla tych obrazów",
+      "d.  nie można jej obliczyć"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 51 — Zaznacz poprawne stwierdzenia dotyczące splotowych sieci neuronowych (CNN):",
+    "opts": [
+      "a.  Warstwy splotowe służą do automatycznego wyodrębniania cech przestrzennych z obrazu",
+      "b.  Warstwy łączące (pooling) zwiększają wymiarowość przestrzenną map cech",
+      "c.  Są przeznaczone wyłącznie do przetwarzania tekstu, a nie obrazów",
+      "d.  Pozwalają na współdzielenie wag, co znacznie zmniejsza liczbę parametrów w porównaniu do sieci gęstych (fully connected)"
+    ],
+    "ans": [
+      0,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 52 — Do cech algorytmu k-NN nie należy:",
+    "opts": [
+      "a.  pracochłonna faza klasyfikacji obiektów testowych",
+      "b.  brak jawnej fazy uczenia modelu",
+      "c.  nieliniowość granic decyzyjnych",
+      "d.  odporność na zakłócenia i cechy nieistotne"
+    ],
+    "ans": [
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 53 — W algorytmie k-średnich (k-means) końcowy podział danych na klastry:",
+    "opts": [
+      "a.  Jest zawsze globalnie optymalny i niezależny od punktu startowego",
+      "b.  Może zależeć od losowej inicjalizacji początkowych środków skupień (centroidów)",
+      "c.  Wymaga, aby dane były etykietowane",
+      "d.  Zawsze tworzy klastry o strukturze hierarchicznej"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 54 — W jakim celu stosuje się technikę \"Early Stopping\" podczas trenowania sieci neuronowych?",
+    "opts": [
+      "a.  Aby przyspieszyć obliczenia poprzez losowe usuwanie neuronów",
+      "b.  Aby przerwać proces uczenia, gdy błąd na zbiorze walidacyjnym zaczyna rosnąć, co zapobiega przeuczeniu (overfitting)",
+      "c.  Aby automatycznie dobrać optymalną liczbę warstw w sieci",
+      "d.  Aby zapobiec problemowi zanikającego gradientu"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 55 — Która z poniższych funkcji aktywacji jest najczęściej stosowana w warstwie wyjściowej klasyfikatora binarnego, aby otrzymać prawdopodobieństwo przynależności do klasy?",
+    "opts": [
+      "a.  ReLU",
+      "b.  Sigmoid (logistyczna)",
+      "c.  Tanh",
+      "d.  Softmax"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 56 — Które z poniższych zadań należą do obszaru uczenia nienadzorowanego (Unsupervised Learning)?",
+    "opts": [
+      "a.  Klasyfikacja wiadomości e-mail na spam i nie-spam",
+      "b.  Segmentacja klientów (grupowanie) na podstawie ich zachowań zakupowych",
+      "c.  Redukcja wymiarowości danych przy użyciu algorytmu t-SNE",
+      "d.  Prognozowanie cen mieszkań na podstawie metrażu i lokalizacji"
+    ],
+    "ans": [
+      1,
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 57 — Co opisuje miara \"Recall\" (czułość) w ocenie klasyfikatora?",
+    "opts": [
+      "a.  Stosunek poprawnie zidentyfikowanych obiektów pozytywnych do wszystkich obiektów sklasyfikowanych jako pozytywne",
+      "b.  Stosunek poprawnie zidentyfikowanych obiektów pozytywnych do wszystkich rzeczywistych obiektów pozytywnych",
+      "c.  Ogólny odsetek poprawnie sklasyfikowanych próbek (zarówno pozytywnych, jak i negatywnych)",
+      "d.  średnią harmoniczną z precyzji i dokładności"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 58 — Wskazać poprawne zdania dotyczące walidacji krzyżowej k-krotnej (k-fold cross-validation):",
+    "opts": [
+      "a.  Każda próbka ze zbioru danych trafia do zbioru testowego dokładnie jeden raz",
+      "b.  Zbiór danych jest dzielony na k rozłącznych i w miarę równych podzbiorów",
+      "c.  Model jest trenowany i testowany dokładnie k razy",
+      "d.  Zwiększenie wartości k zawsze skraca czas obliczeń"
+    ],
+    "ans": [
+      0,
+      1,
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 59 — Algorytm Lasu Losowego (Random Forest) buduje wiele drzew decyzyjnych wprowadzając losowość poprzez:",
+    "opts": [
+      "a.  Losowy wybór podzbioru próbek treningowych dla każdego drzewa (bootstrapping)",
+      "b.  Losowy wybór podzbioru cech (atrybutów) rozważanych przy każdym podziale węzła",
+      "c.  Losową zmianę etykiet klas w zbiorze treningowym",
+      "d.  Losowe usuwanie całych warstw z gotowego modelu"
+    ],
+    "ans": [
+      0,
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 60 — Który z poniższych algorytmów jest najbardziej podatny na zjawisko przeuczenia (overfitting) przy braku odpowiedniej regularyzacji lub ograniczenia głębokości?",
+    "opts": [
+      "a.  Regresja logistyczna",
+      "b.  Naiwny klasyfikator Bayesowski",
+      "c.  Drzewo decyzyjne (bez przycinania)",
+      "d.  SVM z liniową funkcją jądra"
+    ],
+    "ans": [
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 61 — W kontekście ewaluacji klasyfikatora, krzywa ROC (Receiver Operating Characteristic) przedstawia zależność pomiędzy:",
+    "opts": [
+      "a.  Precyzją (Precision) a czułością (Recall)",
+      "b.  Czułością (True Positive Rate) a odsetkiem fałszywie dodatnich wyników (False Positive Rate)",
+      "c.  Dokładnością (Accuracy) a błędem średniokwadratowym (MSE)",
+      "d.  Współczynnikiem Giniego a entropią"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 62 — Które z poniższych stwierdzeń dotyczących algorytmu k-NN są prawdziwe?",
+    "opts": [
+      "a.  Jest to algorytm parametryczny",
+      "b.  Wymaga zdefiniowania metryki odległości (np. Euklidesowej)",
+      "c.  Zwiększenie wartości parametru k zawsze prowadzi do zwiększenia wariancji modelu",
+      "d.  Na jego działanie istotny wpływ ma skalowanie cech (atrybutów)"
+    ],
+    "ans": [
+      1,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 63 — W splotowych sieciach neuronowych (CNN) warstwa Max Pooling służy do:",
+    "opts": [
+      "a.  Zwiększenia liczby kanałów mapy cech",
+      "b.  Redukcji wymiarów przestrzennych (szerokości i wysokości) mapy cech przy zachowaniu najważniejszych informacji",
+      "c.  Aktywacji nieliniowej neuronów",
+      "d.  Normalizacji wag sieci"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 64 — Metoda regularyzacji L1 (Lasso) w regresji liniowej ma unikatową cechę, którą jest:",
+    "opts": [
+      "a.  Zawsze zeruje wszystkie współczynniki modelu",
+      "b.  Może sprowadzić niektóre współczynniki dokładnie do zera, realizując w ten sposób selekcję cech",
+      "c.  Zapobiega obliczaniu gradientu",
+      "d.  Działa tylko dla danych o rozkładzie normalnym"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 65 — W uczeniu maszynowym pojęcie \"Bias\" (obciążenie) odnosi się do:",
+    "opts": [
+      "a.  Błędu wynikającego ze zbyt dużej czułości modelu na małe wahania w zbiorze treningowym",
+      "b.  Błędu wynikającego z błędnych uproszczeń przyjętych w strukturze modelu (zbyt prosty model)",
+      "c.  Losowego szumu w danych, którego nie da się wyeliminować",
+      "d.  Liczby warstw w głębokiej sieci neuronowej"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 66 — Który z poniższych algorytmów jest klasycznym algorytmem klasteryzacji (analizy skupień)?",
+    "opts": [
+      "a.  Naive Bayes",
+      "b.  K-Means",
+      "c.  Random Forest",
+      "d.  Logistic Regression"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 67 — Co to jest funkcja straty (Loss Function) w kontekście trenowania modelu?",
+    "opts": [
+      "a.  Funkcja określająca, ile danych utracono podczas kompresji PCA",
+      "b.  Miara matematyczna określająca różnicę między wartościami przewidywanymi przez model a wartościami rzeczywistymi",
+      "c.  Czas potrzebny na wykonanie jednej epoki uczenia",
+      "d.  Procent błędnie usuniętych wartości odstających"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 68 — W kontekście walidacji modelu, zbiór walidacyjny (validation set) służy do:",
+    "opts": [
+      "a.  Ostatecznej oceny skuteczności gotowego modelu",
+      "b.  Strojenia hiperparametrów modelu i wyboru najlepszej architektury w trakcie uczenia",
+      "c.  Zwiększenia liczby próbek treningowych",
+      "d.  Wizualizacji rozkładu danych wejściowych"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 69 — Które z poniższych stwierdzeń dotyczących algorytmu Gradient Boosting są prawdziwe?",
+    "opts": [
+      "a.  Buduje drzewa decyzyjne niezależnie i równolegle, jak w Lasach Losowych",
+      "b.  Każde kolejne drzewo jest trenowane tak, aby korygować błędy (rezidua) popełnione przez poprzednie drzewa",
+      "c.  Jest metodą typu boosting",
+      "d.  Może być stosowany zarówno do zadań klasyfikacji, jak i regresji"
+    ],
+    "ans": [
+      1,
+      2,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 70 — Dla n wymiarowych danych zawierających m próbek dendrogram obrazujący drzewo połączeń w algorytmie hierarchicznym posiada:",
+    "opts": [
+      "a.  Liczbę węzłów niebędących liśćmi równą m-1",
+      "b.  Liczbę węzłów równą 2m",
+      "c.  Liczbę liści równą m",
+      "d.  Liczbę węzłów niebędących liśćmi równą m"
+    ],
+    "ans": [
+      0,
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 71 — Złożoność obliczeniowa (liczba operacji do wykonania) dla algorytmu klasycznego obliczania Transformaty Fouriera, dla N elementów wynosi",
+    "opts": [
+      "a.  N",
+      "b.  N^3",
+      "c.  N^2",
+      "d.  N·log2(N)"
+    ],
+    "ans": [
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 72 — Do oceny stopnia zależności binarnych (przyjmujących dwie wartości) zmiennych X i Y możemy użyć",
+    "opts": [
+      "a.  Zanieczyszczenie H(Y|X)",
+      "b.  Informację wzajemną I(X,Y)",
+      "c.  Współczynnik korelacji r(X,Y)",
+      "d.  Dywergencję Kullbacka-Lieblera pomiędzy rozkładem łącznym oraz rozkładem produktowym tych zmiennych",
+      "e.  Współczynnik determinacji"
+    ],
+    "ans": [
+      1,
+      2,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 74 — Zaznacz algorytmy uczące, uczone w sposób nadzorowany",
+    "opts": [
+      "a.  Algorytm k-NN",
+      "b.  Algorytm EM",
+      "c.  Regresja liniowa",
+      "d.  Drzewo decyzyjne",
+      "e.  Metoda PCA"
+    ],
+    "ans": [
+      0,
+      2,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 75 — Miarą dopasowania rozkładu do danych pomiarowych jest:",
+    "opts": [
+      "a.  wartość funkcji wiarygodności",
+      "b.  miara AIC",
+      "c.  miara BIC",
+      "d.  precyzja"
+    ],
+    "ans": [
+      1,
+      2
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 76 — Wskazać różnice pomiędzy modelem LDA oraz QDA?",
+    "opts": [
+      "a.  Model LDA jest służy do klasyfikacji, QDA jest modelem regresyjnym",
+      "b.  Model LDA zakłada różność średnich w klasach decyzyjnych, QDA zakłada równość średnich w klasach",
+      "c.  Model LDA zakłada równość macierzy kowariancji, model QDA nie wymaga takiego założenia",
+      "d.  Model LDA zakłada normalność klas decyzyjnych, model QDA nie wymaga takiego założenia",
+      "e.  Strojenie parametrów modelu QDA bardziej złożone obliczeniowo w sensie notacji O(·)"
+    ],
+    "ans": [
+      2,
+      4
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 77 — Jądro K to funkcja posiadająca następujące własności (zaznacz właściwe):",
+    "opts": [
+      "a.  ∫ K(x)dx > 0",
+      "b.  K^2(x) = K(x) + 1,  x ∈ R",
+      "c.  K(-x) = -K(x),  x ∈ R",
+      "d.  ∫ K(x)dx = 1",
+      "e.  K(x) > 0,  x ∈ R"
+    ],
+    "ans": [
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 78 — Jeżeli skala wyjściowych obserwacji jest ważna w interpretacji wyników analizy, to w obliczaniu PCA stosuje się zwykle:",
+    "opts": [
+      "a.  macierz korelacji",
+      "b.  macierz kowariancji",
+      "c.  macierz kroswalidacji"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 79 — W hierarchicznym algorytmie klasteryzacji metodą środków ciężkości, wyznaczenie środka ciężkości klasy będącej wynikiem połączenia klas A oraz B wymaga:",
+    "opts": [
+      "a.  Liczby operacji będącej iloczynem liczności klas A oraz B",
+      "b.  Liczby operacji zależnej jedynie od wymiarowości danych",
+      "c.  Liczby operacji będącej sumą liczności klas A oraz B",
+      "d.  Liczby operacji niezależnej od rozmiarów klas"
+    ],
+    "ans": [
+      1,
+      3
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 80 — W filtracji medianowej sygnału (1D), filtracja wektora [1, 2, 100, 4, 5] filtrem o szerokości 3 (z dopełnieniem zerami na brzegach) da w wyniku:",
+    "opts": [
+      "a.  [1, 2, 4, 5, 4]",
+      "b.  [1, 2, 100, 4, 5]",
+      "c.  [0, 2, 4, 5, 0]",
+      "d.  [1, 2, 21.2, 4, 5]"
+    ],
+    "ans": [
+      0
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 81 — W algorytmie DBSCAN punkt, który ma w swoim otoczeniu epsilon mniej sąsiadów niż wartość parametru MinPts, ale ma w swoim otoczeniu punkt rdzeniowy (core point), to:",
+    "opts": [
+      "a.  Punkt szumu (noise point)",
+      "b.  Punkt graniczny (border point)",
+      "c.  Punkt centralny",
+      "d.  Punkt skupienia"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 82 — Funkcja ReLU (Rectified Linear Unit) w sieciach neuronowych zdefiniowana jest jako:",
+    "opts": [
+      "a.  f(x) = 1 / (1 + e^(-x))",
+      "b.  f(x) = max(0, x)",
+      "c.  f(x) = tanh(x)",
+      "d.  f(x) = min(0, x)"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 83 — W kontekście szeregów czasowych, pojęcie stacjonarności oznacza, że:",
+    "opts": [
+      "a.  Szereg nie zawiera żadnego szumu losowego",
+      "b.  Właściwości statystyczne szeregu (takie jak średnia i wariancja) nie zmieniają się w czasie",
+      "c.  Szereg rośnie w sposób liniowy w nieskończoność",
+      "d.  Wartości szeregu są zawsze stałe i równe zero"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 84 — Który z poniższych indeksów/miar służy do oceny jakości klasteryzacji (uczenie nienadzorowane) bez znajomości prawdziwych etykiet klas?",
+    "opts": [
+      "a.  Indeks Rand (Rand Index)",
+      "b.  Współczynnik Sylwetki (Silhouette Coefficient)",
+      "c.  Macierz pomyłek (Confusion Matrix)",
+      "d.  F1-score"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  },
+  {
+    "q": "Zadanie 85 — W algorytmie AdaBoost (Adaptive Boosting) w każdej kolejnej iteracji:",
+    "opts": [
+      "a.  Zmniejsza się wagę próbek, które zostały błędnie sklasyfikowane przez poprzedni klasyfikator",
+      "b.  Zwiększa się wagę próbek, które zostały błędnie sklasyfikowane przez poprzedni klasyfikator",
+      "c.  Losowo odrzuca się połowę zbioru danych",
+      "d.  Zwiększa się współczynnik uczenia (learning rate) dwukrotnie"
+    ],
+    "ans": [
+      1
+    ],
+    "exp": ""
+  }
+];
+
+let mode='learn', questions=[], idx=0, answered=false, score=0, testAnswers=[], selectedIndices=[];
+
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+
+function setMode(m){
+  mode=m;
+  document.getElementById('btn-learn').classList.toggle('active',m==='learn');
+  document.getElementById('btn-test').classList.toggle('active',m==='test');
+  document.getElementById('btn-list').classList.toggle('active',m==='list');
+  initQuiz();
+}
+
+function initQuiz(){
+  idx=0; answered=false; score=0; testAnswers=[]; selectedIndices=[];
+  if(mode==='learn'){
+    questions=shuffle([...ALL_Q]);
+    document.getElementById('shuffle-info').textContent='Losowa kolejność';
+    render();
+  } else if(mode==='test'){
+    questions=shuffle([...ALL_Q]).slice(0,30);
+    document.getElementById('shuffle-info').textContent='30 losowych pytań';
+    render();
+  } else {
+    questions=[...ALL_Q];
+    document.getElementById('shuffle-info').textContent='Wszystkie pytania';
+    renderList();
+  }
+}
+
+function render(){
+  if(idx>=questions.length){renderResult();return;}
+  const q=questions[idx];
+  updateProgress();
+  selectedIndices=[];
+  const area=document.getElementById('quiz-area');
+  area.innerHTML='';
+  const card=document.createElement('div');
+  card.className='card';
+  
+  const correctCount = Array.isArray(q.ans) ? q.ans.length : 1;
+  card.innerHTML=`<div class="q-num">Pytanie ${idx+1} z ${questions.length}</div>
+                  <div class="q-meta">Poprawne odpowiedzi: ${correctCount}</div>
+                  <div class="q-text">${q.q}</div>`;
+  
+  q.opts.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='option';
+    btn.textContent=o;
+    btn.onclick=()=>toggleOption(i);
+    btn.id='opt'+i;
+    card.appendChild(btn);
+  });
+  const exp=document.createElement('div');
+  exp.className='explanation';
+  exp.id='explanation';
+  exp.style.display='none';
+  card.appendChild(exp);
+  const nav=document.createElement('div');
+  nav.className='nav-row';
+  nav.id='nav-row';
+  
+  const checkBtn=document.createElement('button');
+  checkBtn.className='nav-btn primary';
+  checkBtn.textContent='Sprawdź';
+  checkBtn.id='check-btn';
+  checkBtn.onclick=()=>checkAnswer();
+  nav.appendChild(checkBtn);
+  
+  card.appendChild(nav);
+  area.appendChild(card);
+}
+
+function toggleOption(i){
+  if(answered) return;
+  const idxInSelected = selectedIndices.indexOf(i);
+  if(idxInSelected > -1){
+    selectedIndices.splice(idxInSelected, 1);
+    document.getElementById('opt'+i).classList.remove('selected');
+  } else {
+    selectedIndices.push(i);
+    document.getElementById('opt'+i).classList.add('selected');
+  }
+}
+
+function checkAnswer(){
+  if(answered) return;
+  answered=true;
+  const q=questions[idx];
+  const correctAns = Array.isArray(q.ans) ? q.ans : [q.ans];
+  
+  // Calculate score: all selected must be correct AND all correct must be selected
+  const isFullyCorrect = selectedIndices.length === correctAns.length && 
+                         selectedIndices.every(val => correctAns.includes(val));
+  
+  if(isFullyCorrect) score++;
+  
+  q.opts.forEach((_,i)=>{
+    const btn=document.getElementById('opt'+i);
+    btn.disabled=true;
+    const isThisCorrect = correctAns.includes(i);
+    const isThisSelected = selectedIndices.includes(i);
+    
+    if(isThisCorrect) btn.classList.add('correct');
+    else if(isThisSelected) btn.classList.add('wrong');
+  });
+  
+  document.getElementById('check-btn').style.display='none';
+  const exp=document.getElementById('explanation');
+  exp.style.display='block';
+  exp.textContent=q.exp || "Brak dodatkowego wyjaśnienia.";
+  const nav=document.getElementById('nav-row');
+  const nextBtn=document.createElement('button');
+  nextBtn.className='nav-btn primary';
+  nextBtn.textContent=idx+1<questions.length?'Następne →':'Zakończ';
+  nextBtn.onclick=()=>{answered=false;idx++;render();};
+  nav.appendChild(nextBtn);
+}
+
+function renderList(){
+  updateProgress();
+  const area=document.getElementById('quiz-area');
+  area.innerHTML='';
+  questions.forEach((q,i)=>{
+    const card=document.createElement('div');
+    card.className='card';
+    const correctAns = Array.isArray(q.ans) ? q.ans : [q.ans];
+    card.innerHTML=`<div class="q-num">Pytanie ${i+1}</div>
+                    <div class="q-meta">Poprawne odpowiedzi: ${correctAns.length}</div>
+                    <div class="q-text">${q.q}</div>`;
+    q.opts.forEach((o,j)=>{
+      const p=document.createElement('div');
+      p.style.cssText='padding:12px 16px;border-radius:var(--border-radius-md);margin-bottom:8px;font-size:14px;line-height:1.4;border:1px solid #e2e8f0;';
+      if(correctAns.includes(j)) {
+        p.style.background='#f0fdf4';
+        p.style.borderColor='#22c55e';
+        p.style.color='#166534';
+        p.style.fontWeight='500';
+      }
+      p.textContent=o;
+      card.appendChild(p);
+    });
+    if(q.exp){
+      const exp=document.createElement('div');
+      exp.className='explanation';
+      exp.textContent=q.exp;
+      card.appendChild(exp);
+    }
+    area.appendChild(card);
+  });
+}
+
+function renderResult(){
+  updateProgress();
+  const area=document.getElementById('quiz-area');
+  area.innerHTML='';
+  const card=document.createElement('div');
+  card.className='card score-card';
+  const pct=Math.round(score/questions.length*100);
+  card.innerHTML=`<div class="score-big">${score}/${questions.length}</div><div class="score-sub">${pct}% poprawnych odpowiedzi</div><button class="restart-btn" onclick="initQuiz()">Losuj ponownie</button>`;
+  area.appendChild(card);
+}
+
+function updateProgress(){
+  const progressText = mode==='list' ? `Lista: ${questions.length} pytań` : 
+                       (mode==='learn' ? `${idx}/${questions.length} przejrzanych` : `${Math.min(idx,questions.length)}/${questions.length}`);
+  document.getElementById('progress').textContent=progressText;
+}
+
+initQuiz();
+</script>
+</body>
+</html>
