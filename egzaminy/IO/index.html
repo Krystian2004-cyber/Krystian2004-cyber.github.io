@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz — Inżynieria Oprogramowania</title>
+<style>
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --bg-body: #f8fafc;
+  --bg-card: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --border-color: #e2e8f0;
+  
+  --success-bg: #f0fdf4;
+  --success-border: #22c55e;
+  --success-text: #166534;
+  
+  --error-bg: #fff1f2;
+  --error-border: #f43f5e;
+  --error-text: #9f1239;
+  
+  --info-bg: #f0f9ff;
+  --info-border: #0ea5e9;
+  --info-text: #0369a1;
+  
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  line-height: 1.6;
+  padding: 2rem 1rem;
+}
+
+#app {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  background: var(--bg-card);
+  padding: 1rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+}
+
+.mode-btn {
+  padding: 10px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+  background: #f1f5f9;
+  color: var(--text-primary);
+}
+
+.mode-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.progress {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-left: auto;
+}
+
+.shuffle-badge {
+  font-size: 12px;
+  font-weight: 500;
+  color: #b45309;
+  background: #fef3c7;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 2.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+}
+
+.q-num {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.q-text {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 1.75rem;
+  color: var(--text-primary);
+}
+
+.option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 14px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background: var(--bg-card);
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  transition: all 0.15s ease;
+  line-height: 1.4;
+}
+
+.option:hover:not(:disabled) {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+.option:disabled {
+  cursor: not-allowed;
+}
+
+.option.correct {
+  background: var(--success-bg) !important;
+  border-color: var(--success-border) !important;
+  color: var(--success-text) !important;
+  font-weight: 500;
+}
+
+.option.wrong {
+  background: var(--error-bg) !important;
+  border-color: var(--error-border) !important;
+  color: var(--error-text) !important;
+}
+
+.explanation {
+  margin-top: 1.5rem;
+  padding: 16px 20px;
+  background: var(--info-bg);
+  border-radius: var(--border-radius-md);
+  font-size: 14px;
+  color: var(--info-text);
+  line-height: 1.6;
+  border-left: 4px solid var(--info-border);
+}
+
+.nav-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 1.75rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.nav-btn {
+  padding: 12px 24px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  background: #f1f5f9;
+}
+
+.nav-btn.primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.nav-btn.primary:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.score-card {
+  text-align: center;
+  padding: 3.5rem 2rem;
+}
+
+.score-big {
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.score-sub {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-top: 12px;
+  margin-bottom: 2rem;
+}
+
+.restart-btn {
+  padding: 12px 28px;
+  border: 1px solid var(--primary);
+  border-radius: var(--border-radius-sm);
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+  transition: all 0.2s;
+}
+
+.restart-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+<h2 class="sr-only">Quiz — Inżynieria oprogramowania</h2>
+<div class="header">
+  <button class="mode-btn active" id="btn-learn" onclick="setMode('learn')">Nauka</button>
+  <button class="mode-btn" id="btn-test" onclick="setMode('test')">Test (30 pytań)</button>
+  <span class="shuffle-badge" id="shuffle-info"></span>
+  <span class="progress" id="progress"></span>
+</div>
+<div id="quiz-area"></div>
+</div>
+
+<script>
+const ALL_Q = [
+  {q:"Funkcjonalności zaplanowane do implementacji wg metodyki zwinnej klient najczęściej formułuje w postaci:",opts:["a. wymagań niefunkcjonalnych","b. przypadków użycia","c. historii użytkownika","d. zadań programistycznych"],ans:2,exp:"W metodykach zwinnych klient opisuje wymagania jako historie użytkownika (user stories) — krótkie opisy potrzeb z punktu widzenia użytkownika, zapisywane na karteczkach lub w backlogu."},
+  {q:"Diagram przypadków użycia służy do zaprezentowania:",opts:["a. przepływu danych między poszczególnymi funkcjami","b. funkcji realizowanych przez system z punktu widzenia użytkownika","c. kolejności realizacji poszczególnych funkcji","d. wymagań funkcjonalnych i niefunkcjonalnych"],ans:1,exp:"Diagram przypadków użycia (use case diagram) pokazuje, jakie funkcje system realizuje z punktu widzenia użytkownika — reprezentuje system lub podsystem."},
+  {q:"Jakie polecenie systemu Git służy do wycofania wcześniej wykonanej operacji zapisania zmian w repozytorium?",opts:["a. pull","b. abort","c. reset","d. back"],ans:2,exp:"git reset cofa ostatni commit (zapisanie zmian). git revert tworzy nowy commit cofający zmiany — obie komendy służą do cofania, ale reset jest bardziej bezpośredni."},
+  {q:"Pracochłonność prawidłowo zdefiniowanego zadania w metodyce zwinnej:",opts:["a. powinna wynosić zawsze tyle ile wynosi czas iteracji","b. powinna wynosić około 1-3 dni","c. powinna wynosić około 1-3 tygodni","d. może być dłuższa niż czas trwania iteracji"],ans:1,exp:"Prawidłowo zdefiniowane zadanie programistyczne powinno być realizowalne w 1–3 dni roboczych. Jest to konkretne zadanie techniczne, prostsze niż historia użytkownika (która trwa 1–3 tygodnie)."},
+  {q:"Pod względem poziomu opisu wymagania możemy podzielić na:",opts:["a. biznesowe, użytkownika i systemowe","b. funkcjonalne, niefunkcjonalne i zgodności","c. postać tekstową w formie listy i postać graficzną w formie diagramu","d. żadna z pozostałych odpowiedzi nie jest prawidłowa"],ans:0,exp:"Wymagania dzielimy na poziomy: biznesowe (dla sponsorów, wyższe kierownictwo), użytkownika (dla menedżerów, architektów) i systemowe (dla użytkowników, deweloperów)."},
+  {q:"Konserwacja oprogramowania dotyczy:",opts:["a. odkrycia sposobu działania i architektury w systemie odziedziczonym","b. całego okresu wytwarzania od wytwórcy pierwszego produktu w ramach projektu","c. opracowania nowej implementacji oprogramowania na podstawie sposobu działania i architektury odkrytych w systemie odziedziczonym","d. okresu po przekazaniu do użytkowania"],ans:3,exp:"Konserwacja (pielęgnacja) oprogramowania to faza następująca po przekazaniu systemu do użytkowania — obejmuje naprawy błędów, rozbudowę i adaptację."},
+  {q:"Symbol związku (association) na diagramie przypadków użycia służy do połączenia:",opts:["a. co najmniej dwóch przypadków użycia","b. aktora i przypadku użycia","c. wyłącznie dwóch aktorów","d. taki symbol nie występuje na diagramie przypadków użycia"],ans:1,exp:"Symbol związku (linia) na diagramie przypadków użycia łączy aktora z przypadkiem użycia — pokazuje, że aktor uczestniczy w danym przypadku użycia."},
+  {q:"Symbol dziedziczenia na diagramie klas oznacza:",opts:["a. że obiekt jednej klasy przyjmuje obiekt drugiej klasy jako argument jednej z operacji","b. że obiekty jednej klasy zawierają obiekty innej klasy","c. że klasa dziedzicząca przejmuje cechy i zachowanie klasy bazowej","d. że obiekt jednej klasy jest powiązany na zasadzie referencji/wskaźnika z obiektem innej klasy"],ans:2,exp:"Dziedziczenie (generalizacja) oznacza, że klasa dziedzicząca przejmuje atrybuty i metody klasy bazowej oraz może je rozszerzać lub nadpisywać."},
+  {q:"Typowymi działaniami zaimplementowanymi w testach jednostkowych są:",opts:["a. przygotowanie niezbędnej konfiguracji, wywołanie testowanego fragmentu, sprawdzenie czy działa zgodnie z oczekiwaniami, rozmontowanie konfiguracji testu","b. przygotowanie niezbędnej konfiguracji, wywołanie testowanego fragmentu, zapytanie testera czy program działa zgodnie z oczekiwaniami, podjęcie decyzji przez testera, rozmontowanie konfiguracji testu","c. instalacja oprogramowania w docelowym środowisku, przygotowanie niezbędnej konfiguracji, uruchomienie oprogramowania i nawigacja za pomocą GUI do testowanego fragmentu, sprawdzenie czy działa zgodnie z oczekiwaniami, rozmontowanie konfiguracji testu","d. przygotowanie niezbędnej konfiguracji, uruchomienie oprogramowania i nawigacja za pomocą GUI do testowanego fragmentu, sprawdzenie czy działa zgodnie z oczekiwaniami, rozmontowanie konfiguracji testu"],ans:0,exp:"Test jednostkowy: (1) przygotuj konfigurację, (2) wywołaj testowaną metodę, (3) sprawdź czy wynik jest zgodny z oczekiwaniami, (4) rozmontuj konfigurację. Kluczowe: brak GUI, brak człowieka w pętli."},
+  {q:"Architekturę oprogramowania opracowaną w etapie projektowania ilustrują diagramy:",opts:["a. komponentów","b. przypadków użycia","c. maszyny stanowej","d. klas"],ans:0,exp:"Diagramy komponentów są najlepsze do ilustrowania architektury — pokazują strukturę aplikacji na poziomie niezależnych jednostek. Diagramy klas są też dobre, ale komponentów to odpowiedź wzorcowa dla architektury."},
+  {q:"Które twierdzenie odnośnie liczby punktów funkcyjnych jest prawdziwe?",opts:["a. liczba ta ma bezpośrednie przełożenie na wielkość oprogramowania w liniach kodu źródłowego","b. liczba ta wyraża wielkość nakładów na realizację całego projektu","c. liczba ta wyraża wielkość nakładów na prace stricte programistyczne (kodowanie)","d. liczba ta wyraża rozmiar oprogramowania"],ans:3,exp:"Punkty funkcyjne wyrażają rozmiar funkcjonalny oprogramowania (zakres), nie nakłady pracy. Nakłady szacuje się na podstawie liczby PF, ale same PF to miara rozmiaru."},
+  {q:"Rola przypisana do danego końca związku na diagramie klas:",opts:["a. w takim miejscu nie jest możliwe przypisanie roli","b. determinuje nazwę atrybutu, który będzie wygenerowany w kodzie na podstawie tego diagramu","c. wskazuje nazwę klasy bazowej pod kątem dziedziczenia","d. determinuje nazwę klasy, która będzie wygenerowana w kodzie na podstawie tego diagramu"],ans:1,exp:"Rola na końcu związku (np. 'instructor' przy klasie Professor) wyznacza nazwę pola/atrybutu, który zostanie wygenerowany w kodzie — np. private CourseOffering instructor."},
+  {q:"Jakie polecenie systemu Git służy do wysłania lokalnej kopii repozytorium w celu synchronizacji z kopią na komputerze zdalnym?",opts:["a. pull","b. commit","c. push","d. add"],ans:2,exp:"git push wysyła lokalne commity na zdalny serwer (np. GitHub). git pull robi odwrotnie — pbiera zdalne zmiany do lokalnego repo."},
+  {q:"Wymagania niefunkcjonalne:",opts:["a. określają funkcje realizowane przez oprogramowanie","b. określają aspekty jakościowe oprogramowania","c. formułowane są zawsze w formie diagramu","d. powinny być sformułowane niezwłocznie po ukończeniu implementacji oprogramowania"],ans:1,exp:"Wymagania niefunkcjonalne (non-functional) określają jakość i ograniczenia systemu — np. wydajność, bezpieczeństwo, niezawodność. Nie opisują co system robi, lecz jak to robi."},
+  {q:"Diagram komponentów służy do pokazania:",opts:["a. struktury aplikacji na poziomie jednostek, które mogą być projektowane i wytwarzane niezależnie","b. konfiguracji sprzętowej opracowywanego systemu","c. zależności między aktorami i klasami","d. elementów, z których składają się poszczególne klasy"],ans:0,exp:"Diagram komponentów pokazuje strukturę aplikacji na poziomie niezależnych komponentów (modułów), które mogą być osobno projektowane, wytwarzane i wdrażane."},
+  {q:"Defekt w oprogramowaniu:",opts:["a. zawsze ujawnia się w postaci awarii","b. zawsze jest wynikiem błędnej konfiguracji sprzętowo-programowej","c. można wykryć nawet jeśli oprogramowanie nie jest uruchomione","d. można wykryć tylko w czasie działania programu"],ans:2,exp:"Defekt można wykryć statycznie — przez przegląd kodu, inspekcję, analizę statyczną — bez uruchamiania programu. Nie każdy defekt musi powodować awarię."},
+  {q:"Testowanie integracyjne ma na celu:",opts:["a. ocenę połączonych składników oprogramowania","b. wykrycie defektów widocznych z punktu widzenia funkcji/wymagań użytkownika","c. sprawdzenie oprogramowania w środowisku docelowym lub je imitującym","d. sprawdzenie działania poszczególnych elementarnych składników oprogramowania"],ans:0,exp:"Testowanie integracyjne sprawdza współdziałanie połączonych komponentów — czy interfejsy między nimi działają poprawnie. Nie testuje poszczególnych jednostek (to testy jednostkowe) ani całości systemu."},
+  {q:"Diagram rozmieszczenia w języku UML służy do pokazania:",opts:["a. rozmieszczenia obiektów stanowiących implementację programu w pamięci RAM komputera","b. rozmieszczenia geograficznego zespołu deweloperskiego","c. rozmieszczenia komponentów programowych w węzłach sprzętowo/programowych","d. rozmieszczenia geograficznego miejsca implementacji poszczególnych funkcjonalności oprogramowania"],ans:2,exp:"Diagram rozmieszczenia (deployment diagram) pokazuje, jak komponenty oprogramowania są rozmieszczone na węzłach sprzętowych (serwerach, urządzeniach)."},
+  {q:"Pod względem zakresu wymagania możemy podzielić na:",opts:["a. postać tekstową w formie listy i postać graficzną w formie diagramu","b. żadna z pozostałych odpowiedzi nie jest prawidłowa","c. biznesowe, użytkownika i systemowe","d. funkcjonalne, niefunkcjonalne i zgodności"],ans:3,exp:"Pod względem zakresu: funkcjonalne (co system robi), niefunkcjonalne (jak to robi — jakość), zgodności (compliance — zgodność z prawem, standardami)."},
+  {q:"Weryfikacja (verification) na danym etapie wytwarzania oprogramowania polega na odniesieniu ocenianego produktu do:",opts:["a. specyfikacji testowej","b. oczekiwań i potrzeb biznesowych klienta","c. produktu z poprzedniego etapu wytwarzania","d. specyfikacji wymagań"],ans:3,exp:"Weryfikacja = czy budujemy produkt właściwie? Odnosi się do specyfikacji wymagań (dokumentu z poprzedniego etapu). Pytanie: 'Czy projekt zapewnia wymagania ze specyfikacji?' Nie chodzi o produkt techniczny z poprzedniego etapu."},
+  {q:"Narzędzia testujące typu 'record & playback', które symulują działanie użytkownika:",opts:["a. są najczęściej używane do testowania jednostkowego","b. są najczęściej używane do testowania integracyjnego","c. są używane w metodach białej skrzynki","d. są wykorzystywane do testowania systemowego"],ans:3,exp:"Narzędzia record & playback rejestrują i odtwarzają interakcje użytkownika z GUI — typowo używane do testowania systemowego (end-to-end), nie jednostkowego."},
+  {q:"Co oznacza zasięg egzemplarzowy atrybutu na diagramie klas?",opts:["a. że dostęp do danego atrybutu mają wszystkie obiekty z danej klasy i klas potomnych","b. że może istnieć tylko jeden egzemplarz (obiekt) danej klasy w skali całego systemu","c. że dany atrybut ma jedną wspólną wartość dla wszystkich obiektów danej klasy","d. że dany atrybut może przyjmować odrębne wartości dla poszczególnych obiektów danej klasy"],ans:3,exp:"Zasięg egzemplarzowy (instance scope) oznacza, że każdy obiekt klasy ma własną, niezależną kopię atrybutu. Przeciwieństwem jest zasięg klasowy (static), gdzie atrybut jest współdzielony."},
+  {q:"Główną cechą wyróżniającą metodyki zwinne jest:",opts:["a. opracowanie szczegółowego i rygorystycznego sposobu zarządzania i przygotowania rozbudowanej dokumentacji projektowej","b. odejście od długofalowego planowania, zarządzania i dokumentowania","c. dokładne zaprojektowanie globalnej architektury oprogramowania w celu minimalizacji prac nad jej modyfikacją w przyszłości","d. drastyczne ograniczenie udziału klienta w projekcie, żeby nie przeszkadzał deweloperom w ich pracach programistycznych"],ans:1,exp:"Metodyki zwinne charakteryzują się odejściem od długofalowego planowania i rozbudowanej dokumentacji na rzecz szybkiego tworzenia kodu, reagowania na zmiany i ścisłej współpracy z klientem."},
+  {q:"Najdłuższa jednostka czasu wykorzystywana do planowania zakresu prac w metodyce zwinnej odzwierciedla czas:",opts:["a. wydania","b. implementacji przyrostu produktu","c. całego projektu","d. iteracji"],ans:0,exp:"Najdłuższa jednostka planowania w metodyce zwinnej to wydanie (release) — trwa kilka miesięcy i obejmuje zbudowanie i przekazanie wydania produktu. Iteracja jest krótsza (2-3 tygodnie)."},
+  {q:"W oprogramowaniu wykorzystującym podział na partycje poszczególne partycje:",opts:["a. są niezależnymi od siebie komponentami działającymi na różnych węzłach sprzętowych","b. mogą wywoływać partycje z warstwy wyższej","c. stanowią implementację zamkniętego zestawu funkcjonalności widzianego z punktu widzenia użytkownika","d. mogą wywoływać partycje z warstwy niższej"],ans:2,exp:"Partycjonowanie to podział na równorzędne systemy, każdy odpowiedzialny za inną klasę usług. Partycje są luźno powiązane i mogą, ale nie muszą, działać na różnych węzłach."},
+  {q:"Diagram czynności w języku UML służy do pokazania:",opts:["a. działań, które muszą wykonać deweloperzy, żeby opracować dany program","b. działań, które składają się zawsze na pojedynczy kompletny przypadek użycia","c. działań wykonywanych podczas realizacji procesów/algorytmów","d. działań, które są realizowane przez zespół zarządzający danym projektem informatycznym"],ans:2,exp:"Diagram czynności (activity diagram) pokazuje przepływ działań w procesach lub algorytmach — jest zbliżony do schematu blokowego i może obejmować wiele przypadków użycia."},
+  {q:"Diagram sekwencji w języku UML służy do pokazania:",opts:["a. jednostek sprzętowych, na których realizowane są poszczególne funkcje systemu","b. cyklu życia systemu wg metodyki zwinnej","c. komunikatów wymienianych między jednostkami programowymi realizującymi dane zadanie","d. ciągu działań podejmowanych przez deweloperów w celu opracowania danego programu"],ans:2,exp:"Diagram sekwencji pokazuje czasową sekwencję wymiany komunikatów między obiektami, pakietami lub komponentami realizującymi dane zadanie."},
+  {q:"System kontroli wersji Git jest systemem:",opts:["a. scentralizowanym","b. zwinnym","c. rozproszonym","d. kaskadowym"],ans:2,exp:"Git jest rozproszonym (distributed) systemem kontroli wersji — każdy programista ma pełną kopię repozytorium lokalnie. Przeciwieństwem jest scentralizowany SVN."},
+  {q:"Typowa klasa na diagramie klas zawiera oprócz nazwy:",opts:["a. listę scenariuszy i listę kroków dla każdego scenariusza","b. przynajmniej jednego powiązanego aktora, ale nie może być powiązana z przypadkiem użycia","c. zestaw atrybutów i zestaw operacji","d. aktora i/lub przypadek użycia"],ans:2,exp:"Klasa na diagramie klas zawiera: nazwę (unikalna), zestaw atrybutów i zestaw operacji (metod). Scenariusze i aktorzy należą do diagramu przypadków użycia."},
+  {q:"W metodzie COCOMO II główną zmienną wpływającą na wynik jest:",opts:["a. nakłady projektowe","b. wielkość oprogramowania","c. liczba defektów w oprogramowaniu","d. złożoność oprogramowania"],ans:1,exp:"W COCOMO II: nakłady = A × (rozmiar)^E × EM₁ × ... × EM₁₇. Główną zmienną jest wielkość (rozmiar) oprogramowania. Nakłady to wynik, nie wejście."},
+  {q:"Liczba punktów funkcyjnych zależy od:",opts:["a. wejść, wyjść, logicznych plików, interfejsów, zapytań","b. rozmiaru oprogramowania, parametrów skali, mnożników nakładów, stałych z możliwością kalibracji","c. wielkości oprogramowania, złożoności problemu, jakości procesu wytwórczego","d. przypadków użycia i aktorów"],ans:0,exp:"Metoda IFPUG: liczba PF zależy od 5 typów składowych: wejścia zewnętrzne, wyjścia zewnętrzne, zapytania zewnętrzne, pliki wewnętrzne, interfejsy zewnętrzne."},
+  {q:"Diagram klas służy do zaprezentowania:",opts:["a. hierarchii zarządzania w projekcie informatycznym","b. komponentów oprogramowania i powiązań między nimi","c. obiektów, które biorą udział w przetwarzaniu danych i powiązań między nimi","d. wymagań funkcjonalnych"],ans:2,exp:"Diagram klas odwzorowuje świat rzeczywisty — pokazuje klasy (typy obiektów) biorące udział w przetwarzaniu danych oraz związki między nimi (dziedziczenie, agregacja, asocjacja)."},
+  {q:"Cecha jednoznaczności specyfikacji wymagań oznacza, że:",opts:["a. wskazano jednoznacznie, w jaki sposób można przeprowadzić weryfikację spełnienia wymagań przez finalny produkt","b. opisane zostały tylko te wymagania, które są potrzebne użytkownikom","c. wymagania nie mogą zawierać sprzeczności między sobą","d. zapis każdego wymagania ma tylko jedną interpretację"],ans:3,exp:"Jednoznaczność = każde wymaganie ma dokładnie jedną możliwą interpretację. Dwuznaczne sformułowania (np. 'przyjazny interfejs') łamią tę cechę."},
+  {q:"Metodami zapewnienia jakości oprogramowania są:",opts:["a. testowanie, analiza środowiskowa i przeglądy","b. testowanie i analiza środowiskowa","c. testowanie, przeglądy i inspekcje, dowodzenie poprawności","d. testowanie, analiza przedwdrożeniowa, przeglądy i inspekcje"],ans:2,exp:"Główne metody zapewnienia jakości to: testowanie, przeglądy/inspekcje (formalne metody statyczne) oraz dowodzenie poprawności (metody formalne matematyczne)."},
+  {q:"Które twierdzenie odnośnie szacowania przez analogię jest nieprawdziwe?",opts:["a. nie jest wykorzystywana do szacowania liczby defektów w oprogramowaniu","b. podstawą szacunku jest spotkanie robocze ekspertów","c. za punkt odniesienia można wykorzystać projekt nie w pełni zgodny z projektem podlegającym ocenie","d. bazuje na podobieństwie bieżącego projektu do projektu realizowanego wcześniej"],ans:1,exp:"Szacowanie przez analogię bazuje na porównaniu do poprzednich projektów — nie wymaga spotkania ekspertów. To opis szacowania eksperckiego (Delphi), nie przez analogię. Odpowiedź B jest nieprawdziwa."},
+  {q:"Spoistość w odniesieniu do architektury oprogramowania mówi o tym, że:",opts:["a. powiązania między podsystemami powinny być ścisłe","b. powiązania między podsystemami powinny być luźne","c. powiązania wewnątrz poszczególnych podsystemów powinny być ścisłe","d. powiązania wewnątrz poszczególnych podsystemów powinny być luźne"],ans:2,exp:"Spoistość (cohesion) = powiązania WEWNĄTRZ podsystemu powinny być ścisłe (wysoka spoistość). Sprzężenie (coupling) = powiązania MIĘDZY podsystemami powinny być luźne."},
+  {q:"System kontroli wersji (np. Git) nie służy do:",opts:["a. odtworzenia stanu kodu programu z punktu czasu w przeszłości","b. zapewnienia przenośności oprogramowania na różne platformy docelowe","c. synchronizacji efektów pracy poszczególnych programistów","d. sprawdzenia kto wprowadził daną modyfikację w kodzie programu"],ans:1,exp:"Git nie zajmuje się przenośnością kodu (to zadanie dla kodu i kompilatorów). Służy do: wersjonowania, synchronizacji pracy zespołu, historii zmian, blame (kto co zmienił)."},
+  {q:"Symbol dziedziczenia można wykorzystać na diagramie przypadków użycia w celu połączenia:",opts:["a. klasy i aktora","b. dwóch przypadków użycia","c. klasy i przypadku użycia","d. aktora i przypadku użycia"],ans:1,exp:"Na diagramie przypadków użycia dziedziczenie (generalizacja) łączy dwa przypadki użycia (ogólny → szczegółowy) lub dwóch aktorów. Nie łączy klas z aktorami."},
+  {q:"Przegląd jakości oprogramowania:",opts:["a. może być wykorzystany do oceny danego produktu projektu względem predefiniowanego zestawu kryteriów","b. może być użyty wyłącznie do oceny kodu źródłowego","c. ma na celu wykrycie defektów w oprogramowaniu","d. można wykorzystać do oceny jakości pracy poszczególnych deweloperów"],ans:0,exp:"Przegląd (review/walkthrough) to technika oceny produktu lub stanu prac względem określonego zbioru kryteriów. Może dotyczyć dowolnego artefaktu (dokumentu, kodu, projektu), nie tylko kodu."},
+  {q:"Inżynieria ponowna dotyczy:",opts:["a. opracowania testów przed implementacją oprogramowania","b. odkrycia sposobu działania i architektury w systemie odziedziczonym","c. opracowania nowej implementacji oprogramowania na podstawie sposobu działania i architektury odkrytych w systemie odziedziczonym","d. aktualizacji dokumentacji po zaimplementowaniu nowych wymagań"],ans:2,exp:"Inżynieria ponowna (re-engineering): najpierw analizuje się stary system (inżynieria odwrotna), a następnie tworzy nową implementację na podstawie odkrytej architektury."},
+  {q:"Punkty historii użytkownika (story points):",opts:["a. są liczbami naturalnymi oznaczającymi ilość osobodni potrzebnych na implementację","b. są nieparzystymi liczbami naturalnymi","c. są liczbami naturalnymi niewyrażonymi w żadnej jednostce czasu","d. są liczbami naturalnymi oznaczającymi ilość osobotygodni potrzebnych na implementację"],ans:2,exp:"Story points to liczby naturalne bez jednostki czasu (np. ciąg Fibonacciego: 1,2,3,5,8,13). Wyrażają względną złożoność historii, nie czas w godzinach ani dniach."},
+  {q:"Co można powiedzieć o adekwatności liczby przypadków testowych? (3 przypadki użycia × 2 scenariusze = 6 scenariuszy, przygotowano 3 przypadki testowe)",opts:["a. liczba przypadków testowych na pewno jest wystarczająca","b. liczba przypadków testowych może być zbyt wysoka","c. liczba przypadków testowych na pewno jest za niska","d. liczba przypadków testowych może być wystarczająca"],ans:3,exp:"Każdy scenariusz przypadku użycia powinien mieć co najmniej 1 przypadek testowy. Mamy 6 scenariuszy, a tylko 3 przypadki testowe — to za mało dla pełnego pokrycia. Ale 'może być wystarczająca' — nie wiemy, może 3 przypadki testują 3 najważniejsze ścieżki."},
+  {q:"Gdy dysponujemy bardzo niewielką ilością danych empirycznych, a potrzebujemy dokonać oszacowania w obszarze inżynierii oprogramowania, to:",opts:["a. nie możemy wykorzystać standardowych modeli z kalibracją w docelowym środowisku","b. nie możemy dokonać żadnego oszacowania","c. nie możemy wykorzystać technik bazujących na szacowaniu przez eksperta","d. skuteczne będą metody uczenia maszynowego"],ans:0,exp:"Przy małej ilości danych empirycznych nie możemy kalibrować modeli w docelowym środowisku. Możemy korzystać z szacowania eksperckiego i gotowych modeli bez kalibracji."},
+  {q:"Cechą charakterystyczną diagramu sekwencji w UML jest:",opts:["a. oś czasu, która nie występuje na innych diagramach","b. diagram ten może jako jedyny posłużyć do wizualizacji hierarchii zarządzania danym projektem informatycznym","c. na tym diagramie nie można umieszczać aktorów","d. można na nim pokazać długi proces wykraczający poza pojedynczy przypadek użycia"],ans:0,exp:"Diagram sekwencji ma pionową oś czasu — czynności realizowane później umieszczane są niżej. To unikalna cecha odróżniająca go od innych diagramów UML."},
+  {q:"Do wzorców architektonicznych należą:",opts:["a. singleton, adapter, dekorator","b. klient-serwer, adapter, dekorator","c. singleton, adapter, model-widok-kontroler","d. klient-serwer, model-widok-kontroler, architektura trójwarstwowa"],ans:3,exp:"Wzorce architektoniczne: klient-serwer, MVC, architektura warstwowa, P2P, repozytorium. Singleton, adapter, dekorator to wzorce projektowe (design patterns) — niższy poziom abstrakcji."},
+  {q:"Symbol agregacji na diagramie klas oznacza:",opts:["a. że obiekt jednej klasy jest powiązany z dokładnie jednym obiektem innej klasy","b. że obiekty jednej klasy zawierają obiekty innej klasy","c. że obiekt jednej klasy przyjmuje obiekt drugiej klasy jako argument jednej z operacji","d. że jedna klasa dziedzicząca przejmuje cechy i zachowanie klasy bazowej"],ans:1,exp:"Agregacja (romb pusty) oznacza relację 'całość-część' — obiekty jednej klasy zawierają lub są złożone z obiektów innej klasy, ale część może istnieć bez całości."},
+  {q:"Wybierając wymagania do implementacji w danej iteracji w metodyce zwinnej:",opts:["a. klient może wybrać dowolną ilość wymagań, w razie potrzeby każdorazowo ustalając czas trwania danej iteracji","b. sumaryczna pracochłonność wybranych wymagań nie może przekroczyć ustalonej szybkości","c. deweloperzy wybierają te wymagania wyłącznie wg własnych preferencji","d. kierownik projektu dokonuje wyboru tych wymagań każdorazowo dokonując negocjacji ze zleceniodawcą pod kątem ustalenia kosztu ich implementacji"],ans:1,exp:"W metodyce zwinnej (Scrum) wybór wymagań do sprintu jest ograniczony przez velocity — szybkość zespołu z poprzednich iteracji. Suma story points nie może przekroczyć tej wartości."},
+  {q:"Testowanie akceptacyjne ma na celu:",opts:["a. sprawdzenie oprogramowania w środowisku docelowym lub je imitującym","b. sprawdzenie działania poszczególnych elementarnych składników oprogramowania","c. ocenę połączonych składników oprogramowania","d. wykrycie defektów w odniesieniu do specyfikacji wymagań oprogramowania"],ans:3,exp:"Testowanie akceptacyjne sprawdza zgodność z wymaganiami i potrzebami użytkownika — weryfikuje, czy system spełnia kryteria akceptacji. Odbywa się w środowisku docelowym lub imitującym."},
+  {q:"Wielkość zespołu deweloperskiego w metodyce Scrum powinna wynosić:",opts:["a. co najmniej 10 osób","b. metodyka Scrum nie określa tej wielkości","c. ok. 5-9 osób","d. maksymalnie 20 osób"],ans:2,exp:"Scrum zaleca zespół deweloperski 5-9 osób (optymalnie 7±2). Zbyt mały = brakuje kompetencji, zbyt duży = problemy z komunikacją."},
+  {q:"Do wzorców projektowych należą:",opts:["a. singleton, adapter, dekorator","b. klient-serwer, adapter, dekorator","c. klient-serwer, model-widok-kontroler, architektura trójwarstwowa","d. singleton, adapter, model-widok-kontroler"],ans:0,exp:"Wzorce projektowe (design patterns): singleton, adapter, dekorator, fabryka, obserwator, strategia itp. (Gang of Four). MVC, klient-serwer to wzorce architektoniczne."},
+  {q:"Liczba punktów przypadków użycia zależy od:",opts:["a. rozmiaru oprogramowania, parametrów skali, mnożników nakładów, stałych z możliwością kalibracji","b. wielkości oprogramowania, złożoności problemu, jakości procesu wytwórczego","c. wejść, wyjść, logicznych plików, interfejsów, zapytań","d. przypadków użycia i aktorów"],ans:3,exp:"Use Case Points (UCP) składają się z: UCW (Unadjusted Use Case Weight) — zależy od ilości i złożoności przypadków użycia, oraz UAW (Unadjusted Actor Weight) — od ilości i złożoności aktorów."},
+  {q:"Sprzężenie w odniesieniu do architektury oprogramowania mówi o tym, że:",opts:["a. powiązania między podsystemami powinny być ścisłe","b. powiązania między podsystemami powinny być luźne","c. powiązania wewnątrz poszczególnych podsystemów powinny być ścisłe","d. powiązania wewnątrz poszczególnych podsystemów powinny być luźne"],ans:1,exp:"Sprzężenie (coupling) dotyczy powiązań MIĘDZY podsystemami — powinny być luźne (low coupling). Spoistość (cohesion) dotyczy powiązań WEWNĄTRZ — powinny być ścisłe (high cohesion)."},
+  {q:"W skład Zespołu Scrumowego wchodzą następujące role:",opts:["a. Analityk, Architekt, Projektant, Programista, Tester, Mistrz Scruma, Kierownik projektu","b. Zespół deweloperski, Właściciel Produktu, Kierownik projektu","c. Zespół deweloperski, Właściciel Produktu, Mistrz Scruma","d. Zespół deweloperski, Właściciel Produktu, Mistrz Scruma, Kierownik projektu"],ans:2,exp:"Scrum Team składa się z: Zespół deweloperski (Developers), Właściciel Produktu (Product Owner), Mistrz Scruma (Scrum Master). Nie ma kierownika projektu — to kluczowa różnica od tradycyjnych metodyk."},
+  {q:"Model CMMI jest używany do oceny: (pytanie 54)",opts:["a. dojrzałości procesu wytwórczego w firmie wytwarzającej dowolne produkty","b. jakości poszczególnych elementów składowych oprogramowania","c. jakości pracy poszczególnych deweloperów","d. dojrzałości procesu wytwórczego w firmie programistycznej"],ans:3,exp:"CMMI (Capability Maturity Model Integration) ocenia dojrzałość procesu wytwórczego w firmach programistycznych — określa poziom dojrzałości od 1 (Initial) do 5 (Optimizing)."},
+  {q:"Cecha poprawności specyfikacji wymagań oznacza, że:",opts:["a. opisane zostały tylko te wymagania, które są potrzebne użytkownikom","b. wskazano, w jaki sposób można przeprowadzić weryfikację spełnienia wymagań przez finalny produkt","c. wymagania nie mogą zawierać sprzeczności między sobą","d. sformułowano, w jaki sposób można modyfikować wymagania"],ans:0,exp:"Poprawność specyfikacji = opisano tylko wymagania potrzebne użytkownikom (każde wymaganie jest uzasadnione). Żadne zbędne wymaganie nie powinno się w niej znaleźć."},
+  {q:"Produktami projektowania są:",opts:["a. architektura programu, projekt bazy danych, plan testowania, projekt testów","b. projekt bazy danych, projekt interfejsu użytkownika, projekt struktury programu, wymagania niefunkcjonalne","c. architektura programowa, cele projektowe, graniczne przypadki użycia","d. model przypadków użycia, model klas, wymagania niefunkcjonalne"],ans:2,exp:"Produkty projektowania obejmują architekturę programową (jak system jest zbudowany), cele projektowe i graniczne przypadki użycia (edge cases). Nie jest to model analityczny."},
+  {q:"Na diagramie czynności w języku UML mogą występować następujące elementy:",opts:["a. akcje, agregacje, punkty decyzyjne","b. akcje, aktorzy, przejścia","c. akcje, przejścia, punkty decyzyjne","d. akcje, aktorzy, agregacje"],ans:2,exp:"Diagram czynności zawiera: akcje (prostokąty z zaokrąglonymi rogami), przejścia (strzałki), punkty decyzyjne (romby), rozgałęzienia/złączenia i pływaki. Nie ma aktorów ani agregacji."},
+  {q:"Jakie polecenie systemu Git służy do pobrania zdalnej kopii repozytorium, która ma być zsynchronizowana z komputerem lokalnym?",opts:["a. commit","b. add","c. pull","d. push"],ans:2,exp:"git pull pobiera zmiany ze zdalnego repozytorium i scala je z lokalnym. git push robi odwrotnie — wysyła lokalne zmiany na serwer."},
+  {q:"Plan testów określa:",opts:["a. kroki wykonywane przez testera","b. wymagania, które będą testowane","c. dane, które będą użyte przez testera","d. które testy zakończyły się sukcesem/porażką"],ans:1,exp:"Plan testów (test plan) określa zakres testowania — jakie wymagania/funkcjonalności będą testowane, strategię, zasoby i harmonogram. Nie zawiera szczegółowych kroków (to przypadki testowe)."},
+  {q:"W metodzie punktów funkcyjnych IFPUG korygowanie miary punktów funkcyjnych następuje z wykorzystaniem:",opts:["a. wskaźnika złożoności technicznej","b. wskaźnika złożoności środowiskowej","c. wskaźnika korekcji wartości","d. w tej metodzie nie dokonuje się korekcji"],ans:2,exp:"W IFPUG: skoryg. PF = nieskorygowane PF × VAF (Value Adjustment Factor / wskaźnik korekcji wartości). VAF zależy od 14 cech ogólnych systemu."},
+  {q:"Załóżmy, że przy końcu związku łączącym się z klasą Autor podano liczebność 1…*. Co oznacza taki zapis?",opts:["a. że jeden obiekt klasy Książka musi być powiązany z co najmniej jednym obiektem klasy Autor","b. że takie oznaczenie jest niedopuszczalne","c. że jeden obiekt klasy Autor musi być powiązany z co najmniej jednym obiektem klasy Książka","d. że w systemie musi istnieć co najmniej jeden obiekt typu Autor"],ans:2,exp:"Liczebność 1…* przy końcu klasy Autor oznacza, że jeden obiekt Autor musi być powiązany z co najmniej jedną Książką (1 do wielu). Czytamy: jeden Autor — jedna lub więcej Książek."},
+  {q:"Kiedy wyczerpie się czas przewidziany na iterację w metodyce zwinnej, a nie wszystkie funkcjonalności zostaną zaimplementowane, to:",opts:["a. klient przypisuje specjalne tzw. naprawcze historie użytkownika","b. nieukończone funkcjonalności są wycofywane z dalszej realizacji w projekcie (anulowane)","c. nieukończone funkcjonalności przechodzą do implementacji w następnej iteracji","d. czas tej iteracji ulega wydłużeniu o taki, który jest potrzebny do ukończenia wszystkich funkcjonalności"],ans:2,exp:"W metodyce zwinnej czas iteracji jest stały (timeboxing). Niezaimplementowane funkcjonalności wracają do backlogu i mogą być zaplanowane w kolejnym sprincie."},
+  {q:"W metodyce zwinnej:",opts:["a. refaktoryzacja kodu stosowana jest sporadycznie","b. podstawą wymiany informacji między członkami zespołu jest bezpośrednia komunikacja","c. konieczne jest stosowanie programowania w parach przez co najmniej 30% czasu implementacji","d. podstawowym sposobem przechowywania i udostępniania informacji członkom zespołu jest szczegółowa dokumentacja projektowa"],ans:1,exp:"Metodyki zwinne preferują bezpośrednią komunikację (twarzą w twarz lub przez narzędzia komunikacyjne) zamiast formalnej dokumentacji. Manifest Agile: 'Ludzie i interakcje ponad procesy i narzędzia'."},
+  {q:"Co oznacza związek zawierania na diagramie przypadków użycia?",opts:["a. że dany przypadek użycia jest bezpośrednio wywoływany przez danego aktora","b. że dany aktor jest częścią danego przypadku użycia","c. że dany przypadek użycia następuje bezpośrednio po ukończeniu innego przypadku użycia","d. że jeden przypadek użycia jest częścią innego przypadku użycia"],ans:3,exp:"Związek zawierania (<<include>>) oznacza, że jeden przypadek użycia (bazowy) obligatoryjnie zawiera/wywołuje inny (included). Included UC jest częścią bazowego."},
+  {q:"Poszczególne testy:",opts:["a. mogą być sprawdzane za pomocą innych testów (czyli 'testy testów')","b. powinny być niezależne od siebie","c. mogą być skonstruowane w taki sposób, że wynik danego testu zależy od wyniku/wywołania innego testu","d. muszą być tak skonstruowane, żeby wszystkie łącznie zweryfikowały poprawność wszystkich instrukcji w kodzie źródłowym"],ans:2,exp:"Testy mogą być od siebie zależne — wynik jednego testu może zależeć od wyniku innego. Choć niezależność jest pożądana, zależność jest możliwa i czasem celowa (np. testy integracyjne)."},
+  {q:"Zatwierdzenie (validation) oprogramowania polega na odniesieniu ocenianego produktu do:",opts:["a. projektu architektury oprogramowania","b. specyfikacji testowej","c. produktu z poprzedniego etapu wytwarzania","d. oczekiwań i potrzeb biznesowych klienta"],ans:3,exp:"Walidacja = czy budujemy właściwy produkt? Odnosi się do oczekiwań klienta. Pytanie: 'Czy system robi to, czego chce klient?' W przeciwieństwie do weryfikacji, która pyta: 'Czy system spełnia specyfikację?'"},
+  {q:"W oprogramowaniu wykorzystującym podział na warstwy, elementy składowe z danej warstwy:",opts:["a. stanowią implementację zamkniętego zestawu funkcjonalności widzianego z punktu widzenia użytkownika","b. mogą wywoływać składowe z warstwy niższej","c. mogą wywoływać składowe z warstwy wyższej","d. są niezależnymi od siebie komponentami działającymi na różnych węzłach sprzętowych"],ans:1,exp:"W architekturze warstwowej, elementy danej warstwy mogą wywoływać tylko elementy z warstwy bezpośrednio niższej (w modelu ścisłym). Nie mogą wywoływać warstw wyższych ani pomijać warstw."},
+  {q:"W jaki sposób należy opracować model przypadków użycia, gdy musimy pokazać znaczną liczbę przypadków użycia?",opts:["a. zgrupować przypadki użycia w klasy i narysować na osobnych diagramach zawartość poszczególnych klas","b. zgrupować przypadki użycia w pakiety i narysować na osobnych diagramach zawartość poszczególnych pakietów","c. taka sytuacja nigdy nie występuje","d. jeśli taka sytuacja wystąpiła, to znaczy, że źle zostały nazwane poszczególne przypadki użycia i należy dokonać stosownej korekty ich definicji"],ans:1,exp:"Przy dużej liczbie przypadków użycia grupujemy je w pakiety (podsystemy) i tworzymy wielopoziomowy hierarchiczny model — osobny diagram dla każdego pakietu."},
+  {q:"Jakie polecenie Git służy do zatwierdzenia zmiany w repozytorium?",opts:["a. add","b. commit","c. push","d. create"],ans:1,exp:"git commit zapisuje (zatwierdza) zmiany w lokalnym repozytorium. git add dodaje pliki do obszaru staging, git push wysyła commity na serwer."},
+  {q:"Model CMMI jest używany do oceny: (pytanie 70)",opts:["a. dojrzałości procesu wytwórczego w firmie wytwarzającej dowolne produkty","b. dojrzałości procesu wytwórczego w firmie programistycznej","c. jakości pracy poszczególnych deweloperów","d. jakości poszczególnych elementów składowych oprogramowania"],ans:0,exp:"CMMI w szerszym znaczeniu ocenia dojrzałość procesów w organizacjach wytwarzających dowolne produkty (nie tylko oprogramowanie). Istnieje CMMI-DEV, CMMI-SVC i CMMI-ACQ."},
+  {q:"Czy wymaganie 'Oprogramowanie ma korzystać z przyjaznego interfejsu użytkownika' jest poprawnie zdefiniowane?",opts:["a. nie, ponieważ nie wskazano, jaka technologia/framework ma być użyta do implementacji","b. tak, jest to poprawne wymaganie","c. nie, ponieważ aspektów dotyczących przyjazności interfejsu użytkownika nie formułuje się w formie wymagań","d. nie, ponieważ nie można zweryfikować spełnienia tak sformułowanego wymagania"],ans:3,exp:"Wymaganie jest niepoprawne, bo 'przyjazny interfejs' jest niesprecyzowany i niemierzalny — nie można obiektywnie zweryfikować jego spełnienia. Dobre wymaganie musi być weryfikowalne."},
+  {q:"Weryfikacja (verification) na danym etapie wytwarzania oprogramowania polega na odniesieniu ocenianego produktu do: (pytanie 72)",opts:["a. oczekiwań i potrzeb biznesowych klienta","b. produktu z poprzedniego etapu wytwarzania","c. specyfikacji testowej","d. specyfikacji wymagań"],ans:1,exp:"Weryfikacja sprawdza, czy produkt danego etapu jest zgodny z produktem (specyfikacją) z etapu poprzedniego. Np. czy implementacja jest zgodna z projektem, czy projekt z analizą."},
+  {q:"Jakie polecenie systemu Git służy do sprawdzenia stanu zmian w katalogu roboczym?",opts:["a. status","b. check","c. push","d. pull"],ans:0,exp:"git status pokazuje stan katalogu roboczego — które pliki zostały zmodyfikowane, które są w staging area (gotowe do commita), a które są nieśledzone."},
+  {q:"Na czym polega różnica między analizą a projektowaniem oprogramowania?",opts:["a. analiza ma na celu opracowanie planu zarządzania projektem, a projektowanie dotyczy interfejsu użytkownika i bazy danych","b. analiza ma na celu pozyskanie i sformułowanie wymagań biznesowych, a projektowanie definiuje architekturę przyszłego rozwiązania","c. na niczym istotnym — są to praktycznie synonimy","d. analiza ma na celu opracowanie modelu abstrakcyjnego od technologii, a projektowanie definiuje schemat budowy oprogramowania w docelowej technologii"],ans:1,exp:"Analiza = CO system ma robić (model abstrakcyjny niezależny od technologii). Projektowanie = JAK to zbudować (konkretna architektura w docelowej technologii). Odpowiedź B jest najszersza i najbardziej kompletna."},
+  {q:"Składnikami modelu analitycznego oprogramowania są zwykle:",opts:["a. model przypadków użycia, model klas, wymagania niefunkcjonalne","b. architektura programowa, cele projektowe, graniczne przypadki użycia","c. architektura programu, projekt bazy danych, plan testowania, projekt testów","d. projekt bazy danych, projekt interfejsu użytkownika, projekt struktury programu, wymagania niefunkcjonalne"],ans:0,exp:"Model analityczny zawiera: model przypadków użycia (co system robi), model klas (struktura danych dziedzinowych), wymagania niefunkcjonalne. To są artefakty analizy, nie projektowania."},
+  {q:"Inspekcja jakości oprogramowania:",opts:["a. ma na celu wykrycie defektów w oprogramowaniu","b. może być użyta wyłącznie do oceny projektu programu","c. jest używana do oceny danego produktu projektu względem predefiniowanego zestawu kryteriów","d. może być wykorzystana do oceny jakości pracy poszczególnych deweloperów"],ans:0,exp:"Inspekcja (formalna technika przeglądu) ma na celu wykrycie defektów w artefakcie. Jest bardziej rygorystyczna niż zwykły przegląd — prowadzona przez przeszkolonego moderatora według procesu."},
+  {q:"Specyfikacja pojedynczego przypadku użycia powinna obejmować:",opts:["a. listę scenariuszy i listę kroków dla każdego scenariusza","b. dokładnie jeden scenariusz i przypisaną do niego listę kroków","c. listę scenariuszy bez wskazania listy kroków","d. listę kroków realizowanych przez wszystkich aktorów występujących na tym samym diagramie, co dany przypadek użycia"],ans:0,exp:"Specyfikacja przypadku użycia zawiera: listę scenariuszy (normalny + alternatywne + wyjątkowe) oraz listę kroków dla każdego scenariusza."},
+  {q:"Metodami pozyskiwania wymagań są:",opts:["a. obserwacja i analiza obiegu dokumentów, metoda punktów przypadków użycia, metoda punktów funkcyjnych","b. obserwacja i analiza obiegu dokumentów, studiowanie dostępnej dokumentacji, wywiady z przedstawicielami kierownictwa","c. obserwacja i analiza obiegu dokumentów, metoda punktów przypadków użycia, wywiady z przedstawicielami kierownictwa","d. obserwacja i analiza obiegu dokumentów, studiowanie dostępnej dokumentacji, metoda punktów przypadków użycia"],ans:1,exp:"Metody pozyskiwania wymagań: obserwacja, analiza dokumentów, wywiady, warsztaty, ankiety. Metody punktów funkcyjnych/przypadków użycia to metody szacowania rozmiaru, nie pozyskiwania wymagań."},
+  {q:"Klasycznym procesem wytwarzania oprogramowania, w którym poszczególne fazy/etapy realizowane są szeregowo jest proces:",opts:["a. kaskadowy","b. iteracyjny","c. zwinny","d. spiralny"],ans:0,exp:"Model kaskadowy (waterfall) realizuje fazy szeregowo: wymagania → analiza → projektowanie → implementacja → testowanie → wdrożenie. Każda faza musi być zakończona przed kolejną."},
+  {q:"Wytwarzanie sterowane testami (test driven development) polega na:",opts:["a. opracowaniu programu, z którego automatycznie generowane są testy","b. opracowaniu testów, z których automatycznie generowany jest program","c. opracowaniu testów przed implementacją programu","d. opracowaniu testów niezwłocznie po implementacji programu"],ans:2,exp:"TDD: najpierw piszesz test (który nie przechodzi), potem piszesz minimalny kod, który test zalicza, potem refaktoryzujesz. Cykl: Red → Green → Refactor."},
+  {q:"Przypadek testowy na poziomie testowania jednostkowego określa:",opts:["a. dane, które będą użyte w teście","b. kolejność i sposób przeprowadzania poszczególnych testów","c. wymagania, które będą testowane","d. które testy zakończyły się sukcesem/porażką"],ans:0,exp:"Przypadek testowy jednostkowy zawiera konkretne dane wejściowe (test data) i oczekiwany wynik. Jeden przypadek testowy odpowiada jednemu scenariuszowi z konkretnymi danymi."},
+];
+
+let mode='learn', questions=[], idx=0, answered=false, score=0, testAnswers=[];
+
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+
+function setMode(m){
+  mode=m;
+  document.getElementById('btn-learn').classList.toggle('active',m==='learn');
+  document.getElementById('btn-test').classList.toggle('active',m==='test');
+  initQuiz();
+}
+
+function initQuiz(){
+  idx=0; answered=false; score=0; testAnswers=[];
+  if(mode==='learn'){
+    questions=shuffle([...ALL_Q]);
+    document.getElementById('shuffle-info').textContent='Losowa kolejność';
+  } else {
+    questions=shuffle([...ALL_Q]).slice(0,30);
+    document.getElementById('shuffle-info').textContent='30 losowych pytań';
+  }
+  render();
+}
+
+function render(){
+  if(idx>=questions.length){renderResult();return;}
+  const q=questions[idx];
+  updateProgress();
+  const area=document.getElementById('quiz-area');
+  area.innerHTML='';
+  const card=document.createElement('div');
+  card.className='card';
+  card.innerHTML=`<div class="q-num">Pytanie ${idx+1} z ${questions.length}</div><div class="q-text">${q.q}</div>`;
+  q.opts.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='option';
+    btn.textContent=o;
+    btn.onclick=()=>selectAnswer(i);
+    btn.id='opt'+i;
+    card.appendChild(btn);
+  });
+  const exp=document.createElement('div');
+  exp.className='explanation';
+  exp.id='explanation';
+  exp.style.display='none';
+  card.appendChild(exp);
+  const nav=document.createElement('div');
+  nav.className='nav-row';
+  nav.id='nav-row';
+  card.appendChild(nav);
+  area.appendChild(card);
+}
+
+function selectAnswer(chosen){
+  if(mode==='learn' && answered) return;
+  if(mode==='test'){
+    testAnswers[idx]=chosen;
+    idx++;
+    render();
+    return;
+  }
+  answered=true;
+  const q=questions[idx];
+  if(chosen===q.ans) score++;
+  q.opts.forEach((_,i)=>{
+    const btn=document.getElementById('opt'+i);
+    btn.disabled=true;
+    if(i===q.ans) btn.classList.add('correct');
+    else if(i===chosen && chosen!==q.ans) btn.classList.add('wrong');
+  });
+  const exp=document.getElementById('explanation');
+  exp.style.display='block';
+  exp.textContent=q.exp;
+  const nav=document.getElementById('nav-row');
+  const nextBtn=document.createElement('button');
+  nextBtn.className='nav-btn primary';
+  nextBtn.textContent=idx+1<questions.length?'Następne →':'Zakończ';
+  nextBtn.onclick=()=>{answered=false;idx++;render();};
+  nav.appendChild(nextBtn);
+}
+
+function renderResult(){
+  updateProgress();
+  const area=document.getElementById('quiz-area');
+  area.innerHTML='';
+  if(mode==='learn'){
+    const card=document.createElement('div');
+    card.className='card score-card';
+    const pct=Math.round(score/questions.length*100);
+    card.innerHTML=`<div class="score-big">${score}/${questions.length}</div><div class="score-sub">${pct}% poprawnych odpowiedzi</div><button class="restart-btn" onclick="initQuiz()">Losuj ponownie</button>`;
+    area.appendChild(card);
+  } else {
+    let correct=0;
+    testAnswers.forEach((a,i)=>{if(a===questions[i].ans)correct++;});
+    const pct=Math.round(correct/questions.length*100);
+    const card=document.createElement('div');
+    card.className='card score-card';
+    card.innerHTML=`<div class="score-big">${correct}/${questions.length}</div><div class="score-sub">${pct}% — ${pct>=60?'✓ Zaliczone':'✗ Niezaliczone (próg 60%)'}</div>`;
+    const reviewBtn=document.createElement('button');
+    reviewBtn.className='restart-btn';
+    reviewBtn.textContent='Przejrzyj odpowiedzi';
+    reviewBtn.onclick=()=>renderReview();
+    card.appendChild(reviewBtn);
+    const againBtn=document.createElement('button');
+    againBtn.className='restart-btn';
+    againBtn.style.marginLeft='8px';
+    againBtn.textContent='Nowy test';
+    againBtn.onclick=()=>initQuiz();
+    card.appendChild(againBtn);
+    area.appendChild(card);
+  }
+}
+
+function renderReview(){
+  const area=document.getElementById('quiz-area');
+  area.innerHTML='';
+  questions.forEach((q,i)=>{
+    const chosen=testAnswers[i];
+    const ok=chosen===q.ans;
+    const card=document.createElement('div');
+    card.className='card';
+    card.style.borderLeft=ok?'4px solid #22c55e':'4px solid #f43f5e';
+    card.innerHTML=`<div class="q-num">Pytanie ${i+1} ${ok?'✓':'✗'}</div><div class="q-text">${q.q}</div>`;
+    q.opts.forEach((o,j)=>{
+      const p=document.createElement('div');
+      p.style.cssText='padding:12px 16px;border-radius:var(--border-radius-md);margin-bottom:8px;font-size:14px;line-height:1.4;border:1px solid #e2e8f0;';
+      if(j===q.ans) {
+        p.style.background='#f0fdf4';
+        p.style.borderColor='#22c55e';
+        p.style.color='#166534';
+        p.style.fontWeight='500';
+      }
+      else if(j===chosen&&!ok) {
+        p.style.background='#fff1f2';
+        p.style.borderColor='#f43f5e';
+        p.style.color='#9f1239';
+      }
+      p.textContent=o;
+      card.appendChild(p);
+    });
+    const exp=document.createElement('div');
+    exp.className='explanation';
+    exp.textContent=q.exp;
+    card.appendChild(exp);
+    area.appendChild(card);
+  });
+  const backBtn=document.createElement('button');
+  backBtn.className='nav-btn primary';
+  backBtn.textContent='Nowy test';
+  backBtn.onclick=()=>initQuiz();
+  backBtn.style.marginTop='1rem';
+  area.appendChild(backBtn);
+}
+
+function updateProgress(){
+  document.getElementById('progress').textContent=mode==='learn'?`${idx}/${questions.length} przejrzanych`:`${Math.min(idx,questions.length)}/${questions.length}`;
+}
+
+initQuiz();
+</script>
+</body>
+</html>
