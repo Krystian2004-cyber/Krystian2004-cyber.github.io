@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Movies List</h1>
+
+<a href="{{ url_for('movie_new') }}">Create new</a>
+
+<ul class="index-list">
+    {% if movies|length > 0 %}
+        {% for movie in movies %}
+            <li>
+                <h3>{{ movie.title }} [Rating: {{ movie.rating }}/10]</h3>
+                <ul class="action-list">
+                    <li><a href="{{ url_for('movie_show', movie_id=movie.id) }}">Details</a></li>
+                    <li><a href="{{ url_for('movie_edit', movie_id=movie.id) }}">Edit</a></li>
+                </ul>
+            </li>
+        {% endfor %}
+    {% else %}
+        <li>No movies found.</li>
+    {% endif %}
+</ul>
+
+<p>Total movies: {{ movies|length }}</p>
+{% endblock %}
