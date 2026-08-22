@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kalkulator strat przy licytacji komorniczej | Atrium Nieruchomości</title>
+<meta name="description" content="Sprawdź, ile realnie tracisz przy licytacji komorniczej i ile zostaje w kieszeni przy sprzedaży nieruchomości przed licytacją. Bezpłatny kalkulator.">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div style="max-width: 100%; overflow-x: hidden">
+
+  <header style="position: sticky; top: 0; z-index: 20; background: #fff; border-bottom: 1px solid #e6ece9; box-shadow: 0 2px 14px rgba(16,38,31,.05)">
+    <div class="header-bar" style="max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center">
+      <div class="logo">
+        <a href="https://atrium-nieruchomosci.pl/">
+          <img height="54.22" width="56" src="img/logo.svg" alt="Atrium Skup Nieruchomości">
+          <p><strong>atrium </strong>nieruchomości</p>
+        </a>
+      </div>
+      <nav class="nav-links" id="site-nav">
+        <a href="#kalkulator" style="color: #16241f">Kalkulator</a>
+        <a href="#jak-dzialamy" style="color: #16241f">Jak działamy?</a>
+        <a href="#pytania" style="color: #16241f">Częste pytania</a>
+        <a href="#kontakt" style="color: #16241f">Kontakt</a>
+      </nav>
+      <div class="header-controls">
+        <button type="button" id="nav-toggle" class="nav-toggle" aria-label="Otwórz menu" aria-expanded="false" aria-controls="site-nav">
+          <span></span><span></span><span></span>
+        </button>
+        <a href="tel:+48579779543" class="phone-btn">+48 579 779 543</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="top" style="background: linear-gradient(180deg, #f3f8f5 0%, #ffffff 100%); border-bottom: 1px solid #e6ece9">
+    <div class="hero-inner">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: #e4f2ec; color: #0f6b4d; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; padding: 7px 14px; border-radius: 100px">bezpłatne narzędzie</div>
+      <h1 class="hero-title" style="font-family: Poppins, sans-serif; line-height: 1.12; font-weight: 700; letter-spacing: -.02em; margin: 18px 0 14px; max-width: 780px; text-wrap: pretty">Kalkulator strat przy <span style="color: #178e66">licytacji komorniczej</span></h1>
+      <p class="hero-sub" style="line-height: 1.6; color: #4d5c56; max-width: 700px; margin: 0; text-wrap: pretty">Sprawdź, ile realnie tracisz, gdy Twoje mieszkanie lub dom sprzedaje komornik — i ile zostaje w Twojej kieszeni przy sprzedaży przed licytacją. Wynik w kilka sekund, bez podawania danych kontaktowych.</p>
+    </div>
+  </section>
+
+  <section id="kalkulator" style="max-width: 1200px; margin: 0 auto; padding: 36px 24px 10px">
+
+    <div class="calc-grid" style="display: grid; gap: 24px; align-items: start">
+
+      <div style="background: #fff; border: 1px solid #e0e8e4; border-radius: 12px; box-shadow: 0 10px 34px rgba(16,38,31,.06); padding: 24px; display: flex; flex-direction: column; gap: 18px">
+
+        <div class="calc-form-fields" style="display: grid; gap: 16px">
+          <label style="display: flex; flex-direction: column; gap: 7px; font-size: 14.5px; font-weight: 700">Wartość rynkowa nieruchomości
+            <input id="in-market" type="number" step="10000" min="0" value="600000" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 13px; font-size: 16px; font-weight: 400; width: 100%; color: #16241f" />
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 7px; font-size: 14.5px; font-weight: 700">Łączne zadłużenie
+            <input id="in-debt" type="number" step="5000" min="0" value="430000" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 13px; font-size: 16px; font-weight: 400; width: 100%; color: #16241f" />
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 7px; font-size: 14.5px; font-weight: 700">Odsetki za opóźnienie rocznie
+            <input id="in-rate" type="number" step="0.25" min="0" max="40" value="9.25" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 13px; font-size: 16px; font-weight: 400; width: 100%; color: #16241f" />
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 7px; font-size: 14.5px; font-weight: 700">Miesięcy do podziału środków
+            <input id="in-months" type="number" step="1" min="1" max="60" value="6" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 13px; font-size: 16px; font-weight: 400; width: 100%; color: #16241f" />
+          </label>
+        </div>
+
+        <div style="border: 1px solid #e4eae7; background: #fafcfb; border-radius: 10px; padding: 14px 16px">
+          <div style="font-size: 14.5px; font-weight: 700; margin-bottom: 12px">Czy nieruchomość została już wyceniona przez biegłego?</div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap">
+            <button type="button" id="btn-appraised-yes" class="toggle-btn active"><span class="toggle-dot"></span>Tak</button>
+            <button type="button" id="btn-appraised-no" class="toggle-btn"><span class="toggle-dot"></span>Nie, dolicz 2 000 zł</button>
+          </div>
+        </div>
+
+        <div style="border: 1px solid #e4eae7; background: #fafcfb; border-radius: 10px; padding: 14px 16px">
+          <div style="font-size: 14.5px; font-weight: 700; margin-bottom: 12px">Czy nieruchomość jest pusta?</div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap">
+            <button type="button" id="btn-empty-yes" class="toggle-btn active"><span class="toggle-dot"></span>Tak</button>
+            <button type="button" id="btn-empty-no" class="toggle-btn"><span class="toggle-dot"></span>Nie</button>
+          </div>
+          <div style="font-size: 13px; color: #7d8d87; margin-top: 10px">Zajęty lokal oznacza dodatkowe koszty postępowania eksmisyjnego.</div>
+        </div>
+
+        <label style="display: flex; flex-direction: column; gap: 7px; font-size: 14.5px; font-weight: 700">Miesięczny czynsz
+          <input id="in-rent" type="number" step="100" min="0" value="1200" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 13px; font-size: 16px; font-weight: 400; width: 100%; color: #16241f" />
+        </label>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 18px">
+
+        <div id="verdict-box" style="border-radius: 12px; padding: 22px 24px; display: flex; flex-direction: column; gap: 8px; border: 1.5px solid #e0473f; background: #fdf3f2">
+          <div style="display: flex; align-items: center; gap: 10px; font-family: Poppins, sans-serif; font-size: 19px; font-weight: 600">
+            <span id="verdict-icon" style="width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; font-size: 15px; font-weight: 700; color: #fff; background: #e0473f">!</span><span id="verdict-title">Możesz pozostać z długiem</span>
+          </div>
+          <div id="verdict-amount" style="font-family: Poppins, sans-serif; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; color: #c0392f"></div>
+          <div id="verdict-note" style="font-size: 16.5px; color: #4d5c56">Mimo utraty nieruchomości.</div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e0e8e4; border-radius: 12px; padding: 20px 22px">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px">
+            <div>
+              <div style="font-family: Poppins, sans-serif; font-size: 18px; font-weight: 600">Ryzyko finansowe</div>
+              <div style="font-size: 15.5px; color: #4d5c56; margin-top: 4px">Tyle możesz stracić, czekając na licytację.</div>
+            </div>
+            <div style="text-align: right">
+              <div style="font-size: 13px; color: #7d8d87; font-weight: 600">Możliwa strata</div>
+              <div id="loss-text" style="font-family: Poppins, sans-serif; font-size: 26px; font-weight: 700; color: #1c5fd6; letter-spacing: -.02em"></div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 20% 20% 25% 35%; gap: 4px; margin-top: 16px">
+            <div id="seg-1" class="seg" style="background: #22b573"></div>
+            <div id="seg-2" class="seg" style="background: #f2cd3a"></div>
+            <div id="seg-3" class="seg" style="background: #f08a3c"></div>
+            <div id="seg-4" class="seg" style="background: #e0473f"></div>
+          </div>
+          <div style="display: grid; grid-template-columns: 20% 20% 25% 35%; gap: 4px; margin-top: 7px; font-size: 12.5px; color: #7d8d87">
+            <span>do 20 tys.</span>
+            <span>20–50 tys.</span>
+            <span>50–100 tys.</span>
+            <span>powyżej 100 tys.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-grid" style="display: grid; gap: 20px; margin-top: 24px">
+
+      <div style="background: #fff; border: 1px solid #cfe6dc; border-radius: 12px; padding: 22px">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px">
+          <div style="display: flex; align-items: center; gap: 9px; font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600"><span style="width: 12px; height: 12px; border-radius: 100px; background: #22b573; flex-shrink: 0"></span>Sprzedaż przed licytacją</div>
+          <strong id="pre-text" style="font-size: 17px; white-space: nowrap"></strong>
+        </div>
+        <div style="font-size: 14.5px; color: #7d8d87; margin: 8px 0 16px">Wycena wariantu A: około <span id="pre-pct-text"></span> wartości</div>
+        <div style="display: flex; flex-direction: column; gap: 9px; font-size: 15px; border-top: 1px solid #eef3f0; padding-top: 14px">
+          <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Dług</span><strong id="debt-text-1"></strong></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Pozostaje</span><strong id="pre-remains-text" style="color: #0f6b4d"></strong></div>
+        </div>
+        <div style="border-top: 1px solid #eef3f0; margin-top: 16px; padding-top: 14px; display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; color: #4d5c56; line-height: 1.55">
+          <p style="margin: 0">Przed licytacją masz jeszcze możliwość negocjacji z wierzycielem i miarkowania opłaty egzekucyjnej u komornika.</p>
+          <div style="display: flex; justify-content: space-between; gap: 12px; font-size: 15px"><span>Redukcja zadłużenia do 40%</span><strong id="reduction-text" style="color: #16241f"></strong></div>
+          <p style="margin: 0; color: #7d8d87; font-size: 13.5px">Największa redukcja z naszego doświadczenia: 47% dla klienta.</p>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid #f2ded1; border-radius: 12px; padding: 22px">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px">
+          <div style="display: flex; align-items: center; gap: 9px; font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600"><span style="width: 12px; height: 12px; border-radius: 100px; background: #f08a3c; flex-shrink: 0"></span>Pierwsza licytacja</div>
+          <strong id="first-text" style="font-size: 17px; white-space: nowrap"></strong>
+        </div>
+        <div style="font-size: 14.5px; color: #7d8d87; margin: 8px 0 16px">Cena wywołania: 75% wartości</div>
+        <div style="display: flex; flex-direction: column; gap: 9px; font-size: 15px; border-top: 1px solid #eef3f0; padding-top: 14px">
+          <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Zadłużenie</span><strong id="debt-text-2"></strong></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Odsetki</span><strong id="interest-text-1"></strong></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Opłata egzekucyjna</span><strong id="fee-text-1"></strong></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Wycena i czynsz</span><strong id="extra-text-1"></strong></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #eef3f0; padding-top: 11px; margin-top: 3px"><span style="color: #4d5c56">Wynik</span><strong id="first-result-text" style="font-size: 15px"></strong></div>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid #f4d7d7; border-radius: 12px; padding: 22px">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px">
+          <div style="display: flex; align-items: center; gap: 9px; font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600"><span style="width: 12px; height: 12px; border-radius: 100px; background: #e0473f; flex-shrink: 0"></span>Druga licytacja</div>
+          <strong id="second-text" style="font-size: 17px; white-space: nowrap"></strong>
+        </div>
+        <div style="font-size: 14.5px; color: #7d8d87; margin: 8px 0 16px">Cena wywołania: 2/3 wartości</div>
+        <div style="display: flex; flex-direction: column; gap: 9px; font-size: 15px; border-top: 1px solid #eef3f0; padding-top: 14px">
+          <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Zadłużenie</span><strong id="debt-text-3"></strong></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Odsetki</span><strong id="interest-text-2"></strong></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Opłata egzekucyjna</span><strong id="fee-text-2"></strong></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Wycena i czynsz</span><strong id="extra-text-2"></strong></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #eef3f0; padding-top: 11px; margin-top: 3px"><span style="color: #4d5c56">Wynik</span><strong id="second-result-text" style="font-size: 15px"></strong></div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size: 13.5px; line-height: 1.6; color: #7d8d87; margin: 20px 0 0">Wyliczenia mają charakter orientacyjny i nie stanowią porady prawnej. Przyjęto opłatę egzekucyjną w wysokości 10% zadłużenia, cenę wywołania 75% (I licytacja) i 2/3 (II licytacja) wartości nieruchomości oraz koszty utrzymania lokalu do dnia podziału środków.</p>
+  </section>
+
+  <section id="jak-dzialamy" style="background: #f6f9f7; border-top: 1px solid #e6ece9; border-bottom: 1px solid #e6ece9; margin-top: 48px">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 56px 24px">
+      <h2 style="font-family: Poppins, sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -.02em; margin: 0 0 8px">Jak zatrzymać licytację w 4 krokach</h2>
+      <p style="font-size: 18px; color: #4d5c56; margin: 0 0 32px; max-width: 680px">Nieruchomość można sprzedać do dnia przybicia. Im wcześniej działasz, tym więcej zostaje po spłacie zadłużenia.</p>
+      <div class="steps-grid" style="display: grid; gap: 18px">
+        <div style="background: #fff; border: 1px solid #e0e8e4; border-radius: 12px; padding: 24px">
+          <div style="width: 42px; height: 42px; border-radius: 100px; background: #178e66; color: #fff; display: grid; place-items: center; font-family: Poppins, sans-serif; font-weight: 700; font-size: 19px">1</div>
+          <h3 style="font-family: Poppins, sans-serif; font-size: 18px; font-weight: 600; margin: 16px 0 8px">Pierwszy kontakt</h3>
+          <p style="margin: 0; color: #4d5c56; font-size: 15.5px; line-height: 1.6">Dzwonisz lub wysyłasz formularz. Ustalamy termin oględzin nieruchomości.</p>
+        </div>
+        <div style="background: #fff; border: 1px solid #e0e8e4; border-radius: 12px; padding: 24px">
+          <div style="width: 42px; height: 42px; border-radius: 100px; background: #178e66; color: #fff; display: grid; place-items: center; font-family: Poppins, sans-serif; font-weight: 700; font-size: 19px">2</div>
+          <h3 style="font-family: Poppins, sans-serif; font-size: 18px; font-weight: 600; margin: 16px 0 8px">Bezpłatna wycena</h3>
+          <p style="margin: 0; color: #4d5c56; font-size: 15.5px; line-height: 1.6">W ciągu 24 godzin od spotkania przedstawiamy konkretną ofertę i sprawdzamy stan prawny.</p>
+        </div>
+        <div style="background: #fff; border: 1px solid #e0e8e4; border-radius: 12px; padding: 24px">
+          <div style="width: 42px; height: 42px; border-radius: 100px; background: #178e66; color: #fff; display: grid; place-items: center; font-family: Poppins, sans-serif; font-weight: 700; font-size: 19px">3</div>
+          <h3 style="font-family: Poppins, sans-serif; font-size: 18px; font-weight: 600; margin: 16px 0 8px">Umowa u notariusza</h3>
+          <p style="margin: 0; color: #4d5c56; font-size: 15.5px; line-height: 1.6">Transakcja finalizowana notarialnie, z bezpośrednią spłatą wierzycieli i komornika.</p>
+        </div>
+        <div style="background: #fff; border: 1px solid #e0e8e4; border-radius: 12px; padding: 24px">
+          <div style="width: 42px; height: 42px; border-radius: 100px; background: #178e66; color: #fff; display: grid; place-items: center; font-family: Poppins, sans-serif; font-weight: 700; font-size: 19px">4</div>
+          <h3 style="font-family: Poppins, sans-serif; font-size: 18px; font-weight: 600; margin: 16px 0 8px">Płatność</h3>
+          <p style="margin: 0; color: #4d5c56; font-size: 15.5px; line-height: 1.6">Nadwyżkę otrzymujesz gotówką u notariusza lub przelewem w ciągu 24 godzin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pytania" style="max-width: 1200px; margin: 0 auto; padding: 56px 24px">
+    <h2 style="font-family: Poppins, sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -.02em; margin: 0 0 28px">Najczęstsze pytania o straty przy licytacji</h2>
+    <div class="faq-grid" style="display: grid; gap: 16px">
+      <details style="border: 1px solid #e0e8e4; border-radius: 10px; padding: 18px 20px; background: #fff">
+        <summary style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 17px">Dlaczego licytacja oznacza tak dużą stratę?</summary>
+        <p style="margin: 12px 0 0; color: #4d5c56; font-size: 15.5px; line-height: 1.65">Cena wywołania to tylko 75% wartości na pierwszej licytacji i 2/3 na drugiej. Do tego dochodzi opłata egzekucyjna, odsetki narastające do dnia podziału środków oraz koszty utrzymania lokalu.</p>
+      </details>
+      <details style="border: 1px solid #e0e8e4; border-radius: 10px; padding: 18px 20px; background: #fff">
+        <summary style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 17px">Czy mogę sprzedać nieruchomość zajętą przez komornika?</summary>
+        <p style="margin: 12px 0 0; color: #4d5c56; font-size: 15.5px; line-height: 1.65">Tak, aż do momentu prawomocnego przybicia. Wymaga to porozumienia z komornikiem i wierzycielami — formalności prowadzimy za Ciebie, a należności spłacamy bezpośrednio z ceny zakupu.</p>
+      </details>
+      <details style="border: 1px solid #e0e8e4; border-radius: 10px; padding: 18px 20px; background: #fff">
+        <summary style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 17px">Co, jeśli po licytacji zostanie dług?</summary>
+        <p style="margin: 12px 0 0; color: #4d5c56; font-size: 15.5px; line-height: 1.65">To częsty scenariusz: tracisz nieruchomość, a egzekucja trwa dalej z wynagrodzenia lub konta. Sprzedaż przed licytacją pozwala negocjować redukcję zadłużenia i domknąć sprawę.</p>
+      </details>
+      <details style="border: 1px solid #e0e8e4; border-radius: 10px; padding: 18px 20px; background: #fff">
+        <summary style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 17px">Ile trwa cała transakcja?</summary>
+        <p style="margin: 12px 0 0; color: #4d5c56; font-size: 15.5px; line-height: 1.65">Wycena w 24 godziny, finalizacja zwykle do 7 dni. Przy skomplikowanym stanie prawnym termin ustalamy indywidualnie po analizie księgi wieczystej.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="kontakt" style="background: #10261f; color: #fff">
+    <div class="contact-grid" style="max-width: 1200px; margin: 0 auto; display: grid; gap: 44px; align-items: start">
+      <div>
+        <h2 style="font-family: Poppins, sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -.02em; margin: 0 0 14px">Wycenimy Twoją nieruchomość w 24h</h2>
+        <p style="font-size: 18px; line-height: 1.6; color: #cfe0d9; margin: 0 0 26px; max-width: 520px; text-wrap: pretty">Zostaw kontakt lub zadzwoń — bezpłatnie sprawdzimy stan prawny nieruchomości i policzymy, ile możesz odzyskać przed licytacją.</p>
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 17px">
+          <div style="display: flex; gap: 10px; align-items: center"><span style="width: 8px; height: 8px; border-radius: 100px; background: #4fbf94"></span>gotówka do 7 dni, bez prowizji</div>
+          <div style="display: flex; gap: 10px; align-items: center"><span style="width: 8px; height: 8px; border-radius: 100px; background: #4fbf94"></span>bezpłatna obsługa prawna i notarialna</div>
+          <div style="display: flex; gap: 10px; align-items: center"><span style="width: 8px; height: 8px; border-radius: 100px; background: #4fbf94"></span>nieruchomości z komornikiem, długiem, lokatorem</div>
+        </div>
+        <a href="tel:+48579779543" class="footer-phone">+48 579 779 543</a>
+      </div>
+
+      <div style="background: #fff; border-radius: 12px; padding: 26px; color: #16241f">
+        <div id="contact-sent" style="display: none; padding: 30px 6px; text-align: center">
+          <div style="width: 52px; height: 52px; border-radius: 100px; background: #e4f2ec; color: #178e66; display: grid; place-items: center; margin: 0 auto 14px; font-size: 26px; font-weight: 700">✓</div>
+          <h3 style="font-family: Poppins, sans-serif; font-size: 20px; margin: 0 0 8px">Wiadomość wysłana</h3>
+          <p style="margin: 0; color: #4d5c56; font-size: 16px; line-height: 1.6">Dziękujemy za kontakt. Oddzwonimy w ciągu kilku godzin w dni robocze.</p>
+        </div>
+        <form id="contact-form" style="display: flex; flex-direction: column; gap: 14px">
+          <div class="form-row-2" style="display: grid; gap: 12px">
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700">Rodzaj nieruchomości
+              <select style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 12px; font-size: 15px; background: #fff; font-weight: 400; width: 100%; min-width: 0">
+                <option>Mieszkanie</option>
+                <option>Dom</option>
+                <option>Działka</option>
+                <option>Lokal</option>
+                <option>Garaż / miejsce postojowe</option>
+                <option>Inne</option>
+              </select>
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700">Stan nieruchomości
+              <select style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 12px; font-size: 15px; background: #fff; font-weight: 400; width: 100%; min-width: 0">
+                <option>Bardzo dobry</option>
+                <option>Do odświeżenia</option>
+                <option>Do remontu</option>
+                <option>Zniszczona</option>
+              </select>
+            </label>
+          </div>
+          <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700">Imię i nazwisko
+            <input type="text" name="name" placeholder="Jan Kowalski" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 12px; font-size: 15px; font-weight: 400" />
+          </label>
+          <div class="form-row-2" style="display: grid; gap: 12px">
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700">Telefon
+              <input type="tel" name="phone" placeholder="600 000 000" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 12px; font-size: 15px; font-weight: 400" />
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700">E-mail
+              <input type="email" name="email" placeholder="jan@example.pl" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 12px; font-size: 15px; font-weight: 400" />
+            </label>
+          </div>
+          <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700">Opisz sytuację
+            <textarea name="message" rows="3" placeholder="Np. termin licytacji, kwota zadłużenia, miejscowość" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 12px; font-size: 15px; font-weight: 400; resize: vertical"></textarea>
+          </label>
+          <p style="margin: 0; font-size: 12.5px; line-height: 1.55; color: #7d8d87">Dane podane w formularzu będą przetwarzane w celu realizacji zgłoszenia, zgodnie z <a href="https://atrium-nieruchomosci.pl/polityka-prywatnosci/">Polityką Prywatności</a>.</p>
+          <button type="submit" class="send-btn">wyślij</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="inner">
+        <div class="copyright">
+          © Copyright 2026 Atrium Skup nieruchomości <a href="https://atrium-nieruchomosci.pl/opinie/">Opinie klientów</a> | <a href="https://atrium-nieruchomosci.pl/dokumenty-do-pobrania/">Dokumenty do pobrania</a> | <a href="https://atrium-nieruchomosci.pl/polityka-prywatnosci/">Polityka Prywatności</a> | <a href="https://atrium-nieruchomosci.pl/wspolpraca/">Współpraca</a> | <a href="https://atrium-nieruchomosci.pl/mapa-strony/">Mapa strony</a> | <button type="button" onclick="openSettingsCookie();">Zmiana cookies</button>
+        </div>
+        <div class="author">
+          projektowanie stron <a href="https://www.generalinformatics.pl/">General Informatics</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
