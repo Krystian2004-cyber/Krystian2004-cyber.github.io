@@ -1,5 +1,13 @@
 html, body { margin: 0; background: #ffffff; color: #16241f; font-family: "Source Sans 3", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
 * { box-sizing: border-box; }
+
+/* Odsunięcie celu kotwicy od sticky headera, żeby nagłówek go nie zasłaniał */
+#kalkulator, #jak-dzialamy, #pytania, #kontakt { scroll-margin-top: 88px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
 a { color: #178e66; text-decoration: none; }
 a:hover { color: #0f6b4d; text-decoration: underline; }
 input, select, textarea, button { font-family: inherit; }
