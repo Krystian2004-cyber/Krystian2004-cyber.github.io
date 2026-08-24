@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Centralny Skup Nieruchomości — grupa kapitałowa na rynku nieruchomości</title>
+<meta name="description" content="Nabywamy nieruchomości z problemami prawnymi i zadłużeniem. Trzy modele współpracy z inwestorami: stała stopa roczna, udział w zysku z projektu, przekazanie tematu do samodzielnej realizacji. Cztery marki, 640 transakcji, cała Polska.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="Centralny Skup Nieruchomości sp. z o.o.">
+<meta property="og:title" content="Centralny Skup Nieruchomości — grupa kapitałowa na rynku nieruchomości">
+<meta property="og:description" content="Trzy modele współpracy inwestycyjnej. Cztery marki operacyjne. Nieruchomości z problemami prawnymi i zadłużeniem.">
+<meta property="og:url" content="https://centralnyskup.pl/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org", "@type": "Organization",
+    "name": "Centralny Skup Nieruchomości", "legalName": "Centralny Skup Nieruchomości sp. z o.o.",
+    "url": "https://centralnyskup.pl/", "foundingDate": "2016",
+    "taxID": "123-456-32-18", "identifier": "KRS 0000987654",
+    "address": { "@type": "PostalAddress", "streetAddress": "ul. Testowa 12, 70-001 Szczecin", "addressLocality": "Szczecin", "addressCountry": "PL" },
+    "contactPoint": { "@type": "ContactPoint", "contactType": "investor relations", "telephone": "+48 123 456 789", "email": "kontakt@example.com", "availableLanguage": "pl" },
+    "subOrganization": [
+      { "@type": "Organization", "name": "Atrium Nieruchomości", "url": "https://atrium-nieruchomosci.pl" },
+      { "@type": "Organization", "name": "Walor Nieruchomości", "url": "https://walor-nieruchomosci.pl" },
+      { "@type": "Organization", "name": "SprzedamMieszkanie.com", "url": "https://sprzedammieszkanie.com" },
+      { "@type": "Organization", "name": "Robtom", "url": "https://robtomspzoo.com" }
+    ]
+  },
+  {
+    "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Na czym dokładnie zarabia skup nieruchomości?", "acceptedAnswer": { "@type": "Answer", "text": "Na różnicy między ceną nabycia obiektu obciążonego problemem prawnym lub technicznym a jego wartością po usunięciu tego problemu. Właściciel nieruchomości z zajęciem komorniczym albo sporem między współwłaścicielami nie ma realnej możliwości sprzedaży na wolnym rynku — my przejmujemy to ryzyko i koszt jego usunięcia. Dyskonto jest ceną za czas, pewność transakcji i przejęcie problemu." } },
+      { "@type": "Question", "name": "Czym różnią się trzy modele współpracy?", "acceptedAnswer": { "@type": "Answer", "text": "Poziomem zaangażowania i tym, kto ponosi ryzyko projektu. W modelu A powierzasz kapitał na ustaloną stopę i nie uczestniczysz w wyniku pojedynczej nieruchomości. W modelu B Twoje środki są przypisane do konkretnego obiektu, a rozliczenie zależy od zysku wypracowanego na tym projekcie. W modelu C sam prowadzisz transakcję i jesteś nabywcą — my dostarczamy zweryfikowany temat i pobieramy procent wartości nieruchomości." } },
+      { "@type": "Question", "name": "Dlaczego nie podajecie stawek na stronie?", "acceptedAnswer": { "@type": "Answer", "text": "Bo nie da się ich podać uczciwie w oderwaniu od konkretnego przypadku. Warunki zależą od skali zaangażowania, horyzontu, formy zabezpieczenia i — w modelach B i C — od charakterystyki konkretnej nieruchomości. Prezentowanie jednej liczby dla wszystkich sytuacji byłoby albo nieprawdziwe, albo tak zastrzeżone, że bezużyteczne. Warunki przedstawiamy indywidualnie, po rozmowie." } },
+      { "@type": "Question", "name": "Czy gwarantujecie zwrot z inwestycji?", "acceptedAnswer": { "@type": "Answer", "text": "Nie. W modelu A stopa jest określona umownie, ale żadna umowa nie eliminuje ryzyka gospodarczego po stronie spółki. W modelach B i C wynik zależy od rezultatu konkretnego projektu i może być niższy od zakładanego albo zerowy. Prezentujemy wyniki zrealizowanych projektów, ale nie stanowią one obietnicy przyszłych rezultatów. Każdy przypadek omawiamy z ujawnieniem zidentyfikowanych ryzyk." } },
+      { "@type": "Question", "name": "Jak zabezpieczone są przekazane środki?", "acceptedAnswer": { "@type": "Answer", "text": "Forma zabezpieczenia ustalana jest indywidualnie i zapisywana w umowie: weksel in blanco lub zastaw rejestrowy na nieruchomości. Omawiamy ją przed przekazaniem jakichkolwiek środków, a nie po." } },
+      { "@type": "Question", "name": "Jaki jest minimalny próg wejścia?", "acceptedAnswer": { "@type": "Answer", "text": "Minimalny próg wejścia to 20 000 zł. Różni się między modelami — model C nie wymaga przekazania nam kapitału, ponieważ transakcję finansujesz samodzielnie." } },
+      { "@type": "Question", "name": "Skąd bierzecie nieruchomości?", "acceptedAnswer": { "@type": "Answer", "text": "Wyłącznie z własnych kanałów. Cztery serwisy grupy generują 180 zgłoszeń miesięcznie od właścicieli nieruchomości z całej Polski. Nie kupujemy obiektów z portali ogłoszeniowych ani od pośredników. To źródło przepływu tematów, na którym opierają się wszystkie trzy modele." } },
+      { "@type": "Question", "name": "Ile trwa pojedynczy projekt?", "acceptedAnswer": { "@type": "Answer", "text": "Od nabycia do wyjścia z inwestycji zwykle 6–12 miesięcy. W przypadkach wymagających postępowania sądowego — zniesienia współwłasności, uregulowania spadku, zgody sądu przy nieruchomości małoletniego — proces wydłuża się o kilka miesięcy. Ten czynnik ujawniamy przed decyzją, ponieważ bezpośrednio wpływa na wynik." } },
+      { "@type": "Question", "name": "Co się dzieje, jeśli projekt nie przyniesie zysku?", "acceptedAnswer": { "@type": "Answer", "text": "W modelu B ponosisz konsekwencje razem z nami — to istota udziału w zysku. Ograniczamy to ryzyko doborem projektów: odrzucamy tematy, w których nie potrafimy wycenić ryzyka prawnego. W modelu C ryzyko jest w całości po Twojej stronie, ponieważ to Ty jesteś nabywcą; nasze wynagrodzenie jest jednak powiązane z realizacją transakcji, a nie z jej późniejszym rezultatem." } },
+      { "@type": "Question", "name": "Czy mogę zobaczyć nieruchomość przed decyzją?", "acceptedAnswer": { "@type": "Answer", "text": "W modelach B i C tak — to standard. Otrzymujesz adres, dokumentację, odpis księgi wieczystej i możliwość oględzin. W modelu A kapitał nie jest przypisany do pojedynczego obiektu, więc taka weryfikacja nie ma zastosowania." } }
+    ]
+  }
+]
+</script>
+</head>
+<body>
+<div class="page">
+
+  <header class="site-header">
+    <div class="container site-header__inner section">
+      <a class="site-header__logo-link" href="#start" aria-label="Centralny Skup Nieruchomości — strona główna">
+        <img class="site-header__logo-img" src="logo-csn-transparent.png" alt="Logotyp Centralny Skup Nieruchomości">
+      </a>
+      <nav class="nav-desktop" aria-label="Nawigacja główna">
+        <a class="nav-link" data-nav-link href="#wspolpraca">Współpraca</a>
+        <a class="nav-link" data-nav-link href="#grupa">Grupa</a>
+        <a class="nav-link" data-nav-link href="#model">Model</a>
+        <a class="nav-link" data-nav-link href="#zarzad">Zarząd</a>
+        <a class="nav-link" data-nav-link href="#faq">FAQ</a>
+        <a class="nav-link" data-nav-link href="#kontakt">Kontakt</a>
+      </nav>
+      <div class="site-header__actions">
+        <a class="btn btn-primary cta-header" href="#kontakt">Umów rozmowę</a>
+        <button type="button" class="burger-btn" data-menu-open aria-label="Otwórz menu" aria-expanded="false" aria-controls="mobile-menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu__close-row">
+      <button type="button" class="mobile-menu__close-btn" data-menu-close aria-label="Zamknij menu">✕</button>
+    </div>
+    <nav class="nav-mobile" aria-label="Nawigacja mobilna">
+      <a class="nav-mobile__link" data-menu-close href="#wspolpraca">Współpraca</a>
+      <a class="nav-mobile__link" data-menu-close href="#grupa">Grupa</a>
+      <a class="nav-mobile__link" data-menu-close href="#model">Model</a>
+      <a class="nav-mobile__link" data-menu-close href="#zarzad">Zarząd</a>
+      <a class="nav-mobile__link" data-menu-close href="#faq">FAQ</a>
+      <a class="nav-mobile__link" data-menu-close href="#kontakt">Kontakt</a>
+      <a class="cta-mobile" data-menu-close href="#kontakt">Umów rozmowę</a>
+    </nav>
+  </div>
+
+  <main>
+    <section id="start" class="section">
+      <div class="container">
+        <p class="eyebrow hero__kicker" data-reveal="out">Centralny Skup Nieruchomości sp. z o.o.</p>
+        <h1 class="hero__title" data-reveal="out">Grupa kapitałowa na rynku nieruchomości z problemami prawnymi i zadłużeniem</h1>
+        <p class="hero__lede" data-reveal="out">Od 8 lat nabywamy nieruchomości, których nie da się sprzedać w standardowym obrocie — obciążone hipoteką, zajęte przez komornika, z nieuregulowanym stanem prawnym, z lokatorem, po pożarze. Prowadzimy pełen cykl: pozyskanie, weryfikację prawną, nabycie, uregulowanie i wyjście z inwestycji. Cztery marki operacyjne, jeden zespół, 640 zrealizowanych transakcji.</p>
+        <div class="hero__actions" data-reveal="out">
+          <a class="btn btn-primary" href="#wspolpraca">Współpraca inwestycyjna</a>
+          <a class="btn btn-secondary" href="#grupa">Poznaj grupę</a>
+        </div>
+      </div>
+    </section>
+
+    <aside class="notice" aria-label="Informacja dla osób sprzedających nieruchomość">
+      <div class="container notice__inner">
+        <p class="notice__text">Chcesz sprzedać swoją nieruchomość? Trafiłeś na stronę korporacyjną grupy. Sprzedażą zajmują się nasze marki — przejdź do <a href="https://atrium-nieruchomosci.pl" target="_blank" rel="noopener">Atrium Nieruchomości</a> albo zadzwoń: <a href="tel:+48579779543">579 779 543</a>.</p>
+      </div>
+    </aside>
+
+    <section id="wspolpraca" class="section section--lg">
+      <div class="container">
+        <h2 class="h2 h2--narrow" data-reveal="out">Trzy modele współpracy inwestycyjnej</h2>
+        <p class="section-lede" data-reveal="out">Nie skupujemy nieruchomości od odwiedzających tę stronę i nie prowadzimy sprzedaży detalicznej. Współpracujemy z inwestorami w trzech modelach, różniących się poziomem zaangażowania i sposobem rozliczenia. Konkretne warunki — stopy, proporcje podziału zysku i formę zabezpieczenia — ustalamy indywidualnie, po rozmowie i weryfikacji obu stron.</p>
+
+        <div class="model-cards" data-reveal="out">
+          <article class="model-card">
+            <p class="eyebrow eyebrow--accent model-card__kicker">Model A — Stała stopa w skali roku</p>
+            <h3 class="model-card__title">Powierzasz kapitał na ustalony procent</h3>
+            <p class="model-card__body">Najprostszy model. Angażujesz środki na określony czas i otrzymujesz ustaloną w umowie stopę w skali roku. Nie wybierasz obiektów, nie uczestniczysz w decyzjach operacyjnych i nie ponosisz skutków wyniku pojedynczego projektu.</p>
+            <ul class="model-card__list">
+              <li>Stopa i okres zaangażowania określone w umowie przed przekazaniem środków</li>
+              <li>Rozliczenie niezależne od rezultatu konkretnej nieruchomości</li>
+              <li>Ustalony harmonogram wypłat</li>
+              <li>Forma zabezpieczenia ustalana indywidualnie</li>
+            </ul>
+            <a class="model-card__link" href="#kontakt">Zapytaj o warunki →</a>
+          </article>
+
+          <article class="model-card">
+            <p class="eyebrow eyebrow--accent model-card__kicker">Model B — Udział w zysku z projektu</p>
+            <h3 class="model-card__title">Wchodzisz w konkretną nieruchomość</h3>
+            <p class="model-card__body">Twój kapitał jest przypisany do wskazanego obiektu, który poznajesz przed podjęciem decyzji — razem z dokumentacją stanu prawnego, kalkulacją nakładów i scenariuszem wyjścia. Rozliczasz się udziałem w zysku wypracowanym na tym projekcie.</p>
+            <ul class="model-card__list">
+              <li>Konkretny obiekt i pełna dokumentacja przed zaangażowaniem środków</li>
+              <li>Proporcja podziału zysku ustalona przed rozpoczęciem projektu</li>
+              <li>Raportowanie na każdym etapie: nabycie, uregulowanie, wyjście</li>
+              <li>Wynik zależy od rezultatu projektu, więc możliwy jest również brak zysku</li>
+            </ul>
+            <a class="model-card__link" href="#kontakt">Zobacz, jak wygląda projekt →</a>
+          </article>
+
+          <article class="model-card">
+            <p class="eyebrow eyebrow--accent model-card__kicker">Model C — Przekazanie tematu</p>
+            <h3 class="model-card__title">Realizujesz transakcję samodzielnie</h3>
+            <p class="model-card__body">Dla inwestorów, którzy mają kapitał i kompetencje, ale brakuje im przepływu tematów. Znajdujemy nieruchomość, weryfikujemy stan prawny i doprowadzamy ustalenia z właścicielem do punktu, w którym możesz wejść w transakcję. Ty jesteś jej stroną i nabywcą. Nasze wynagrodzenie to procent wartości nieruchomości.</p>
+            <ul class="model-card__list">
+              <li>Zweryfikowany temat: obiekt, stan prawny, ustalenia z właścicielem</li>
+              <li>Jesteś stroną umowy i właścicielem nieruchomości — pełna kontrola</li>
+              <li>Wynagrodzenie liczone jako procent wartości nieruchomości, płatne przy transakcji</li>
+              <li>Wsparcie prawne przy finalizacji, jeśli go potrzebujesz</li>
+            </ul>
+            <a class="model-card__link" href="#kontakt">Odbieraj tematy →</a>
+          </article>
+        </div>
+
+        <div class="comparison" data-reveal="out">
+          <h3 class="comparison__title">Porównanie modeli</h3>
+          <div class="comparison__scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Kryterium</th>
+                  <th scope="col">A — Stała stopa</th>
+                  <th scope="col">B — Udział w zysku</th>
+                  <th scope="col">C — Przekazanie tematu</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Twoje zaangażowanie</th>
+                  <td>wyłącznie kapitał</td>
+                  <td>kapitał + decyzja o projekcie</td>
+                  <td>pełne prowadzenie transakcji</td>
+                </tr>
+                <tr>
+                  <th scope="row">Stroną transakcji jest</th>
+                  <td>nasza spółka</td>
+                  <td>nasza spółka</td>
+                  <td>Ty</td>
+                </tr>
+                <tr>
+                  <th scope="row">Podstawa rozliczenia</th>
+                  <td>ustalona stopa roczna</td>
+                  <td>udział w zysku z obiektu</td>
+                  <td>procent wartości nieruchomości</td>
+                </tr>
+                <tr>
+                  <th scope="row">Wynik zależny od projektu</th>
+                  <td>nie</td>
+                  <td>tak</td>
+                  <td>tak — po Twojej stronie</td>
+                </tr>
+                <tr>
+                  <th scope="row">Wybierasz nieruchomość</th>
+                  <td>nie</td>
+                  <td>tak</td>
+                  <td>tak</td>
+                </tr>
+                <tr>
+                  <th scope="row">Horyzont</th>
+                  <td>okres z umowy</td>
+                  <td>do wyjścia z inwestycji</td>
+                  <td>pojedyncza transakcja</td>
+                </tr>
+                <tr>
+                  <th scope="row">Wymagane kompetencje</th>
+                  <td>brak</td>
+                  <td>podstawowa znajomość rynku</td>
+                  <td>doświadczenie transakcyjne</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="comparison__hint">Przewiń tabelę w poziomie, aby zobaczyć wszystkie modele.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skala" class="section">
+      <div class="container">
+        <h2 class="h2 h2--on-dark" data-reveal="out">Skala działalności</h2>
+        <div class="stats" data-reveal="out">
+          <div>
+            <p class="stat__value">8</p>
+            <p class="stat__label">Lat na rynku</p>
+          </div>
+          <div>
+            <p class="stat__value">640</p>
+            <p class="stat__label">Zrealizowanych transakcji</p>
+          </div>
+          <div>
+            <p class="stat__value">4</p>
+            <p class="stat__label">Marek operacyjnych</p>
+          </div>
+          <div>
+            <p class="stat__value stat__value">16&nbsp;miast</p>
+            <p class="stat__label">Zasięg</p>
+          </div>
+          <div>
+            <p class="stat__value">180</p>
+            <p class="stat__label">Zgłoszeń miesięcznie</p>
+          </div>
+        </div>
+        <p class="skala__footnote">Działamy w całej Polsce. Siedziba spółki znajduje się w Szczecinie.</p>
+      </div>
+    </section>
+
+    <section id="grupa" class="section section--lg">
+      <div class="container">
+        <h2 class="h2" data-reveal="out">Cztery marki, jedna spółka</h2>
+        <p class="section-lede" data-reveal="out">Każda z naszych marek obsługuje inny segment rynku i inny profil zgłoszeń. Dzięki temu docieramy do właścicieli nieruchomości w sytuacjach, w których pojedynczy podmiot nie miałby szans na kontakt. Wszystkie prowadzi Centralny Skup Nieruchomości sp. z o.o.</p>
+        <div class="brand-cards" data-reveal="out">
+          <article class="brand-card">
+            <div role="img" aria-label="Miejsce na logotyp marki Atrium Nieruchomości" class="brand-card__logo-placeholder">logotyp marki</div>
+            <h3 class="brand-card__title">Atrium Nieruchomości</h3>
+            <p class="brand-card__body">Największy serwis grupy i główny kanał akwizycji. Obsługuje pełne spektrum sytuacji prawnych: kredyt, komornik, dług, lokator, udziały, nieruchomości komercyjne. Rozbudowany poradnik i zasięg obejmujący wszystkie województwa.</p>
+            <a class="brand-card__link" href="https://atrium-nieruchomosci.pl" target="_blank" rel="noopener">atrium-nieruchomosci.pl →</a>
+          </article>
+          <article class="brand-card">
+            <div role="img" aria-label="Miejsce na logotyp marki Walor Nieruchomości" class="brand-card__logo-placeholder">logotyp marki</div>
+            <h3 class="brand-card__title">Walor Nieruchomości</h3>
+            <p class="brand-card__body">Marka nastawiona na przejrzystość procesu — pięcioetapowa ścieżka transakcji z zadatkiem wypłacanym tego samego dnia i wsparciem prawnym na każdym etapie.</p>
+            <a class="brand-card__link" href="https://walor-nieruchomosci.pl" target="_blank" rel="noopener">walor-nieruchomosci.pl →</a>
+          </article>
+          <article class="brand-card">
+            <div role="img" aria-label="Miejsce na logotyp marki SprzedamMieszkanie.com" class="brand-card__logo-placeholder">logotyp marki</div>
+            <h3 class="brand-card__title">SprzedamMieszkanie.com</h3>
+            <p class="brand-card__body">Serwis o najsilniejszym pokryciu lokalnym — dedykowane strony dla kilkudziesięciu największych miast w Polsce. Wyróżnienie Orły Nieruchomości 2020 i 2021.</p>
+            <a class="brand-card__link" href="https://sprzedammieszkanie.com" target="_blank" rel="noopener">sprzedammieszkanie.com →</a>
+          </article>
+          <article class="brand-card">
+            <div role="img" aria-label="Miejsce na logotyp marki Robtom" class="brand-card__logo-placeholder">logotyp marki</div>
+            <h3 class="brand-card__title">Robtom</h3>
+            <p class="brand-card__body">Marka wyspecjalizowana w najtrudniejszych przypadkach: nieruchomości ze spadku, obiekty spalone i zalane, oddłużanie nieruchomości, skup udziałów przy sporze między współwłaścicielami.</p>
+            <a class="brand-card__link" href="https://robtomspzoo.com" target="_blank" rel="noopener">robtomspzoo.com →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="model" class="section section--lg">
+      <div class="container">
+        <h2 class="h2" data-reveal="out">Jak zarabiamy</h2>
+        <p class="section-lede" data-reveal="out">Nie jesteśmy pośrednikiem i nie pobieramy prowizji od sprzedających. Kupujemy na własny rachunek, z dyskontem wynikającym z problemu, który przejmujemy razem z nieruchomością. Marża powstaje w momencie usunięcia tego problemu.</p>
+        <ol class="timeline" data-reveal="out">
+          <li class="timeline__item">
+            <div class="timeline__num"><span>1</span></div>
+            <div>
+              <h3 class="timeline__title">Pozyskanie</h3>
+              <p class="timeline__body">Cztery serwisy generują stały strumień zgłoszeń od właścicieli, którzy nie mogą sprzedać nieruchomości w standardowym obrocie. To nasza przewaga — nie kupujemy obiektów z rynku, tylko docieramy do nich, zanim na niego trafią.</p>
+            </div>
+          </li>
+          <li class="timeline__item">
+            <div class="timeline__num"><span>2</span></div>
+            <div>
+              <h3 class="timeline__title">Weryfikacja prawna</h3>
+              <p class="timeline__body">Analiza księgi wieczystej, obciążeń hipotecznych, zajęć komorniczych, roszczeń współwłaścicieli i stanu meldunkowego. Odrzucamy projekty, w których ryzyka nie da się wycenić.</p>
+            </div>
+          </li>
+          <li class="timeline__item">
+            <div class="timeline__num"><span>3</span></div>
+            <div>
+              <h3 class="timeline__title">Wycena i nabycie</h3>
+              <p class="timeline__body">Cena uwzględnia zarówno wartość rynkową, jak i koszt oraz czas usunięcia obciążeń. Transakcja przebiega u notariusza, płatność do 24 godzin od podpisania aktu.</p>
+            </div>
+          </li>
+          <li class="timeline__item">
+            <div class="timeline__num"><span>4</span></div>
+            <div>
+              <h3 class="timeline__title">Uregulowanie</h3>
+              <p class="timeline__body">Spłata wierzycieli, wykreślenie wpisów, uporządkowanie stanu prawnego i faktycznego, w razie potrzeby remont. To etap, na którym powstaje wartość.</p>
+            </div>
+          </li>
+          <li class="timeline__item">
+            <div class="timeline__num"><span>5</span></div>
+            <div>
+              <h3 class="timeline__title">Wyjście z inwestycji</h3>
+              <p class="timeline__body">Odsprzedaż na wolnym rynku, do inwestora z naszej sieci albo pozostawienie obiektu w portfelu pod najem.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="zarzad" class="section section--lg">
+      <div class="container">
+        <h2 class="h2" data-reveal="out">Zarząd</h2>
+        <p class="section-lede" data-reveal="out">Za każdą transakcją stoją konkretne osoby. Poniżej skład zarządu spółki wraz z obszarami odpowiedzialności.</p>
+        <div class="board" data-reveal="out">
+          <article class="board-member">
+            <div role="img" aria-label="Miejsce na zdjęcie portretowe: Roger Kasperkowiak" class="board-member__photo"><span>RK</span></div>
+            <h3 class="board-member__name">Roger Kasperkowiak</h3>
+            <p class="board-member__role">Prezes Zarządu</p>
+            <p class="board-member__area">Strategia grupy i relacje inwestorskie</p>
+            <p class="board-member__bio-note">Od piętnastu lat działa na rynku nieruchomości i obrotu wierzytelnościami. Odpowiada za strategię grupy oraz relacje z inwestorami finansującymi kolejne projekty. Wcześniej zarządzał portfelem nieruchomości komercyjnych o wartości ponad 50 mln zł.</p>
+            <a class="board-member__linkedin" href="https://linkedin.com/in/roger-kasperkowiak" target="_blank" rel="noopener" aria-label="Profil LinkedIn — Roger Kasperkowiak">
+              LinkedIn: <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452z"/></svg>
+            </a>
+          </article>
+          <article class="board-member">
+            <div role="img" aria-label="Miejsce na zdjęcie portretowe: Radosław Zacha" class="board-member__photo"><span>RZ</span></div>
+            <h3 class="board-member__name">Radosław Zacha</h3>
+            <p class="board-member__role">Członek Zarządu</p>
+            <p class="board-member__area">Technologia, marketing i pozyskiwanie zgłoszeń</p>
+            <p class="board-member__bio-note">Buduje i rozwija serwisy internetowe grupy od podstaw, odpowiadając za pozyskiwanie zgłoszeń i automatyzację procesów sprzedażowych. Wcześniej pracował jako growth marketer w spółkach z branży proptech. Śledzi każdy etap ścieżki zgłoszenia — od pierwszego kontaktu po przekazanie tematu do zespołu transakcyjnego.</p>
+            <a class="board-member__linkedin" href="https://www.linkedin.com/in/rados%C5%82aw-zacha-3a3632121/" target="_blank" rel="noopener" aria-label="Profil LinkedIn — Radosław Zacha">
+              LinkedIn: <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452z"/></svg>
+            </a>
+          </article>
+          <article class="board-member">
+            <div role="img" aria-label="Miejsce na zdjęcie portretowe: Kamila Kasperkowiak" class="board-member__photo"><span>KK</span></div>
+            <h3 class="board-member__name">Kamila Kasperkowiak</h3>
+            <p class="board-member__role">Członek Zarządu</p>
+            <p class="board-member__area">Finanse i zgodność transakcji</p>
+            <p class="board-member__bio-note">Nadzoruje finanse i procesy operacyjne spółki, dbając o zgodność każdej transakcji z przepisami prawa cywilnego i podatkowego. Ma doświadczenie w audycie i restrukturyzacji małych i średnich przedsiębiorstw. Odpowiada za rozliczenia z inwestorami w modelach B i C.</p>
+            <a class="board-member__linkedin" href="https://linkedin.com/in/kamila-kasperkowiak" target="_blank" rel="noopener" aria-label="Profil LinkedIn — Kamila Kasperkowiak">
+              LinkedIn: <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452z"/></svg>
+            </a>
+          </article>
+          <article class="board-member">
+            <div role="img" aria-label="Miejsce na zdjęcie portretowe: Michał Olejarski" class="board-member__photo"><span>MO</span></div>
+            <h3 class="board-member__name">Michał Olejarski</h3>
+            <p class="board-member__role">Członek Zarządu</p>
+            <p class="board-member__area">Nieruchomości i obsługa transakcji</p>
+            <p class="board-member__bio-note">Prowadzi transakcje od momentu pozyskania po finalizację u notariusza. Specjalizuje się w nieruchomościach obciążonych oraz sprawach spadkowych, współpracując z kancelariami prawnymi przy najbardziej złożonych sprawach. Odpowiada za weryfikację stanu prawnego każdego obiektu przed nabyciem.</p>
+            <a class="board-member__linkedin" href="https://www.linkedin.com/in/michal-olejarski-gi/" target="_blank" rel="noopener" aria-label="Profil LinkedIn — Michał Olejarski">
+              LinkedIn: <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452z"/></svg>
+            </a>
+          </article>
+        </div>
+        <div class="registry-card" data-reveal="out">
+          <p class="registry-card__label">Dane rejestrowe</p>
+          <p class="registry-card__text">Centralny Skup Nieruchomości sp. z o.o.<br>ul. Testowa 12, 70-001 Szczecin<br>KRS 0000987654 · NIP 123-456-32-18 · REGON 123456785 · Kapitał zakładowy 5 000 zł</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section section--lg">
+      <div class="container container--narrow">
+        <h2 class="h2 faq__title" data-reveal="out">Pytania inwestorów</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary><span>Na czym dokładnie zarabia skup nieruchomości?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <p class="faq-item__answer">Na różnicy między ceną nabycia obiektu obciążonego problemem prawnym lub technicznym a jego wartością po usunięciu tego problemu. Właściciel nieruchomości z zajęciem komorniczym albo sporem między współwłaścicielami nie ma realnej możliwości sprzedaży na wolnym rynku — my przejmujemy to ryzyko i koszt jego usunięcia. Dyskonto jest ceną za czas, pewność transakcji i przejęcie problemu.</p>
+          </details>
+          <details class="faq-item">
+            <summary><span>Czym różnią się trzy modele współpracy?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <p class="faq-item__answer">Poziomem zaangażowania i tym, kto ponosi ryzyko projektu. W modelu A powierzasz kapitał na ustaloną stopę i nie uczestniczysz w wyniku pojedynczej nieruchomości. W modelu B Twoje środki są przypisane do konkretnego obiektu, a rozliczenie zależy od zysku wypracowanego na tym projekcie. W modelu C sam prowadzisz transakcję i jesteś nabywcą — my dostarczamy zweryfikowany temat i pobieramy procent wartości nieruchomości.</p>
+          </details>
+          <details class="faq-item">
+            <summary><span>Dlaczego nie podajecie stawek na stronie?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <p class="faq-item__answer">Bo nie da się ich podać uczciwie w oderwaniu od konkretnego przypadku. Warunki zależą od skali zaangażowania, horyzontu, formy zabezpieczenia i — w modelach B i C — od charakterystyki konkretnej nieruchomości. Prezentowanie jednej liczby dla wszystkich sytuacji byłoby albo nieprawdziwe, albo tak zastrzeżone, że bezużyteczne. Warunki przedstawiamy indywidualnie, po rozmowie.</p>
+          </details>
+          <details class="faq-item">
+            <summary><span>Czy gwarantujecie zwrot z inwestycji?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <p class="faq-item__answer">Nie. W modelu A stopa jest określona umownie, ale żadna umowa nie eliminuje ryzyka gospodarczego po stronie spółki. W modelach B i C wynik zależy od rezultatu konkretnego projektu i może być niższy od zakładanego albo zerowy. Prezentujemy wyniki zrealizowanych projektów, ale nie stanowią one obietnicy przyszłych rezultatów. Każdy przypadek omawiamy z ujawnieniem zidentyfikowanych ryzyk.</p>
+          </details>
+          <details class="faq-item">
+            <summary><span>Jak zabezpieczone są przekazane środki?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <p class="faq-item__answer">Forma zabezpieczenia ustalana jest indywidualnie i zapisywana w umowie. Omawiamy ją przed przekazaniem jakichkolwiek środków, a nie po.</p>
+          </details>
+          <details class="faq-item">
+            <summary><span>Jaki jest minimalny próg wejścia?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <p class="faq-item__answer">Próg wejścia różni się między modelami — model C nie wymaga przekazania nam kapitału, ponieważ transakcję finansujesz samodzielnie.</p>
+          </details>
+          <details class="faq-item">
+            <summary><span>Skąd bierzecie nieruchomości?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <p class="faq-item__answer">Wyłącznie z własnych kanałów. Cztery serwisy grupy generują 180 zgłoszeń miesięcznie od właścicieli nieruchomości z całej Polski. Nie kupujemy obiektów z portali ogłoszeniowych ani od pośredników. To źródło przepływu tematów, na którym opierają się wszystkie trzy modele.</p>
+          </details>
+          <details class="faq-item">
+            <summary><span>Ile trwa pojedynczy projekt?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <p class="faq-item__answer">Od nabycia do wyjścia z inwestycji zwykle 6–12 miesięcy. W przypadkach wymagających postępowania sądowego — zniesienia współwłasności, uregulowania spadku, zgody sądu przy nieruchomości małoletniego — proces wydłuża się o kilka miesięcy. Ten czynnik ujawniamy przed decyzją, ponieważ bezpośrednio wpływa na wynik.</p>
+          </details>
+          <details class="faq-item">
+            <summary><span>Co się dzieje, jeśli projekt nie przyniesie zysku?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <p class="faq-item__answer">W modelu B ponosisz konsekwencje razem z nami — to istota udziału w zysku. Ograniczamy to ryzyko doborem projektów: odrzucamy tematy, w których nie potrafimy wycenić ryzyka prawnego. W modelu C ryzyko jest w całości po Twojej stronie, ponieważ to Ty jesteś nabywcą; nasze wynagrodzenie jest jednak powiązane z realizacją transakcji, a nie z jej późniejszym rezultatem.</p>
+          </details>
+          <details class="faq-item">
+            <summary><span>Czy mogę zobaczyć nieruchomość przed decyzją?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <p class="faq-item__answer">W modelach B i C tak — to standard. Otrzymujesz adres, dokumentację, odpis księgi wieczystej i możliwość oględzin. W modelu A kapitał nie jest przypisany do pojedynczego obiektu, więc taka weryfikacja nie ma zastosowania.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontakt" class="section section--lg">
+      <div class="container">
+        <h2 class="h2" data-reveal="out">Porozmawiajmy</h2>
+        <p class="section-lede" data-reveal="out">Wypełnij formularz albo zadzwoń. Odpowiadamy w ciągu jednego dnia roboczego.</p>
+        <div class="contact-grid">
+          <div>
+            <div class="contact-success" data-contact-success role="status">
+              <h3 class="contact-success__title">Zgłoszenie przyjęte</h3>
+              <p class="contact-success__text">Dziękujemy. Odpowiadamy w ciągu jednego dnia roboczego na podany adres e-mail.</p>
+              <button type="button" class="contact-success__reset" data-contact-reset>Wyślij kolejne zgłoszenie</button>
+            </div>
+
+            <form class="contact-form" data-contact-form novalidate>
+              <div class="field">
+                <label for="f-model">Który model Cię interesuje? *</label>
+                <select id="f-model" name="model" data-model-select>
+                  <option value="A">Model A — stała stopa w skali roku</option>
+                  <option value="B">Model B — udział w zysku z projektu</option>
+                  <option value="C">Model C — przekazanie tematu do samodzielnej realizacji</option>
+                  <option value="X">Jeszcze nie wiem / inna sprawa</option>
+                </select>
+              </div>
+              <div class="field" data-field="name">
+                <label for="f-name">Imię i nazwisko *</label>
+                <input id="f-name" name="name" type="text" autocomplete="name">
+                <span class="field-error" data-error></span>
+              </div>
+              <div class="field">
+                <label for="f-company">Firma <span class="optional">(opcjonalnie)</span></label>
+                <input id="f-company" name="company" type="text" autocomplete="organization">
+              </div>
+              <div class="field-row">
+                <div class="field" data-field="email">
+                  <label for="f-email">E-mail *</label>
+                  <input id="f-email" name="email" type="email" autocomplete="email">
+                  <span class="field-error" data-error></span>
+                </div>
+                <div class="field" data-field="phone">
+                  <label for="f-phone">Telefon *</label>
+                  <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+                  <span class="field-error" data-error></span>
+                </div>
+              </div>
+              <div class="field" data-field="message">
+                <label for="f-message">Wiadomość *</label>
+                <textarea id="f-message" name="message" rows="5" data-message-field placeholder="Jaką skalę zaangażowania i horyzont rozważasz?"></textarea>
+                <span class="field-error" data-error></span>
+              </div>
+              <div class="field field--checkbox" data-field="rodo">
+                <label for="f-rodo">
+                  <input id="f-rodo" name="rodo" type="checkbox">
+                  <span>Wyrażam zgodę na przetwarzanie moich danych osobowych w celu obsługi zapytania, zgodnie z klauzulą RODO. *</span>
+                </label>
+                <span class="field-error" data-error></span>
+              </div>
+              <button type="submit" class="contact-form__submit">Wyślij zgłoszenie</button>
+            </form>
+          </div>
+          <aside class="contact-info">
+            <p class="contact-info__label">Kontakt B2B</p>
+            <p class="contact-info__lines">+48 123 456 789<br>kontakt@example.com</p>
+            <p class="contact-info__address">ul. Testowa 12, 70-001 Szczecin</p>
+            <p class="contact-info__hours">Poniedziałek–piątek, 9:00–17:00</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo-img" src="logo-csn.jpg" alt="Logotyp Centralny Skup Nieruchomości">
+          <p class="footer-tagline">Grupa kapitałowa nabywająca nieruchomości z problemami prawnymi i zadłużeniem na własny rachunek.</p>
+          <p class="footer-registry">Centralny Skup Nieruchomości sp. z o.o.<br>ul. Testowa 12, 70-001 Szczecin<br>KRS 0000987654 · NIP 123-456-32-18<br>REGON 123456785 · Kapitał zakładowy 5 000 zł</p>
+        </div>
+        <nav class="footer-col" aria-label="Nawigacja w stopce">
+          <p class="footer-col__title">Strona</p>
+          <a class="footer-link" href="#wspolpraca">Współpraca</a>
+          <a class="footer-link" href="#grupa">Grupa</a>
+          <a class="footer-link" href="#model">Model</a>
+          <a class="footer-link" href="#zarzad">Zarząd</a>
+          <a class="footer-link" href="#faq">FAQ</a>
+          <a class="footer-link" href="#kontakt">Kontakt</a>
+        </nav>
+        <div class="footer-col">
+          <p class="footer-col__title">Marki grupy</p>
+          <a class="footer-link" href="https://atrium-nieruchomosci.pl" target="_blank" rel="noopener">Atrium Nieruchomości</a>
+          <a class="footer-link" href="https://walor-nieruchomosci.pl" target="_blank" rel="noopener">Walor Nieruchomości</a>
+          <a class="footer-link" href="https://sprzedammieszkanie.com" target="_blank" rel="noopener">SprzedamMieszkanie.com</a>
+          <a class="footer-link" href="https://robtomspzoo.com" target="_blank" rel="noopener">Robtom</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">Dokumenty</p>
+          <a class="footer-link" href="#">Polityka prywatności</a>
+          <a class="footer-link" href="#">Polityka cookies</a>
+          <a class="footer-link" href="#">Klauzula RODO</a>
+        </div>
+      </div>
+      <p class="footer-bottom">© 2026 Centralny Skup Nieruchomości sp. z o.o.</p>
+    </div>
+  </footer>
+</div>
+
+<script src="script.js" defer></script>
+</body>
+</html>
