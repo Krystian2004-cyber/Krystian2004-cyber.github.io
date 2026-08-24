@@ -214,7 +214,19 @@ body.menu-open { overflow: hidden; }
 .comparison tbody tr:nth-child(odd) th:first-child { background: var(--bg); }
 .comparison tbody tr:nth-child(even) th:first-child { background: var(--bg-card); }
 
-.comparison__hint { margin: 12px 0 0; font-size: 0.82rem; color: var(--text-subtle); }
+.comparison__hint { display: none; margin: 12px 0 0; font-size: 0.82rem; color: var(--text-subtle); }
+
+@media (max-width: 640px) {
+  .comparison__hint { display: block; }
+  .comparison th:first-child,
+  .comparison td:first-child {
+    width: 1%;
+    white-space: normal;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 0.85rem;
+  }
+}
 
 /* ==========================================================================
    Skala — stats strip
