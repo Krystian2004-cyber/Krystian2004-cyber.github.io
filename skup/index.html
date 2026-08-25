@@ -89,14 +89,29 @@
 
   <main>
     <section id="start" class="section">
-      <div class="container">
-        <p class="eyebrow hero__kicker" data-reveal="out">Centralny Skup Nieruchomości sp. z o.o.</p>
-        <h1 class="hero__title" data-reveal="out">Grupa kapitałowa na rynku nieruchomości z problemami prawnymi i zadłużeniem</h1>
-        <p class="hero__lede" data-reveal="out">Od 8 lat nabywamy nieruchomości, których nie da się sprzedać w standardowym obrocie — obciążone hipoteką, zajęte przez komornika, z nieuregulowanym stanem prawnym, z lokatorem, po pożarze. Prowadzimy pełen cykl: pozyskanie, weryfikację prawną, nabycie, uregulowanie i wyjście z inwestycji. Cztery marki operacyjne, jeden zespół, 640 zrealizowanych transakcji.</p>
-        <div class="hero__actions" data-reveal="out">
-          <a class="btn btn-primary" href="#wspolpraca">Współpraca inwestycyjna</a>
-          <a class="btn btn-secondary" href="#grupa">Poznaj grupę</a>
+      <div class="container hero__grid">
+        <div>
+          <p class="eyebrow hero__kicker" data-reveal="out">Centralny Skup Nieruchomości sp. z o.o.</p>
+          <h1 class="hero__title" data-reveal="out">Grupa kapitałowa na rynku nieruchomości <em>z problemami prawnymi i zadłużeniem</em></h1>
+          <p class="hero__lede" data-reveal="out">Od <span class="hero__highlight">8</span> lat nabywamy nieruchomości, których nie da się sprzedać w standardowym obrocie — obciążone hipoteką, zajęte przez komornika, z nieuregulowanym stanem prawnym, z lokatorem, po pożarze. Prowadzimy pełen cykl: pozyskanie, weryfikację prawną, nabycie, uregulowanie i wyjście z inwestycji. Cztery marki operacyjne, jeden zespół, <span class="hero__highlight">640</span> zrealizowanych transakcji.</p>
+          <div class="hero__actions" data-reveal="out">
+            <a class="btn btn-primary" href="#wspolpraca">Współpraca inwestycyjna</a>
+            <a class="hero__link" href="#grupa">Poznaj grupę <span aria-hidden="true">↓</span></a>
+          </div>
         </div>
+
+        <figure class="hero__visual" data-reveal="out">
+          <img class="hero__visual-img" src="hero-szczecin.png" alt="Zabudowa miejska w Szczecinie — siedziba grupy">
+          <div class="hero__visual-overlay" aria-hidden="true"></div>
+          <div class="hero__visual-sweep" aria-hidden="true"></div>
+          <div class="hero__visual-frame" aria-hidden="true"></div>
+          <div class="hero__visual-content">
+            <img class="hero__visual-logo" src="logo-csn.jpg" alt="Centralny Skup Nieruchomości">
+            <figcaption class="hero__visual-caption">
+              <span aria-hidden="true"></span>Nieruchomości w całej Polsce<span aria-hidden="true"></span>
+            </figcaption>
+          </div>
+        </figure>
       </div>
     </section>
 
@@ -113,7 +128,10 @@
 
         <div class="model-cards" data-reveal="out">
           <article class="model-card">
-            <p class="eyebrow eyebrow--accent model-card__kicker">Model A — Stała stopa w skali roku</p>
+            <div class="model-card__header">
+              <span class="model-card__badge" aria-hidden="true">A</span>
+              <p class="eyebrow eyebrow--accent model-card__kicker">Model A — Stała stopa w skali roku</p>
+            </div>
             <h3 class="model-card__title">Powierzasz kapitał na ustalony procent</h3>
             <p class="model-card__body">Najprostszy model. Angażujesz środki na określony czas i otrzymujesz ustaloną w umowie stopę w skali roku. Nie wybierasz obiektów, nie uczestniczysz w decyzjach operacyjnych i nie ponosisz skutków wyniku pojedynczego projektu.</p>
             <ul class="model-card__list">
@@ -125,21 +143,27 @@
             <a class="model-card__link" href="#kontakt">Zapytaj o warunki →</a>
           </article>
 
-          <article class="model-card">
-            <p class="eyebrow eyebrow--accent model-card__kicker">Model B — Udział w zysku z projektu</p>
+          <article class="model-card model-card--highlight">
+            <div class="model-card__header">
+              <span class="model-card__badge model-card__badge--dark" aria-hidden="true">B</span>
+              <p class="eyebrow eyebrow--accent model-card__kicker">Model B — Udział w zysku z projektu</p>
+            </div>
             <h3 class="model-card__title">Wchodzisz w konkretną nieruchomość</h3>
             <p class="model-card__body">Twój kapitał jest przypisany do wskazanego obiektu, który poznajesz przed podjęciem decyzji — razem z dokumentacją stanu prawnego, kalkulacją nakładów i scenariuszem wyjścia. Rozliczasz się udziałem w zysku wypracowanym na tym projekcie.</p>
             <ul class="model-card__list">
               <li>Konkretny obiekt i pełna dokumentacja przed zaangażowaniem środków</li>
               <li>Proporcja podziału zysku ustalona przed rozpoczęciem projektu</li>
               <li>Raportowanie na każdym etapie: nabycie, uregulowanie, wyjście</li>
-              <li>Wynik zależy od rezultatu projektu, więc możliwy jest również brak zysku</li>
+              <li class="model-card__list-item--risk">Wynik zależy od rezultatu projektu, więc możliwy jest również brak zysku</li>
             </ul>
             <a class="model-card__link" href="#kontakt">Zobacz, jak wygląda projekt →</a>
           </article>
 
           <article class="model-card">
-            <p class="eyebrow eyebrow--accent model-card__kicker">Model C — Przekazanie tematu</p>
+            <div class="model-card__header">
+              <span class="model-card__badge" aria-hidden="true">C</span>
+              <p class="eyebrow eyebrow--accent model-card__kicker">Model C — Przekazanie tematu</p>
+            </div>
             <h3 class="model-card__title">Realizujesz transakcję samodzielnie</h3>
             <p class="model-card__body">Dla inwestorów, którzy mają kapitał i kompetencje, ale brakuje im przepływu tematów. Znajdujemy nieruchomość, weryfikujemy stan prawny i doprowadzamy ustalenia z właścicielem do punktu, w którym możesz wejść w transakcję. Ty jesteś jej stroną i nabywcą. Nasze wynagrodzenie to procent wartości nieruchomości.</p>
             <ul class="model-card__list">
@@ -250,7 +274,7 @@
         <p class="section-lede" data-reveal="out">Każda z naszych marek obsługuje inny segment rynku i inny profil zgłoszeń. Dzięki temu docieramy do właścicieli nieruchomości w sytuacjach, w których pojedynczy podmiot nie miałby szans na kontakt. Wszystkie prowadzi Centralny Skup Nieruchomości sp. z o.o.</p>
         <div class="brand-cards" data-reveal="out">
           <article class="brand-card">
-            <img src="atrium.jpg" alt="Atrium Nieruchomości" class="brand-card__logo" loading="lazy" width="200" height="56">
+            <img src="atrium.png" alt="Atrium Nieruchomości" class="brand-card__logo" loading="lazy" width="200" height="56">
             <h3 class="brand-card__title">Atrium Nieruchomości</h3>
             <p class="brand-card__body">Największy serwis grupy i główny kanał akwizycji. Obsługuje pełne spektrum sytuacji prawnych: kredyt, komornik, dług, lokator, udziały, nieruchomości komercyjne. Rozbudowany poradnik i zasięg obejmujący wszystkie województwa.</p>
             <a class="brand-card__link" href="https://atrium-nieruchomosci.pl" target="_blank" rel="noopener">atrium-nieruchomosci.pl →</a>
@@ -281,40 +305,76 @@
       <div class="container">
         <h2 class="h2" data-reveal="out">Jak zarabiamy</h2>
         <p class="section-lede" data-reveal="out">Nie jesteśmy pośrednikiem i nie pobieramy prowizji od sprzedających. Kupujemy na własny rachunek, z dyskontem wynikającym z problemu, który przejmujemy razem z nieruchomością. Marża powstaje w momencie usunięcia tego problemu.</p>
+
+        <div class="transaction-breakdown" data-reveal="out">
+          <div class="transaction-breakdown__header">
+            <p class="transaction-breakdown__label">Anatomia jednej transakcji — przykład poglądowy</p>
+            <p class="transaction-breakdown__case">Mieszkanie 48 m², zajęcie komornicze, jeden współwłaściciel w sporze</p>
+          </div>
+          <div class="transaction-breakdown__bar">
+            <div class="transaction-breakdown__bar-segment transaction-breakdown__bar-segment--price" style="width:58%"></div>
+            <div class="transaction-breakdown__bar-segment transaction-breakdown__bar-segment--cost" style="width:19%"></div>
+            <div class="transaction-breakdown__bar-segment transaction-breakdown__bar-segment--margin" style="width:23%"></div>
+          </div>
+          <div class="transaction-breakdown__stats">
+            <div class="transaction-breakdown__stat">
+              <span class="transaction-breakdown__stat-label"><i class="transaction-breakdown__dot transaction-breakdown__dot--price" aria-hidden="true"></i>Cena nabycia</span>
+              <span class="transaction-breakdown__stat-value">58%</span>
+              <span class="transaction-breakdown__stat-note">wartości rynkowej — wypłacone właścicielowi w 24 h</span>
+            </div>
+            <div class="transaction-breakdown__stat">
+              <span class="transaction-breakdown__stat-label"><i class="transaction-breakdown__dot transaction-breakdown__dot--cost" aria-hidden="true"></i>Koszt uregulowania</span>
+              <span class="transaction-breakdown__stat-value">19%</span>
+              <span class="transaction-breakdown__stat-note">spłata wierzycieli, sąd, notariusz, remont</span>
+            </div>
+            <div class="transaction-breakdown__stat">
+              <span class="transaction-breakdown__stat-label"><i class="transaction-breakdown__dot transaction-breakdown__dot--margin" aria-hidden="true"></i>Marża brutto</span>
+              <span class="transaction-breakdown__stat-value">23%</span>
+              <span class="transaction-breakdown__stat-note">źródło rozliczenia z inwestorem</span>
+            </div>
+          </div>
+          <p class="transaction-breakdown__disclaimer">Dane demonstracyjne. Proporcje różnią się między projektami — decyduje rodzaj obciążenia i czas potrzebny na jego usunięcie.</p>
+        </div>
+
         <ol class="timeline" data-reveal="out">
           <li class="timeline__item">
-            <div class="timeline__num"><span>1</span></div>
+            <div class="timeline__num"><span>01</span></div>
             <div>
               <h3 class="timeline__title">Pozyskanie</h3>
               <p class="timeline__body">Cztery serwisy generują stały strumień zgłoszeń od właścicieli, którzy nie mogą sprzedać nieruchomości w standardowym obrocie. To nasza przewaga — nie kupujemy obiektów z rynku, tylko docieramy do nich, zanim na niego trafią.</p>
+              <p class="timeline__meta">Czas: na bieżąco · Odpowiada: marketing grupy</p>
             </div>
           </li>
-          <li class="timeline__item">
-            <div class="timeline__num"><span>2</span></div>
+          <li class="timeline__item timeline__item--accent">
+            <div class="timeline__num"><span>02</span></div>
             <div>
               <h3 class="timeline__title">Weryfikacja prawna</h3>
               <p class="timeline__body">Analiza księgi wieczystej, obciążeń hipotecznych, zajęć komorniczych, roszczeń współwłaścicieli i stanu meldunkowego. Odrzucamy projekty, w których ryzyka nie da się wycenić.</p>
+              <p class="timeline__meta">Czas: 3–7 dni · Odpowiada: dział prawny</p>
             </div>
           </li>
           <li class="timeline__item">
-            <div class="timeline__num"><span>3</span></div>
+            <div class="timeline__num"><span>03</span></div>
             <div>
               <h3 class="timeline__title">Wycena i nabycie</h3>
               <p class="timeline__body">Cena uwzględnia zarówno wartość rynkową, jak i koszt oraz czas usunięcia obciążeń. Transakcja przebiega u notariusza, płatność do 24 godzin od podpisania aktu.</p>
+              <p class="timeline__meta">Czas: 7–14 dni · Odpowiada: zarząd</p>
             </div>
           </li>
-          <li class="timeline__item">
-            <div class="timeline__num"><span>4</span></div>
+          <li class="timeline__item timeline__item--accent">
+            <div class="timeline__num"><span>04</span></div>
             <div>
               <h3 class="timeline__title">Uregulowanie</h3>
               <p class="timeline__body">Spłata wierzycieli, wykreślenie wpisów, uporządkowanie stanu prawnego i faktycznego, w razie potrzeby remont. To etap, na którym powstaje wartość.</p>
+              <p class="timeline__meta">Czas: 2–9 miesięcy · Odpowiada: dział nieruchomości</p>
             </div>
           </li>
           <li class="timeline__item">
-            <div class="timeline__num"><span>5</span></div>
+            <div class="timeline__num"><span>05</span></div>
             <div>
               <h3 class="timeline__title">Wyjście z inwestycji</h3>
               <p class="timeline__body">Odsprzedaż na wolnym rynku, do inwestora z naszej sieci albo pozostawienie obiektu w portfelu pod najem.</p>
+              <p class="timeline__meta">Czas: 1–3 miesiące · Rozliczenie z inwestorem</p>
             </div>
           </li>
         </ol>
@@ -368,56 +428,88 @@
           </article>
         </div>
         <div class="registry-card" data-reveal="out">
-          <p class="registry-card__label">Dane rejestrowe</p>
-          <p class="registry-card__text">Centralny Skup Nieruchomości sp. z o.o.<br>ul. Cyfrowa 6/F3, 71-441 Szczecin<br>KRS 0000947861 · NIP 8513270950 · REGON 521005422 · Kapitał zakładowy 5 000 zł</p>
+          <div class="registry-card__header">
+            <p class="registry-card__label">Dane rejestrowe</p>
+            <p class="registry-card__name">Centralny Skup Nieruchomości sp. z o.o.</p>
+          </div>
+          <dl class="registry-card__grid">
+            <div class="registry-card__item">
+              <dt>KRS</dt>
+              <dd class="registry-card__value--code">0000947861</dd>
+            </div>
+            <div class="registry-card__item">
+              <dt>NIP</dt>
+              <dd class="registry-card__value--code">8513270950</dd>
+            </div>
+            <div class="registry-card__item">
+              <dt>REGON</dt>
+              <dd class="registry-card__value--code">521005422</dd>
+            </div>
+            <div class="registry-card__item">
+              <dt>Kapitał zakładowy</dt>
+              <dd class="registry-card__value--code">5 000 zł</dd>
+            </div>
+            <div class="registry-card__item">
+              <dt>Siedziba</dt>
+              <dd>ul. Cyfrowa 6/F3<br>71-441 Szczecin</dd>
+            </div>
+          </dl>
         </div>
       </div>
     </section>
 
     <section id="faq" class="section section--lg">
       <div class="container container--narrow">
-        <h2 class="h2 faq__title" data-reveal="out">Pytania inwestorów</h2>
-        <div class="faq-list">
+        <p class="eyebrow faq__kicker" data-reveal="out">Najczęstsze pytania</p>
+        <div class="faq__header" data-reveal="out">
+          <h2 class="h2 faq__title">Pytania inwestorów</h2>
+          <p class="faq__intro">Odpowiadamy również na pytania o ryzyko i o to, czego nie gwarantujemy. Jeśli czegoś tu brakuje, <a href="#kontakt">napisz do nas</a>.</p>
+        </div>
+        <div class="faq-list" data-reveal="out">
           <details class="faq-item">
-            <summary><span>Na czym dokładnie zarabia skup nieruchomości?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <summary><span class="faq-item__num">01</span><span class="faq-item__q">Na czym dokładnie zarabia skup nieruchomości?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
             <p class="faq-item__answer">Na różnicy między ceną nabycia obiektu obciążonego problemem prawnym lub technicznym a jego wartością po usunięciu tego problemu. Właściciel nieruchomości z zajęciem komorniczym albo sporem między współwłaścicielami nie ma realnej możliwości sprzedaży na wolnym rynku — my przejmujemy to ryzyko i koszt jego usunięcia. Dyskonto jest ceną za czas, pewność transakcji i przejęcie problemu.</p>
           </details>
           <details class="faq-item">
-            <summary><span>Czym różnią się trzy modele współpracy?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <summary><span class="faq-item__num">02</span><span class="faq-item__q">Czym różnią się trzy modele współpracy?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
             <p class="faq-item__answer">Poziomem zaangażowania i tym, kto ponosi ryzyko projektu. W modelu A powierzasz kapitał na ustaloną stopę i nie uczestniczysz w wyniku pojedynczej nieruchomości. W modelu B Twoje środki są przypisane do konkretnego obiektu, a rozliczenie zależy od zysku wypracowanego na tym projekcie. W modelu C sam prowadzisz transakcję i jesteś nabywcą — my dostarczamy zweryfikowany temat i pobieramy procent wartości nieruchomości.</p>
           </details>
           <details class="faq-item">
-            <summary><span>Dlaczego nie podajecie stawek na stronie?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <summary><span class="faq-item__num">03</span><span class="faq-item__q">Dlaczego nie podajecie stawek na stronie?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
             <p class="faq-item__answer">Bo nie da się ich podać uczciwie w oderwaniu od konkretnego przypadku. Warunki zależą od skali zaangażowania, horyzontu, formy zabezpieczenia i — w modelach B i C — od charakterystyki konkretnej nieruchomości. Prezentowanie jednej liczby dla wszystkich sytuacji byłoby albo nieprawdziwe, albo tak zastrzeżone, że bezużyteczne. Warunki przedstawiamy indywidualnie, po rozmowie.</p>
           </details>
           <details class="faq-item">
-            <summary><span>Czy gwarantujecie zwrot z inwestycji?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <summary><span class="faq-item__num">04</span><span class="faq-item__q">Czy gwarantujecie zwrot z inwestycji?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
             <p class="faq-item__answer">Nie. W modelu A stopa jest określona umownie, ale żadna umowa nie eliminuje ryzyka gospodarczego po stronie spółki. W modelach B i C wynik zależy od rezultatu konkretnego projektu i może być niższy od zakładanego albo zerowy. Prezentujemy wyniki zrealizowanych projektów, ale nie stanowią one obietnicy przyszłych rezultatów. Każdy przypadek omawiamy z ujawnieniem zidentyfikowanych ryzyk.</p>
           </details>
           <details class="faq-item">
-            <summary><span>Jak zabezpieczone są przekazane środki?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
-            <p class="faq-item__answer">Forma zabezpieczenia ustalana jest indywidualnie i zapisywana w umowie. Omawiamy ją przed przekazaniem jakichkolwiek środków, a nie po.</p>
+            <summary><span class="faq-item__num">05</span><span class="faq-item__q">Jak zabezpieczone są przekazane środki?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <p class="faq-item__answer">Forma zabezpieczenia ustalana jest indywidualnie i zapisywana w umowie: weksel in blanco lub zastaw rejestrowy na nieruchomości. Omawiamy ją przed przekazaniem jakichkolwiek środków, a nie po.</p>
           </details>
           <details class="faq-item">
-            <summary><span>Jaki jest minimalny próg wejścia?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
-            <p class="faq-item__answer">Próg wejścia różni się między modelami — model C nie wymaga przekazania nam kapitału, ponieważ transakcję finansujesz samodzielnie.</p>
+            <summary><span class="faq-item__num">06</span><span class="faq-item__q">Jaki jest minimalny próg wejścia?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <p class="faq-item__answer">Minimalny próg wejścia to 20 000 zł. Różni się między modelami — model C nie wymaga przekazania nam kapitału, ponieważ transakcję finansujesz samodzielnie.</p>
           </details>
           <details class="faq-item">
-            <summary><span>Skąd bierzecie nieruchomości?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <summary><span class="faq-item__num">07</span><span class="faq-item__q">Skąd bierzecie nieruchomości?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
             <p class="faq-item__answer">Wyłącznie z własnych kanałów. Cztery serwisy grupy generują 180 zgłoszeń miesięcznie od właścicieli nieruchomości z całej Polski. Nie kupujemy obiektów z portali ogłoszeniowych ani od pośredników. To źródło przepływu tematów, na którym opierają się wszystkie trzy modele.</p>
           </details>
           <details class="faq-item">
-            <summary><span>Ile trwa pojedynczy projekt?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <summary><span class="faq-item__num">08</span><span class="faq-item__q">Ile trwa pojedynczy projekt?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
             <p class="faq-item__answer">Od nabycia do wyjścia z inwestycji zwykle 6–12 miesięcy. W przypadkach wymagających postępowania sądowego — zniesienia współwłasności, uregulowania spadku, zgody sądu przy nieruchomości małoletniego — proces wydłuża się o kilka miesięcy. Ten czynnik ujawniamy przed decyzją, ponieważ bezpośrednio wpływa na wynik.</p>
           </details>
           <details class="faq-item">
-            <summary><span>Co się dzieje, jeśli projekt nie przyniesie zysku?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <summary><span class="faq-item__num">09</span><span class="faq-item__q">Co się dzieje, jeśli projekt nie przyniesie zysku?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
             <p class="faq-item__answer">W modelu B ponosisz konsekwencje razem z nami — to istota udziału w zysku. Ograniczamy to ryzyko doborem projektów: odrzucamy tematy, w których nie potrafimy wycenić ryzyka prawnego. W modelu C ryzyko jest w całości po Twojej stronie, ponieważ to Ty jesteś nabywcą; nasze wynagrodzenie jest jednak powiązane z realizacją transakcji, a nie z jej późniejszym rezultatem.</p>
           </details>
           <details class="faq-item">
-            <summary><span>Czy mogę zobaczyć nieruchomość przed decyzją?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <summary><span class="faq-item__num">10</span><span class="faq-item__q">Czy mogę zobaczyć nieruchomość przed decyzją?</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
             <p class="faq-item__answer">W modelach B i C tak — to standard. Otrzymujesz adres, dokumentację, odpis księgi wieczystej i możliwość oględzin. W modelu A kapitał nie jest przypisany do pojedynczego obiektu, więc taka weryfikacja nie ma zastosowania.</p>
           </details>
+        </div>
+        <div class="faq__cta" data-reveal="out">
+          <p class="faq__cta-text">Pozostałe kwestie zależą od konkretnego przypadku. Krótka rozmowa zwykle wystarcza, aby ocenić możliwość współpracy.</p>
+          <a class="btn btn-primary faq__cta-link" href="#kontakt">Zadaj pytanie <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
