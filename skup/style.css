@@ -265,6 +265,7 @@ body.menu-open { overflow: hidden; }
   background: repeating-linear-gradient(135deg, #F5F3EE, #F5F3EE 6px, #FAFAF8 6px, #FAFAF8 12px);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.68rem; letter-spacing: 0.08em; color: var(--text-subtle); text-transform: uppercase;
 }
+.brand-card__logo { display: block; max-width: 200px; width: 100%; height: 56px; object-fit: contain; object-position: left center; }
 .brand-card__title { font-family: var(--font-serif); font-weight: 400; font-size: 1.5rem; letter-spacing: -0.02em; margin: 22px 0 0; }
 .brand-card__body { margin: 14px 0 0; font-size: 0.98rem; color: var(--text-muted); }
 .brand-card__link { display: inline-block; margin-top: 20px; font-size: 0.92rem; font-weight: 600; }
@@ -296,7 +297,8 @@ body.menu-open { overflow: hidden; }
 .board-member__photo {
   aspect-ratio: 1 / 1; width: 100%; border: 1px solid var(--border); border-radius: 2px;
   background: repeating-linear-gradient(135deg, #EDEDEA, #EDEDEA 8px, #F5F5F2 8px, #F5F5F2 16px);
-  display: flex; align-items: center; justify-content: center; filter: grayscale(1);
+  display: flex; align-items: center; justify-content: center;
+  object-fit: cover;
 }
 .board-member__photo span { font-family: var(--font-serif); font-size: 2.4rem; color: var(--text-subtle); }
 .board-member__name { font-size: 1.06rem; font-weight: 600; margin: 20px 0 0; }

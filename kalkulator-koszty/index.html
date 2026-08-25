@@ -11,10 +11,10 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div style="max-width: 100%; overflow-x: hidden">
+<div class="page-wrap">
 
-  <header style="position: sticky; top: 0; z-index: 20; background: #fff; border-bottom: 1px solid #e6ece9; box-shadow: 0 2px 14px rgba(16,38,31,.05)">
-    <div class="header-bar" style="max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center">
+  <header class="site-header">
+    <div class="header-bar">
       <div class="logo">
         <a href="https://atrium-nieruchomosci.pl/">
           <img height="54.22" width="56" src="img/logo.svg" alt="Atrium Skup Nieruchomości">
@@ -22,10 +22,10 @@
         </a>
       </div>
       <nav class="nav-links" id="site-nav">
-        <a href="#kalkulator" style="color: #16241f">Kalkulator</a>
-        <a href="#jak-dzialamy" style="color: #16241f">Jak to działa?</a>
-        <a href="#pytania" style="color: #16241f">Częste pytania</a>
-        <a href="#kontakt" style="color: #16241f">Kontakt</a>
+        <a href="#kalkulator">Kalkulator</a>
+        <a href="#jak-dzialamy">Jak to działa?</a>
+        <a href="#pytania">Częste pytania</a>
+        <a href="#kontakt">Kontakt</a>
       </nav>
       <div class="header-controls">
         <button type="button" id="nav-toggle" class="nav-toggle" aria-label="Otwórz menu" aria-expanded="false" aria-controls="site-nav">
@@ -39,214 +39,214 @@
     </div>
   </header>
 
-  <section id="top" style="background: linear-gradient(180deg, #f3f8f5 0%, #ffffff 100%); border-bottom: 1px solid #e6ece9">
+  <section id="top" class="hero-section">
     <div class="hero-inner">
-      <div style="display: inline-flex; align-items: center; gap: 8px; background: #e4f2ec; color: #0f6b4d; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; padding: 7px 14px; border-radius: 100px">bezpłatne narzędzie</div>
-      <h1 class="hero-title" style="font-family: Poppins, sans-serif; line-height: 1.12; font-weight: 700; letter-spacing: -.02em; margin: 18px 0 14px; max-width: 780px; text-wrap: pretty">Kalkulator <span style="color: #178e66">kosztów notarialnych</span></h1>
-      <p class="hero-sub" style="line-height: 1.6; color: #4d5c56; max-width: 700px; margin: 0; text-wrap: pretty">Sprawdź orientacyjny koszt zakupu nieruchomości w Polsce: taksę notarialną, podatek PCC, opłaty sądowe za wpis do księgi wieczystej i wypisy aktu. Wynik w kilka sekund, bez podawania danych kontaktowych.</p>
+      <div class="badge">bezpłatne narzędzie</div>
+      <h1 class="hero-title">Kalkulator <span class="accent">kosztów notarialnych</span></h1>
+      <p class="hero-sub">Sprawdź orientacyjny koszt zakupu nieruchomości w Polsce: taksę notarialną, podatek PCC, opłaty sądowe za wpis do księgi wieczystej i wypisy aktu. Wynik w kilka sekund, bez podawania danych kontaktowych.</p>
     </div>
   </section>
 
-  <section id="kalkulator" style="max-width: 1200px; margin: 0 auto; padding: 36px 24px 10px">
+  <section id="kalkulator" class="calc-section">
 
-    <div class="calc-grid" style="display: grid; gap: 24px; align-items: start">
+    <div class="calc-grid">
 
-      <div style="background: #fff; border: 1px solid #e0e8e4; border-radius: 12px; box-shadow: 0 10px 34px rgba(16,38,31,.06); padding: 24px; display: flex; flex-direction: column; gap: 18px">
+      <div class="calc-card">
 
-        <div class="calc-form-fields" style="display: grid; gap: 16px">
-          <label style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 7px; font-size: 14.5px; font-weight: 700">Cena nieruchomości
-            <input id="in-price" type="number" step="10000" min="0" value="500000" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 13px; font-size: 16px; font-weight: 400; width: 100%; color: #16241f" />
+        <div class="calc-form-fields">
+          <label class="field field--full">Cena nieruchomości
+            <input id="in-price" type="number" step="10000" min="0" value="500000" />
           </label>
         </div>
 
-        <div style="border: 1px solid #e4eae7; background: #fafcfb; border-radius: 10px; padding: 14px 16px">
-          <div style="font-size: 14.5px; font-weight: 700; margin-bottom: 12px">Czy doliczyć PCC?</div>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap">
+        <div class="option-box">
+          <div class="option-label">Czy doliczyć PCC?</div>
+          <div class="toggle-group">
             <button type="button" id="btn-pcc-yes" class="toggle-btn active"><span class="toggle-dot"></span>Tak, 2%</button>
             <button type="button" id="btn-pcc-no" class="toggle-btn"><span class="toggle-dot"></span>Nie</button>
           </div>
-          <div style="font-size: 13px; color: #7d8d87; margin-top: 10px">Wybierz „Nie”, jeśli transakcja jest opodatkowana VAT (np. zakup od dewelopera).</div>
+          <div class="option-hint">Wybierz „Nie”, jeśli transakcja jest opodatkowana VAT (np. zakup od dewelopera).</div>
         </div>
 
-        <div style="border: 1px solid #e4eae7; background: #fafcfb; border-radius: 10px; padding: 14px 16px">
-          <div style="font-size: 14.5px; font-weight: 700; margin-bottom: 12px">Wpis własności do księgi wieczystej</div>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap">
+        <div class="option-box">
+          <div class="option-label">Wpis własności do księgi wieczystej</div>
+          <div class="toggle-group">
             <button type="button" id="btn-entry-yes" class="toggle-btn active"><span class="toggle-dot"></span>Tak, 200 zł</button>
             <button type="button" id="btn-entry-no" class="toggle-btn"><span class="toggle-dot"></span>Nie</button>
           </div>
         </div>
 
-        <div style="border: 1px solid #e4eae7; background: #fafcfb; border-radius: 10px; padding: 14px 16px">
-          <div style="font-size: 14.5px; font-weight: 700; margin-bottom: 12px">Założenie księgi wieczystej</div>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap">
+        <div class="option-box">
+          <div class="option-label">Założenie księgi wieczystej</div>
+          <div class="toggle-group">
             <button type="button" id="btn-newkw-yes" class="toggle-btn"><span class="toggle-dot"></span>Tak, 100 zł</button>
             <button type="button" id="btn-newkw-no" class="toggle-btn active"><span class="toggle-dot"></span>Nie</button>
           </div>
-          <div style="font-size: 13px; color: #7d8d87; margin-top: 10px">Dotyczy nieruchomości, dla których nie prowadzono jeszcze księgi wieczystej.</div>
+          <div class="option-hint">Dotyczy nieruchomości, dla których nie prowadzono jeszcze księgi wieczystej.</div>
         </div>
 
-        <div style="border: 1px solid #e4eae7; background: #fafcfb; border-radius: 10px; padding: 14px 16px">
-          <div style="font-size: 14.5px; font-weight: 700; margin-bottom: 12px">Wpis hipoteki</div>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap">
+        <div class="option-box">
+          <div class="option-label">Wpis hipoteki</div>
+          <div class="toggle-group">
             <button type="button" id="btn-mortgage-yes" class="toggle-btn"><span class="toggle-dot"></span>Tak, 200 zł</button>
             <button type="button" id="btn-mortgage-no" class="toggle-btn active"><span class="toggle-dot"></span>Nie</button>
           </div>
-          <div style="font-size: 13px; color: #7d8d87; margin-top: 10px">Zaznacz, jeśli zakup finansujesz kredytem hipotecznym.</div>
+          <div class="option-hint">Zaznacz, jeśli zakup finansujesz kredytem hipotecznym.</div>
         </div>
 
-        <div class="calc-form-fields" style="display: grid; gap: 16px">
-          <label style="display: flex; flex-direction: column; gap: 7px; font-size: 14.5px; font-weight: 700">Liczba stron wypisów aktu
-            <input id="in-copies" type="number" step="1" min="0" max="50" value="4" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 13px; font-size: 16px; font-weight: 400; width: 100%; color: #16241f" />
+        <div class="calc-form-fields">
+          <label class="field">Liczba stron wypisów aktu
+            <input id="in-copies" type="number" step="1" min="0" max="50" value="4" />
           </label>
-          <label style="display: flex; flex-direction: column; gap: 7px; font-size: 14.5px; font-weight: 700">Cena za stronę wypisu netto
-            <input id="in-copy-price" type="number" step="1" min="0" value="6" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 13px; font-size: 16px; font-weight: 400; width: 100%; color: #16241f" />
+          <label class="field">Cena za stronę wypisu netto
+            <input id="in-copy-price" type="number" step="1" min="0" value="6" />
           </label>
         </div>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 18px">
+      <div class="calc-results">
 
-        <div id="verdict-box" style="border-radius: 12px; padding: 22px 24px; display: flex; flex-direction: column; gap: 8px; border: 1.5px solid #178e66; background: #f2fbf6">
-          <div style="display: flex; align-items: center; gap: 10px; font-family: Poppins, sans-serif; font-size: 19px; font-weight: 600">
-            <span id="verdict-icon" style="width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; font-size: 15px; font-weight: 700; color: #fff; background: #178e66">zł</span><span id="verdict-title">Suma kosztów notarialnych</span>
+        <div id="verdict-box" class="verdict-box verdict-box--positive">
+          <div class="verdict-header">
+            <span id="verdict-icon" class="verdict-icon verdict-icon--positive">zł</span><span id="verdict-title">Suma kosztów notarialnych</span>
           </div>
-          <div id="verdict-amount" style="font-family: Poppins, sans-serif; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; color: #0f6b4d"></div>
-          <div id="verdict-note" style="font-size: 16.5px; color: #4d5c56">Taksa notarialna (brutto), PCC, opłaty sądowe i wypisy aktu łącznie.</div>
+          <div id="verdict-amount" class="verdict-amount verdict-amount--positive"></div>
+          <div id="verdict-note" class="verdict-note">Taksa notarialna (brutto), PCC, opłaty sądowe i wypisy aktu łącznie.</div>
         </div>
 
-        <div style="background: #fff; border: 1px solid #cfe6dc; border-radius: 12px; padding: 22px">
-          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px">
-            <div style="display: flex; align-items: center; gap: 9px; font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600"><span style="width: 12px; height: 12px; border-radius: 100px; background: #22b573; flex-shrink: 0"></span>Taksa notarialna</div>
-            <strong id="notary-gross-text" style="font-size: 17px; white-space: nowrap"></strong>
+        <div class="result-card result-card--green">
+          <div class="result-card-header">
+            <div class="result-card-title"><span class="result-dot result-dot--green"></span>Taksa notarialna</div>
+            <strong id="notary-gross-text" class="result-value"></strong>
           </div>
-          <div style="font-size: 14.5px; color: #7d8d87; margin: 8px 0 16px">Stawka maksymalna netto wg progresywnej tabeli ustawowej</div>
-          <div style="display: flex; flex-direction: column; gap: 9px; font-size: 15px; border-top: 1px solid #eef3f0; padding-top: 14px">
-            <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Taksa netto</span><strong id="notary-net-text"></strong></div>
-            <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">VAT 23%</span><strong id="notary-vat-text"></strong></div>
-            <div style="display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #eef3f0; padding-top: 11px; margin-top: 3px"><span style="color: #4d5c56">Taksa brutto</span><strong id="notary-gross-text-2" style="font-size: 15px; color: #0f6b4d"></strong></div>
+          <div class="result-desc">Stawka maksymalna netto wg progresywnej tabeli ustawowej</div>
+          <div class="result-body">
+            <div class="result-row"><span>Taksa netto</span><strong id="notary-net-text"></strong></div>
+            <div class="result-row"><span>VAT 23%</span><strong id="notary-vat-text"></strong></div>
+            <div class="result-row result-row--total"><span>Taksa brutto</span><strong id="notary-gross-text-2" class="result-total result-total--green"></strong></div>
           </div>
-          <div style="border-top: 1px solid #eef3f0; margin-top: 16px; padding-top: 14px; font-size: 13.5px; color: #7d8d87; line-height: 1.55">
+          <div class="result-footnote">
             Kancelarie notarialne mogą negocjować taksę poniżej stawki maksymalnej — warto zapytać o rabat, zwłaszcza przy wyższych wartościach transakcji.
           </div>
         </div>
 
-        <div style="background: #fff; border: 1px solid #f2ded1; border-radius: 12px; padding: 22px">
-          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px">
-            <div style="display: flex; align-items: center; gap: 9px; font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600"><span style="width: 12px; height: 12px; border-radius: 100px; background: #f08a3c; flex-shrink: 0"></span>PCC i opłaty sądowe</div>
-            <strong id="tax-total-text" style="font-size: 17px; white-space: nowrap"></strong>
+        <div class="result-card result-card--orange">
+          <div class="result-card-header">
+            <div class="result-card-title"><span class="result-dot result-dot--orange"></span>PCC i opłaty sądowe</div>
+            <strong id="tax-total-text" class="result-value"></strong>
           </div>
-          <div style="font-size: 14.5px; color: #7d8d87; margin: 8px 0 16px">Płatne u notariusza (PCC) i wraz z wnioskami do sądu wieczystoksięgowego</div>
-          <div style="display: flex; flex-direction: column; gap: 9px; font-size: 15px; border-top: 1px solid #eef3f0; padding-top: 14px">
-            <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">PCC (2%)</span><strong id="pcc-text"></strong></div>
-            <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Wpis własności do KW</span><strong id="entry-text"></strong></div>
-            <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Założenie księgi wieczystej</span><strong id="newkw-text"></strong></div>
-            <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Wpis hipoteki</span><strong id="mortgage-text"></strong></div>
-            <div style="display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #eef3f0; padding-top: 11px; margin-top: 3px"><span style="color: #4d5c56">Razem</span><strong id="tax-total-text-2" style="font-size: 15px"></strong></div>
+          <div class="result-desc">Płatne u notariusza (PCC) i wraz z wnioskami do sądu wieczystoksięgowego</div>
+          <div class="result-body">
+            <div class="result-row"><span>PCC (2%)</span><strong id="pcc-text"></strong></div>
+            <div class="result-row"><span>Wpis własności do KW</span><strong id="entry-text"></strong></div>
+            <div class="result-row"><span>Założenie księgi wieczystej</span><strong id="newkw-text"></strong></div>
+            <div class="result-row"><span>Wpis hipoteki</span><strong id="mortgage-text"></strong></div>
+            <div class="result-row result-row--total"><span>Razem</span><strong id="tax-total-text-2" class="result-total"></strong></div>
           </div>
         </div>
 
-        <div style="background: #fff; border: 1px solid #d7e1f2; border-radius: 12px; padding: 22px">
-          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px">
-            <div style="display: flex; align-items: center; gap: 9px; font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600"><span style="width: 12px; height: 12px; border-radius: 100px; background: #1c5fd6; flex-shrink: 0"></span>Wypisy aktu notarialnego</div>
-            <strong id="copies-gross-text" style="font-size: 17px; white-space: nowrap"></strong>
+        <div class="result-card result-card--blue">
+          <div class="result-card-header">
+            <div class="result-card-title"><span class="result-dot result-dot--blue"></span>Wypisy aktu notarialnego</div>
+            <strong id="copies-gross-text" class="result-value"></strong>
           </div>
-          <div style="font-size: 14.5px; color: #7d8d87; margin: 8px 0 16px">Liczba stron × cena za stronę, plus VAT</div>
-          <div style="display: flex; flex-direction: column; gap: 9px; font-size: 15px; border-top: 1px solid #eef3f0; padding-top: 14px">
-            <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Liczba stron</span><strong id="copies-count-text"></strong></div>
-            <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Cena za stronę netto</span><strong id="copy-price-text"></strong></div>
-            <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">Wypisy netto</span><strong id="copies-net-text"></strong></div>
-            <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #4d5c56">VAT 23%</span><strong id="copies-vat-text"></strong></div>
-            <div style="display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #eef3f0; padding-top: 11px; margin-top: 3px"><span style="color: #4d5c56">Wypisy brutto</span><strong id="copies-gross-text-2" style="font-size: 15px"></strong></div>
+          <div class="result-desc">Liczba stron × cena za stronę, plus VAT</div>
+          <div class="result-body">
+            <div class="result-row"><span>Liczba stron</span><strong id="copies-count-text"></strong></div>
+            <div class="result-row"><span>Cena za stronę netto</span><strong id="copy-price-text"></strong></div>
+            <div class="result-row"><span>Wypisy netto</span><strong id="copies-net-text"></strong></div>
+            <div class="result-row"><span>VAT 23%</span><strong id="copies-vat-text"></strong></div>
+            <div class="result-row result-row--total"><span>Wypisy brutto</span><strong id="copies-gross-text-2" class="result-total"></strong></div>
           </div>
         </div>
       </div>
     </div>
 
-    <p style="font-size: 13.5px; line-height: 1.6; color: #7d8d87; margin: 20px 0 0">Kalkulator ma charakter informacyjny i pokazuje orientacyjne koszty notarialne. Taksa notarialna wskazana w kalkulatorze jest stawką maksymalną netto określoną w rozporządzeniu, do której doliczany jest VAT — ostateczna wysokość opłat zależy od rodzaju czynności, liczby wniosków wieczystoksięgowych, liczby wypisów aktu oraz indywidualnych ustaleń z kancelarią notarialną. Nie stanowi porady prawnej ani podatkowej.</p>
+    <p class="disclaimer">Kalkulator ma charakter informacyjny i pokazuje orientacyjne koszty notarialne. Taksa notarialna wskazana w kalkulatorze jest stawką maksymalną netto określoną w rozporządzeniu, do której doliczany jest VAT — ostateczna wysokość opłat zależy od rodzaju czynności, liczby wniosków wieczystoksięgowych, liczby wypisów aktu oraz indywidualnych ustaleń z kancelarią notarialną. Nie stanowi porady prawnej ani podatkowej.</p>
   </section>
 
-  <section id="jak-dzialamy" style="background: #f6f9f7; border-top: 1px solid #e6ece9; border-bottom: 1px solid #e6ece9; margin-top: 48px">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 56px 24px">
-      <h2 style="font-family: Poppins, sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -.02em; margin: 0 0 8px">Jak przebiega zakup nieruchomości u notariusza</h2>
-      <p style="font-size: 18px; color: #4d5c56; margin: 0 0 32px; max-width: 680px">Cztery kroki od podpisania umowy do wpisu w księdze wieczystej. Pomożemy Ci przejść przez cały proces.</p>
-      <div class="steps-grid" style="display: grid; gap: 18px">
-        <div style="background: #fff; border: 1px solid #e0e8e4; border-radius: 12px; padding: 24px">
-          <div style="width: 42px; height: 42px; border-radius: 100px; background: #178e66; color: #fff; display: grid; place-items: center; font-family: Poppins, sans-serif; font-weight: 700; font-size: 19px">1</div>
-          <h3 style="font-family: Poppins, sans-serif; font-size: 18px; font-weight: 600; margin: 16px 0 8px">Umowa przedwstępna</h3>
-          <p style="margin: 0; color: #4d5c56; font-size: 15.5px; line-height: 1.6">Ustalamy warunki transakcji i sprawdzamy stan prawny nieruchomości w księdze wieczystej.</p>
+  <section id="jak-dzialamy" class="section-alt">
+    <div class="section-inner">
+      <h2 class="section-title">Jak przebiega zakup nieruchomości u notariusza</h2>
+      <p class="section-lead">Cztery kroki od podpisania umowy do wpisu w księdze wieczystej. Pomożemy Ci przejść przez cały proces.</p>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Umowa przedwstępna</h3>
+          <p class="step-desc">Ustalamy warunki transakcji i sprawdzamy stan prawny nieruchomości w księdze wieczystej.</p>
         </div>
-        <div style="background: #fff; border: 1px solid #e0e8e4; border-radius: 12px; padding: 24px">
-          <div style="width: 42px; height: 42px; border-radius: 100px; background: #178e66; color: #fff; display: grid; place-items: center; font-family: Poppins, sans-serif; font-weight: 700; font-size: 19px">2</div>
-          <h3 style="font-family: Poppins, sans-serif; font-size: 18px; font-weight: 600; margin: 16px 0 8px">Wyliczenie kosztów</h3>
-          <p style="margin: 0; color: #4d5c56; font-size: 15.5px; line-height: 1.6">Notariusz podaje wysokość taksy, PCC i opłat sądowych jeszcze przed podpisaniem aktu.</p>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Wyliczenie kosztów</h3>
+          <p class="step-desc">Notariusz podaje wysokość taksy, PCC i opłat sądowych jeszcze przed podpisaniem aktu.</p>
         </div>
-        <div style="background: #fff; border: 1px solid #e0e8e4; border-radius: 12px; padding: 24px">
-          <div style="width: 42px; height: 42px; border-radius: 100px; background: #178e66; color: #fff; display: grid; place-items: center; font-family: Poppins, sans-serif; font-weight: 700; font-size: 19px">3</div>
-          <h3 style="font-family: Poppins, sans-serif; font-size: 18px; font-weight: 600; margin: 16px 0 8px">Podpisanie aktu notarialnego</h3>
-          <p style="margin: 0; color: #4d5c56; font-size: 15.5px; line-height: 1.6">W kancelarii podpisujecie akt, a notariusz pobiera PCC i opłaty sądowe do rozliczenia.</p>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Podpisanie aktu notarialnego</h3>
+          <p class="step-desc">W kancelarii podpisujecie akt, a notariusz pobiera PCC i opłaty sądowe do rozliczenia.</p>
         </div>
-        <div style="background: #fff; border: 1px solid #e0e8e4; border-radius: 12px; padding: 24px">
-          <div style="width: 42px; height: 42px; border-radius: 100px; background: #178e66; color: #fff; display: grid; place-items: center; font-family: Poppins, sans-serif; font-weight: 700; font-size: 19px">4</div>
-          <h3 style="font-family: Poppins, sans-serif; font-size: 18px; font-weight: 600; margin: 16px 0 8px">Wpis do księgi wieczystej</h3>
-          <p style="margin: 0; color: #4d5c56; font-size: 15.5px; line-height: 1.6">Notariusz składa wniosek elektronicznie — nowy właściciel widnieje w KW zwykle po kilku tygodniach.</p>
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <h3 class="step-title">Wpis do księgi wieczystej</h3>
+          <p class="step-desc">Notariusz składa wniosek elektronicznie — nowy właściciel widnieje w KW zwykle po kilku tygodniach.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="pytania" style="max-width: 1200px; margin: 0 auto; padding: 56px 24px">
-    <h2 style="font-family: Poppins, sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -.02em; margin: 0 0 28px">Najczęstsze pytania o koszty notarialne</h2>
-    <div class="faq-grid" style="display: grid; gap: 16px">
-      <details style="border: 1px solid #e0e8e4; border-radius: 10px; padding: 18px 20px; background: #fff">
-        <summary style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 17px">Czym jest taksa notarialna i jak jest liczona?</summary>
-        <p style="margin: 12px 0 0; color: #4d5c56; font-size: 15.5px; line-height: 1.65">To maksymalne wynagrodzenie notariusza określone w rozporządzeniu, liczone progresywnie od wartości nieruchomości — im wyższa cena, tym niższy procentowy udział taksy. Do stawki netto notariusz dolicza 23% VAT.</p>
+  <section id="pytania" class="section-inner">
+    <h2 class="section-title">Najczęstsze pytania o koszty notarialne</h2>
+    <div class="faq-grid">
+      <details class="faq-item">
+        <summary class="faq-question">Czym jest taksa notarialna i jak jest liczona?</summary>
+        <p class="faq-answer">To maksymalne wynagrodzenie notariusza określone w rozporządzeniu, liczone progresywnie od wartości nieruchomości — im wyższa cena, tym niższy procentowy udział taksy. Do stawki netto notariusz dolicza 23% VAT.</p>
       </details>
-      <details style="border: 1px solid #e0e8e4; border-radius: 10px; padding: 18px 20px; background: #fff">
-        <summary style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 17px">Kto płaci podatek PCC przy zakupie nieruchomości?</summary>
-        <p style="margin: 12px 0 0; color: #4d5c56; font-size: 15.5px; line-height: 1.65">Obowiązek zapłaty 2% PCC spoczywa na kupującym i jest pobierany bezpośrednio przez notariusza. PCC nie występuje, gdy transakcja jest opodatkowana VAT, np. przy zakupie nowego mieszkania od dewelopera.</p>
+      <details class="faq-item">
+        <summary class="faq-question">Kto płaci podatek PCC przy zakupie nieruchomości?</summary>
+        <p class="faq-answer">Obowiązek zapłaty 2% PCC spoczywa na kupującym i jest pobierany bezpośrednio przez notariusza. PCC nie występuje, gdy transakcja jest opodatkowana VAT, np. przy zakupie nowego mieszkania od dewelopera.</p>
       </details>
-      <details style="border: 1px solid #e0e8e4; border-radius: 10px; padding: 18px 20px; background: #fff">
-        <summary style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 17px">Czy zawsze trzeba zakładać nową księgę wieczystą?</summary>
-        <p style="margin: 12px 0 0; color: #4d5c56; font-size: 15.5px; line-height: 1.65">Nie — tylko wtedy, gdy nieruchomość jej dotąd nie miała (np. wydzielona działka, spółdzielcze prawo bez KW). Opłata sądowa za założenie nowej księgi to 100 zł, niezależnie od opłaty za wpis własności.</p>
+      <details class="faq-item">
+        <summary class="faq-question">Czy zawsze trzeba zakładać nową księgę wieczystą?</summary>
+        <p class="faq-answer">Nie — tylko wtedy, gdy nieruchomość jej dotąd nie miała (np. wydzielona działka, spółdzielcze prawo bez KW). Opłata sądowa za założenie nowej księgi to 100 zł, niezależnie od opłaty za wpis własności.</p>
       </details>
-      <details style="border: 1px solid #e0e8e4; border-radius: 10px; padding: 18px 20px; background: #fff">
-        <summary style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 17px">Ile kosztują wypisy aktu notarialnego?</summary>
-        <p style="margin: 12px 0 0; color: #4d5c56; font-size: 15.5px; line-height: 1.65">Cenę za stronę wypisu ustala kancelaria (zwykle kilka złotych netto + VAT). Liczbę wypisów dobiera się do liczby stron potrzebnych stronom transakcji, bankowi i sądowi wieczystoksięgowemu.</p>
+      <details class="faq-item">
+        <summary class="faq-question">Ile kosztują wypisy aktu notarialnego?</summary>
+        <p class="faq-answer">Cenę za stronę wypisu ustala kancelaria (zwykle kilka złotych netto + VAT). Liczbę wypisów dobiera się do liczby stron potrzebnych stronom transakcji, bankowi i sądowi wieczystoksięgowemu.</p>
       </details>
     </div>
   </section>
 
-  <section id="kontakt" style="background: #10261f; color: #fff">
-    <div class="contact-grid" style="max-width: 1200px; margin: 0 auto; display: grid; gap: 44px; align-items: start">
+  <section id="kontakt" class="section-dark">
+    <div class="contact-grid">
       <div>
-        <h2 style="font-family: Poppins, sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -.02em; margin: 0 0 14px">Pomożemy oszacować pełny koszt transakcji</h2>
-        <p style="font-size: 18px; line-height: 1.6; color: #cfe0d9; margin: 0 0 26px; max-width: 520px; text-wrap: pretty">Zostaw kontakt lub zadzwoń — bezpłatnie policzymy dokładne koszty notarialne dla Twojej transakcji i podpowiemy, jak je obniżyć.</p>
-        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 17px">
-          <div style="display: flex; gap: 10px; align-items: center"><span style="width: 8px; height: 8px; border-radius: 100px; background: #4fbf94"></span>bezpłatna wycena kosztów transakcji</div>
-          <div style="display: flex; gap: 10px; align-items: center"><span style="width: 8px; height: 8px; border-radius: 100px; background: #4fbf94"></span>pomoc w kontakcie z kancelarią notarialną</div>
-          <div style="display: flex; gap: 10px; align-items: center"><span style="width: 8px; height: 8px; border-radius: 100px; background: #4fbf94"></span>obsługa zakupu i sprzedaży nieruchomości</div>
+        <h2 class="contact-title">Pomożemy oszacować pełny koszt transakcji</h2>
+        <p class="contact-lead">Zostaw kontakt lub zadzwoń — bezpłatnie policzymy dokładne koszty notarialne dla Twojej transakcji i podpowiemy, jak je obniżyć.</p>
+        <div class="contact-features">
+          <div class="contact-feature"><span class="contact-feature-dot"></span>bezpłatna wycena kosztów transakcji</div>
+          <div class="contact-feature"><span class="contact-feature-dot"></span>pomoc w kontakcie z kancelarią notarialną</div>
+          <div class="contact-feature"><span class="contact-feature-dot"></span>obsługa zakupu i sprzedaży nieruchomości</div>
         </div>
         <a href="tel:+48579779543" class="footer-phone">+48 579 779 543</a>
       </div>
 
-      <div style="background: #fff; border-radius: 12px; padding: 26px; color: #16241f">
-        <div id="contact-sent" style="display: none; padding: 30px 6px; text-align: center">
-          <div style="width: 52px; height: 52px; border-radius: 100px; background: #e4f2ec; color: #178e66; display: grid; place-items: center; margin: 0 auto 14px; font-size: 26px; font-weight: 700">✓</div>
-          <h3 style="font-family: Poppins, sans-serif; font-size: 20px; margin: 0 0 8px">Wiadomość wysłana</h3>
-          <p style="margin: 0; color: #4d5c56; font-size: 16px; line-height: 1.6">Dziękujemy za kontakt. Oddzwonimy w ciągu kilku godzin w dni robocze.</p>
+      <div class="contact-card">
+        <div id="contact-sent" class="contact-sent">
+          <div class="contact-success-icon">✓</div>
+          <h3 class="contact-success-title">Wiadomość wysłana</h3>
+          <p class="contact-success-text">Dziękujemy za kontakt. Oddzwonimy w ciągu kilku godzin w dni robocze.</p>
         </div>
-        <form id="contact-form" style="display: flex; flex-direction: column; gap: 14px">
-          <div class="form-row-2" style="display: grid; gap: 12px">
-            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700">Rodzaj transakcji
-              <select style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 12px; font-size: 15px; background: #fff; font-weight: 400; width: 100%; min-width: 0">
+        <form id="contact-form" class="contact-form">
+          <div class="form-row-2">
+            <label class="form-field">Rodzaj transakcji
+              <select>
                 <option>Zakup nieruchomości</option>
                 <option>Sprzedaż nieruchomości</option>
                 <option>Zakup z kredytem hipotecznym</option>
                 <option>Inne</option>
               </select>
             </label>
-            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700">Rodzaj nieruchomości
-              <select style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 12px; font-size: 15px; background: #fff; font-weight: 400; width: 100%; min-width: 0">
+            <label class="form-field">Rodzaj nieruchomości
+              <select>
                 <option>Mieszkanie</option>
                 <option>Dom</option>
                 <option>Działka</option>
@@ -256,21 +256,21 @@
               </select>
             </label>
           </div>
-          <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700">Imię i nazwisko
-            <input type="text" name="name" placeholder="Jan Kowalski" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 12px; font-size: 15px; font-weight: 400" />
+          <label class="form-field">Imię i nazwisko
+            <input type="text" name="name" placeholder="Jan Kowalski" />
           </label>
-          <div class="form-row-2" style="display: grid; gap: 12px">
-            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700">Telefon
-              <input type="tel" name="phone" placeholder="600 000 000" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 12px; font-size: 15px; font-weight: 400" />
+          <div class="form-row-2">
+            <label class="form-field">Telefon
+              <input type="tel" name="phone" placeholder="600 000 000" />
             </label>
-            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700">E-mail
-              <input type="email" name="email" placeholder="jan@example.pl" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 12px; font-size: 15px; font-weight: 400" />
+            <label class="form-field">E-mail
+              <input type="email" name="email" placeholder="jan@example.pl" />
             </label>
           </div>
-          <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700">Opisz sytuację
-            <textarea name="message" rows="3" placeholder="Np. cena nieruchomości, termin transakcji, miejscowość" style="border: 1.5px solid #d7e1dc; border-radius: 8px; padding: 11px 12px; font-size: 15px; font-weight: 400; resize: vertical"></textarea>
+          <label class="form-field">Opisz sytuację
+            <textarea name="message" rows="3" placeholder="Np. cena nieruchomości, termin transakcji, miejscowość"></textarea>
           </label>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.55; color: #7d8d87">Dane podane w formularzu będą przetwarzane w celu realizacji zgłoszenia, zgodnie z <a href="https://atrium-nieruchomosci.pl/polityka-prywatnosci/">Polityką Prywatności</a>.</p>
+          <p class="form-note">Dane podane w formularzu będą przetwarzane w celu realizacji zgłoszenia, zgodnie z <a href="https://atrium-nieruchomosci.pl/polityka-prywatnosci/">Polityką Prywatności</a>.</p>
           <button type="submit" class="send-btn">wyślij</button>
         </form>
       </div>
