@@ -115,7 +115,10 @@ img { max-width: 100%; }
 }
 .site-header__inner {
   padding-top: 14px; padding-bottom: 14px;
-  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+@media (min-width: 480px) {
+  .site-header__inner { gap: 24px; }
 }
 .site-header__logo-link { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 .site-header__logo-img { height: 38px; width: auto; display: block; }
@@ -135,10 +138,24 @@ img { max-width: 100%; }
 }
 .nav-link.is-active { color: var(--text); border-bottom-color: var(--accent-light); }
 
-.site-header__actions { display: flex; align-items: center; gap: 12px; }
+.site-header__actions { display: flex; align-items: center; gap: 8px; }
+@media (min-width: 480px) {
+  .site-header__actions { gap: 12px; }
+}
 
-.cta-header { background: var(--accent); color: var(--dark-text); font-size: 1.1rem; font-weight: 600; letter-spacing: 0.02em; padding: 11px 20px; border-radius: 4px; }
+.cta-header {
+  background: var(--accent); color: var(--dark-text);
+  font-size: 1.1rem; font-weight: 600; letter-spacing: 0.02em; line-height: 1.2;
+  padding: 11px 20px; border-radius: 4px; white-space: nowrap;
+}
 .cta-header:hover { background: var(--accent-hover); color: var(--dark-text); }
+
+@media (max-width: 479px) {
+  .cta-header { padding: 9px 12px; font-size: 0.72rem; letter-spacing: 0.01em; border-radius: 5px; }
+}
+@media (min-width: 480px) and (max-width: 640px) {
+  .cta-header { padding: 9px 14px; font-size: 0.82rem; }
+}
 
 .burger-btn {
   display: none; align-items: center; justify-content: center;
@@ -213,7 +230,7 @@ body.menu-open { overflow: hidden; }
   gap: clamp(16px, 2.2vw, 24px); padding: clamp(28px, 4vw, 48px);
 }
 .hero__visual-logo {
-  width: min(74%, 300px); height: auto; filter: invert(1) brightness(1.35) contrast(1.05); mix-blend-mode: screen;
+  width: min(74%, 300px); height: auto; filter: invert(1) brightness(1.35) contrast(1.05);
   animation: heroLogoIn 900ms ease 200ms both;
 }
 .hero__visual-caption {
