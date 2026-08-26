@@ -516,10 +516,11 @@
 
     <section id="kontakt" class="section section--lg">
       <div class="container">
+        <p class="eyebrow contact__kicker" data-reveal="out">Kontakt dla inwestorów</p>
         <h2 class="h2" data-reveal="out">Porozmawiajmy</h2>
         <p class="section-lede" data-reveal="out">Wypełnij formularz albo zadzwoń. Odpowiadamy w ciągu jednego dnia roboczego.</p>
-        <div class="contact-grid">
-          <div>
+        <div class="contact-grid" data-reveal="out">
+          <div class="contact-grid__panel">
             <div class="contact-success" data-contact-success role="status">
               <h3 class="contact-success__title">Zgłoszenie przyjęte</h3>
               <p class="contact-success__text">Dziękujemy. Odpowiadamy w ciągu jednego dnia roboczego na podany adres e-mail.</p>
@@ -572,11 +573,26 @@
               <button type="submit" class="contact-form__submit">Wyślij zgłoszenie</button>
             </form>
           </div>
-          <aside class="contact-info">
-            <p class="contact-info__label">Kontakt B2B</p>
-            <p class="contact-info__lines">+48 123 456 789<br>kontakt@example.com</p>
-            <p class="contact-info__address">ul. Cyfrowa 6/F3, 71-441 Szczecin</p>
-            <p class="contact-info__hours">Poniedziałek–piątek, 9:00–17:00</p>
+          <aside class="contact-grid__aside">
+            <div>
+              <p class="contact-grid__aside-label">Kontakt bezpośredni</p>
+              <div class="contact-methods">
+                <a class="contact-methods__item" href="tel:+48123456789"><span class="contact-methods__value">+48 123 456 789</span><span class="contact-methods__tag">Telefon</span></a>
+                <a class="contact-methods__item" href="mailto:kontakt@example.com"><span class="contact-methods__value">kontakt@example.com</span><span class="contact-methods__tag">E-mail</span></a>
+              </div>
+            </div>
+            <div>
+              <p class="contact-grid__aside-label">Przebieg kontaktu</p>
+              <ol class="contact-steps">
+                <li class="contact-steps__item"><span class="contact-steps__num">01</span><span class="contact-steps__text">Potwierdzenie zgłoszenia w ciągu jednego dnia roboczego.</span></li>
+                <li class="contact-steps__item"><span class="contact-steps__num">02</span><span class="contact-steps__text">Rozmowa o modelu współpracy, skali i horyzoncie czasowym.</span></li>
+                <li class="contact-steps__item"><span class="contact-steps__num">03</span><span class="contact-steps__text">Przekazanie dokumentacji i warunków do analizy po Państwa stronie.</span></li>
+              </ol>
+            </div>
+            <div class="contact-grid__aside-footer">
+              <p class="contact-grid__address">ul. Cyfrowa 6/F3, 71-441 Szczecin</p>
+              <p class="contact-grid__hours">Poniedziałek–piątek, 9:00–17:00</p>
+            </div>
           </aside>
         </div>
       </div>
